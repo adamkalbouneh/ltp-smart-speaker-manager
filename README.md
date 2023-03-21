@@ -1,5 +1,5 @@
 # ltp-smart-speaker-manager
-
+Adam VM IP adress: 10.0.2.15
 
 
 ## Getting started

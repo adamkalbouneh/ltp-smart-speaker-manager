@@ -1,11 +1,3 @@
-from flask import Flask
-
-app = Flask(__name__)
-
-@app.route("/home")
-def home():
-    return {"Home": ["Home Page"]}
-
 from flask import Flask, jsonify, request
 import requests
 
@@ -18,7 +10,7 @@ def set_skill(skill_name):
     state = request.json.get('state')
     
     # Build the request URL for Mycroft's API
-    url = f'http://localhost:8181/skills/{skill_name}/status'
+    url = f'http://10.0.2.15:8181/skills/{skill_name}/status'
     
     # Send the request to Mycroft's API with the skill state
     response = requests.post(url, json={'enabled': state})
@@ -29,7 +21,3 @@ def set_skill(skill_name):
 # Run the Flask app
 if __name__ == '__main__':
     app.run()
-
-
-if __name__ == "__main__":
-    app.run(debug=True)

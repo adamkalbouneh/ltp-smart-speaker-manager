@@ -1,29 +1,25 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
 
-function App() {
-  const [data, setData] = useState([{}])
-
-  useEffect(()=> {
-    fetch("/home").then(
-      res => res.json()
-    ).then(
-      data => {
-        setData(data)
-        console.log(data)
-      }
-    )
-  }, [])
+function SkillToggle(props) {
+  const [enabled, setEnabled] = useState(props.enabled);
+  
+  const toggleSkill = () => {
+    // Build the request URL for the Flask server
+    const url = `/skill/${props.skillName}`;
+    
+    // Send the request to the Flask server with the skill state
+    axios.post(url, { state: !enabled })
+      .then(response => setEnabled(response.data.enabled))
+      .catch(error => console.error(error));
+  };
+  
   return (
     <div>
-      {(typeof data.Home == 'undefined')? (
-        <p>Loading...</p>
-      ) : (
-        data.Home.map((Home, i) => (
-          <p key={i}>{Home}</p>
-        ))
-      )}
+      <p>{props.skillName}: {enabled ? 'Enabled' : 'Disabled'}</p>
+      <button onClick={toggleSkill}>{enabled ? 'Disable' : 'Enable'}</button>
     </div>
-  )
+  );
 }
 
-export default App
+export default SkillToggle;
