@@ -1,7 +1,13 @@
 import React from "react";
+import DashboardHeader from './DashboardHeader';
 
 const LandingPage = () => {
-  return <div>This is my custom landing page!</div>;
+  return <body>
+    <DashboardHeader/>
+
+
+
+  </body>
 };
 
 export default LandingPage;

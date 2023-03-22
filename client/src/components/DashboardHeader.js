@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const DashboardHeader = () => {
   return (
-    <header>
+    <div className="header">
       <nav>
         <ul>
           <li>
@@ -11,7 +11,7 @@ const DashboardHeader = () => {
           </li>
         </ul>
       </nav>
-    </header>
+    </div>
   );
 };
 
