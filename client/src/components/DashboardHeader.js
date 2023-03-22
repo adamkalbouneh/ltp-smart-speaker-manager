@@ -3,14 +3,8 @@ import { Link } from "react-router-dom";
 
 const DashboardHeader = () => {
   return (
-    <div className="header">
-      <nav>
-        <ul>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-        </ul>
-      </nav>
+    <div className="header landing-banner">
+      <a href="login">Login</a>
     </div>
   );
 };
