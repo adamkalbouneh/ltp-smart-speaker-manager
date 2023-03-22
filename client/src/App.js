@@ -1,25 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import LandingPage from "./components/LandingPage.js";
 
-function SkillToggle(props) {
-  const [enabled, setEnabled] = useState(props.enabled);
-  
-  const toggleSkill = () => {
-    // Build the request URL for the Flask server
-    const url = `/skill/${props.skillName}`;
-    
-    // Send the request to the Flask server with the skill state
-    axios.post(url, { state: !enabled })
-      .then(response => setEnabled(response.data.enabled))
-      .catch(error => console.error(error));
-  };
-  
+
+const App = () => {
   return (
-    <div>
-      <p>{props.skillName}: {enabled ? 'Enabled' : 'Disabled'}</p>
-      <button onClick={toggleSkill}>{enabled ? 'Disable' : 'Enable'}</button>
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<LandingPage/>}/>
+      </Routes>
+    </Router>
   );
 }
 
-export default SkillToggle;
+export default App;
