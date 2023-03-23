@@ -7,7 +7,7 @@
 .landing-header {
   font-size: 30px;
   font-family: Arial, sans-serif;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .float-left {
@@ -28,8 +28,8 @@
     justify-content: center;
     background-image: url("../../public/images/RaspPiCase.jpg");
     background-size: 150px;
-    height: 300px;
-    width: 300px;
+    height: 250px;
+    width: 250px;
     background-repeat: no-repeat;
     background-size: contain;
 }
@@ -37,7 +37,7 @@
 .landing-button {
   background-color: #22A7F0;
   border-radius: 10px;
-  font-size: 23px;
+  font-size: 18px;
   font-family: Arial, sans-serif;
   font-weight: bold;
   border-style: none;
@@ -45,6 +45,7 @@
   padding-left: 30px;
   padding-right: 30px;
   color: white;
+  margin-top: -25px;
 }
 
 .landing-button:hover {
