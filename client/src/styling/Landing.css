@@ -3,3 +3,51 @@
   flex-direction: row-reverse;
   align-items: center;
 }
+
+.landing-header {
+  font-size: 30px;
+  font-family: Arial, sans-serif;
+  margin-top: 100px;
+}
+
+.float-left {
+  float: left;
+}
+
+.landing-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.raspberry-pi-image {
+    margin: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../../public/images/RaspPiCase.jpg");
+    background-size: 150px;
+    height: 300px;
+    width: 300px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.landing-button {
+  background-color: #22A7F0;
+  border-radius: 10px;
+  font-size: 23px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  border-style: none;
+  padding: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  color: white;
+}
+
+.landing-button:hover {
+  background-color: #2256f0;
+  cursor: pointer;
+}
