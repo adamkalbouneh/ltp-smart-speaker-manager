@@ -5,6 +5,7 @@ import LandingPage from "./components/LandingPage.js";
 import LoginPage from "./components/LoginPage.js";
 import PairingPage from "./components/PairingPage.js";
 import SignUpPage from "./components/SignUpPage.js";
+import React from 'react';
 import GenericStyling from "./styling/Generic.css";
 import LandingStyling from "./styling/Landing.css";
 //Maybe make a default set of styles/classes
