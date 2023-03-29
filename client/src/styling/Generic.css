@@ -31,3 +31,21 @@
   left: 0px;
   width: 100%;
 }
+
+.blue-button {
+  background-color: #22A7F0;
+  border-radius: 10px;
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  border-style: none;
+  padding: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  color: white;
+}
+
+.blue-button:hover {
+  background-color: #2256f0;
+  cursor: pointer;
+}
