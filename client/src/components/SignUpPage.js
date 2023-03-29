@@ -14,57 +14,63 @@ function SignUpPage() {
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirmPassword").value;
 
-    // this line stops the form from refreshing the page
+    // stops the form from refreshing the page when credentials are invalid
     event.preventDefault();
 
     //sets variables for validation
-    // 0 = valid
     var validEmail = true;
     var validPassword = true;
     var passwordMatch = true
 
     // if email not valid
     if (!(email.includes("@") && email.includes("."))) {
-        validEmail = false;// 1 = invalid, email variable is invalid
-        alert("invalid email")
-        return;
+      validEmail = false;// 1 = invalid, email variable is invalid
+      alert("invalid email")
+      return;
     }
 
-    //if no password has been entered
+    //if password is too short
     if (password.length < 8) {
-        validPassword = false; //password variable is invalid
-        alert("password should contain at least 8 characters")
-        return;
+      validPassword = false; //password is too short
+      alert("password should contain at least 8 characters")
+      return;
     }
 
     //if both email and password is invalid
-    if (validEmail === 1 && validPassword === 1){
-        //return error message that both email/password is invalid
-        alert("invalid email and password")
-        return;
+    if (validEmail === 1 && validPassword === 1) {
+      //return error message that both email/password is invalid
+      alert("invalid email and password")
+      return;
     }
 
     //if only email is invalid
-    if (validEmail === 1){
-        //email invalid error
-        alert("invalid email")
-        return;
+    if (validEmail === 1) {
+      //email invalid error
+      alert("invalid email")
+      return;
     }
 
     //if only password invalid (not entered anything)
-    if (validPassword === 1){
-        //invalid password error
-        alert("invalid password")
-        return;
+    if (validPassword === 1) {
+      //invalid password error
+      alert("invalid password")
+      return;
     }
 
     //if password and confirmed password do not match
-    if (password != confirmPassword){
+    if (password != confirmPassword) {
       passwordMatch = false;
       //passwords do not match error
       alert("passwords do not match")
       return;  
-  }
+    }
+
+    //if credentials provided pass checks
+    if ((validEmail = true) && (validPassword = true) && (passwordMatch = true)) {
+      //reload page when appropriate credentials are provided
+      window.location.reload()
+      alert("sign up successful! please check your inbox to verify your email")
+    }
 
   };
 
