@@ -42,6 +42,27 @@ def test_query():
     # Return the results as a string
     return jsonify({"result": result})
 
+@app.route('/signUp', methods=['POST'])
+def test_query():
+    # Retrieve variables from request
+    name = request.form['name']
+    email = request.form['email']
+    password = request.form['password']
+
+    # Create a cursor object
+    mycursor = mydb.cursor()
+
+    # Execute a SQL query with parameterized values
+    sql = "INSERT INTO `users` (`name`, `email`, `password`) VALUES (%s, %s, %s)"
+    val = (name, email, password)
+    mycursor.execute(sql, val)
+
+    # Fetch the results
+    result = mycursor.fetchall()
+
+
+    # Do something with the data, like store it in a database
+    return 'Signup successful'
 
 # Run the Flask app
 if __name__ == '__main__':
