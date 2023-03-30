@@ -1,4 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `app_db`;
+DROP SCHEMA IF EXISTS `app_db`;
+CREATE SCHEMA IF NOT EXISTS `app_db`;
 USE `app_db`;
 
 -- Creating structure for table app_db.test
