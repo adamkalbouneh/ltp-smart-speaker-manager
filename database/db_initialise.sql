@@ -3,9 +3,9 @@ USE `app_db`;
 
 -- Creating structure for table app_db.test
 CREATE TABLE IF NOT EXISTS `test` (
-  `test_id` int(11) NOT NULL AUTO_INCREMENT,
-  `test_name` varchar(200) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-  PRIMARY KEY (`test_id`)
+    `test_id` INT(11) NOT NULL AUTO_INCREMENT,
+    `test_name` VARCHAR(200) COLLATE UTF8MB4_UNICODE_520_CI DEFAULT NULL,
+    PRIMARY KEY (`test_id`)
 );
 -- Inserting sample values for 'test'
 INSERT INTO `test` (`test_name`) VALUES
@@ -16,11 +16,11 @@ INSERT INTO `test` (`test_name`) VALUES
 
 -- Creating structure for table app_db.test
 CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-  `email` varchar(200) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-  `password` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
+    `user_id` INT(11) NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(200) COLLATE UTF8MB4_UNICODE_520_CI DEFAULT NULL,
+    `email` VARCHAR(200) COLLATE UTF8MB4_UNICODE_520_CI DEFAULT NULL,
+    `password` VARCHAR(200) DEFAULT NULL,
+    PRIMARY KEY (`user_id`)
 );
 
 -- Inserting sample values for 'users'

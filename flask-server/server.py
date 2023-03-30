@@ -1,8 +1,18 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
+from flask_session import Session
 import mysql.connector
 import requests
+import secrets
 
 app = Flask(__name__)
+
+# Configuring sessions
+app.config['SECRET_KEY'] = secrets.token_hex(16) # Create a random 32-character hexadecimal string as secret key
+app.config['SESSION_TYPE'] = 'filesystem'
+
+# Initialise session
+Session(app)
+
 
 # Connect to the MySQL database
 mydb = mysql.connector.connect(
@@ -43,26 +53,53 @@ def test_query():
     return jsonify({"result": result})
 
 @app.route('/signUp', methods=['POST'])
-def test_query():
+def signup():
     # Retrieve variables from request
-    name = request.form['name']
-    email = request.form['email']
-    password = request.form['password']
+    name = request.json['name']
+    email = request.json['email']
+    password = request.json['password'] # Need to add encryption to password
+
+    try:
+
+        # Create a cursor object
+        mycursor = mydb.cursor()
+
+        # Execute a SQL query with parameterized values
+        sql = "INSERT INTO users (name, email, password) VALUES (%s, %s, %s)"
+        val = (name, email, password)
+        mycursor.execute(sql, val)
+
+        # Do something with the data, like store it in a database
+        return 'Signup successful'
+    except:
+        return 'Signup error'
+
+
+@app.route('/checkEmailExists', methods=['POST'])
+def check_email_exists():
+    # Retrieve email variable from request
+    email = request.json['email']
 
     # Create a cursor object
     mycursor = mydb.cursor()
 
-    # Execute a SQL query with parameterized values
-    sql = "INSERT INTO `users` (`name`, `email`, `password`) VALUES (%s, %s, %s)"
-    val = (name, email, password)
+        # Execute a SQL query with parameterized email value
+    sql = "SELECT * FROM users WHERE email = %s"
+    val = (email,)
     mycursor.execute(sql, val)
 
     # Fetch the results
     result = mycursor.fetchall()
 
+    # Check if anything was returned
+    if len(result) == 0:
+        # If no rows returned - email does not exist in the table
+        return "Email does not exist"
+    else:
+        # If any row(s) returned - email already exists in the table
+        return "Email already exists"
 
-    # Do something with the data, like store it in a database
-    return 'Signup successful'
+
 
 # Run the Flask app
 if __name__ == '__main__':
