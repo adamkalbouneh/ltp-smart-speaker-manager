@@ -22,4 +22,4 @@ function SkillToggle(props) {
   );
 }
 
-export default SkillToggle;
+export default SkillToggle; 
