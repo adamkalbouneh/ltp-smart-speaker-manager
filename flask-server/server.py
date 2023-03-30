@@ -68,6 +68,8 @@ def signup():
         sql = "INSERT INTO users (name, email, password) VALUES (%s, %s, %s)"
         val = (name, email, password)
         mycursor.execute(sql, val)
+        mydb.commit()
+        mydb.close()
 
         # Do something with the data, like store it in a database
         return 'Signup successful'
