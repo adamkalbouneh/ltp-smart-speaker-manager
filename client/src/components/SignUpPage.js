@@ -112,8 +112,8 @@ function SignUpPage() {
         
         serverResponse = await response.text();
         
-        alert(serverResponse);
-
+        window.location = "/database";
+        
 
       }
     }

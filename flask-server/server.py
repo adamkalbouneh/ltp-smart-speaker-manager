@@ -69,7 +69,18 @@ def signup():
         val = (name, email, password)
         mycursor.execute(sql, val)
         mydb.commit()
-        mydb.close()
+        
+
+        # Find UserID from email
+        sql = "SELECT user_id FROM users WHERE email = %s"
+        val = (email,)
+        mycursor.execute(sql, val)
+
+        # Fetch the results
+        result = mycursor.fetchall()
+        
+        # Assign userID to user session
+        session['userID'] = result[0][0]
 
         # Do something with the data, like store it in a database
         return 'Signup successful'
@@ -85,7 +96,7 @@ def check_email_exists():
     # Create a cursor object
     mycursor = mydb.cursor()
 
-        # Execute a SQL query with parameterized email value
+    # Execute a SQL query with parameterized email value
     sql = "SELECT * FROM users WHERE email = %s"
     val = (email,)
     mycursor.execute(sql, val)
