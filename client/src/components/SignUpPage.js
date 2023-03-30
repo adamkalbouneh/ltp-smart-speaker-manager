@@ -5,11 +5,11 @@ function SignUpPage() {
 
   const theme = useMantineTheme();
 
-  const handleSignup = (event) => {
+  const handleSignup = async (event) => {
   // Handle sign up logic here
 
     const form = document.getElementById('signupForm');
-    var email = document.getElementById("email").value;
+    var email = document.getElementById("email").value.toLowerCase();
     var name = document.getElementById("name").value;
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirmPassword").value;
@@ -67,9 +67,55 @@ function SignUpPage() {
 
     //if credentials provided pass checks
     if ((validEmail = true) && (validPassword = true) && (passwordMatch = true)) {
-      //reload page when appropriate credentials are provided
-      window.location.reload()
-      alert("sign up successful! please check your inbox to verify your email")
+      
+
+      //Check email exists in database
+
+      // Construct the data object to send in the POST request
+      let data = {
+        email: email
+      };
+
+      // Send a POST request to the Flask API endpoint
+      let response = await fetch('/checkEmailExists', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      // Convert respone to text format
+      let serverResponse = await response.text();
+
+      // If email already exists in database, return error message
+      if (serverResponse == "Email already exists"){
+        alert("Email already exists")
+      } else {
+        // Create account
+          
+        // Construct the data object to send in the POST request
+        data = {
+          name: name,
+          email: email,
+          password: password
+        };
+
+        // Send a POST request to the Flask API endpoint
+        response = await fetch('/signUp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+        
+        serverResponse = await response.text();
+        
+        alert(serverResponse);
+
+
+      }
     }
 
   };
@@ -85,7 +131,7 @@ function SignUpPage() {
             id="name"
             type="text"
             label="Name"
-            maxlength="30"
+            maxLength="30"
             placeholder="Enter your name"
             style={{ marginBottom: theme.spacing.md }}
           />
@@ -94,7 +140,7 @@ function SignUpPage() {
             type="email"
             id="email"
             label="Email"
-            maxlength="30"
+            maxLength="30"
             placeholder="Enter your email address"
             style={{ marginBottom: theme.spacing.md }}
           />
@@ -103,7 +149,7 @@ function SignUpPage() {
             id="password"
             type="password"
             label="Password"
-            maxlength="20"
+            maxLength="20"
             placeholder="Enter your password"
             style={{ marginBottom: theme.spacing.md }}
           />
@@ -112,7 +158,7 @@ function SignUpPage() {
             id="confirmPassword"
             type="password"
             label="Confirm Password"
-            maxlength="20"
+            maxLength="20"
             placeholder="Confirm your password"
             style={{ marginBottom: theme.spacing.md }}
           />
