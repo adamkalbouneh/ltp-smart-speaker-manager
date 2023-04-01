@@ -79,18 +79,16 @@ function LoginPage() {
 
       // If email already exists in database, return error message
       if (serverResponse == "Email already exists"){
-        alert("Email already exists")
-        // Create account
           
-        // Construct the data object to send in the POST request
+        // Construct the data object to send in the GET request
         data = {
           email: email,
           password: password
         };
 
-        // Send a POST request to the Flask API endpoint
+        // Send a GET request to the Flask API endpoint
         response = await fetch('/login', {
-          method: 'POST',
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json'
           },
@@ -99,7 +97,8 @@ function LoginPage() {
         
         serverResponse = await response.text();
         
-        window.location = "/database";
+        //forward user to ... page
+        //window.location = "/";
 
         } else {
           alert("There is no account assigned to this email")

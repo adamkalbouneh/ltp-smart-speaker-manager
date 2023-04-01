@@ -112,7 +112,8 @@ function SignUpPage() {
         
         serverResponse = await response.text();
         
-        window.location = "/database";
+        window.location = "/login";
+        alert("sign up successful, please log in")
         
 
       }
