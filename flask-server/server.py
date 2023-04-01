@@ -1,8 +1,12 @@
 from flask import Flask, jsonify, request, session
 from flask_session import Session
+from flask_bcrypt import Bcrypt
 import mysql.connector
 import requests
 import secrets
+
+
+bcrypt = Bcrypt()
 
 app = Flask(__name__)
 
@@ -57,7 +61,10 @@ def signup():
     # Retrieve variables from request
     name = request.json['name']
     email = request.json['email']
-    password = request.json['password'] # Need to add encryption to password
+    password = request.json['password']
+
+    # Use Bcrypt to hash password
+    hashed_password = bcrypt.generate_password_hash(password)
 
     try:
 
@@ -66,7 +73,7 @@ def signup():
 
         # Execute a SQL query with parameterized values
         sql = "INSERT INTO users (name, email, password) VALUES (%s, %s, %s)"
-        val = (name, email, password)
+        val = (name, email, hashed_password)
         mycursor.execute(sql, val)
         mydb.commit()
         

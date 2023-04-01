@@ -26,11 +26,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Inserting sample values for 'users'
 INSERT INTO `users` (`name`, `email`, `password`) VALUES
-	('Ethan', 'ethanaharris10@gmail.com', 'password'),
-	('Milos', 'vujovicm@cardiff.ac.uk', 'password'),
-	('Marwa', 'omarfm@cardiff.ac.uk', 'password'),
-	('Adam', 'kalbouneha@cardiff.ac.uk', 'password'),
-	('Ahmad', 'shahina@cardiff.ac.uk', 'password');
+	('Ethan', 'ethanaharris10@gmail.com', '$2b$12$KSMCPLDpIy2G2vF7AmlaberrVDHH4llQ0x.V0nPLMuKGiq99s5ylC'),
+	('Milos', 'vujovicm@cardiff.ac.uk', '$2b$12$KSMCPLDpIy2G2vF7AmlaberrVDHH4llQ0x.V0nPLMuKGiq99s5ylC'),
+	('Marwa', 'omarfm@cardiff.ac.uk', '$2b$12$KSMCPLDpIy2G2vF7AmlaberrVDHH4llQ0x.V0nPLMuKGiq99s5ylC'),
+	('Adam', 'kalbouneha@cardiff.ac.uk', '$2b$12$KSMCPLDpIy2G2vF7AmlaberrVDHH4llQ0x.V0nPLMuKGiq99s5ylC'),
+	('Ahmad', 'shahina@cardiff.ac.uk', '$2b$12$KSMCPLDpIy2G2vF7AmlaberrVDHH4llQ0x.V0nPLMuKGiq99s5ylC');
 
 
 
