@@ -86,9 +86,9 @@ function LoginPage() {
           password: password
         };
 
-        // Send a GET request to the Flask API endpoint
+        // Send a POST request to the Flask API endpoint
         response = await fetch('/login', {
-          method: 'GET',
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
@@ -96,9 +96,12 @@ function LoginPage() {
         });
         
         serverResponse = await response.text();
+
+        if (serverResponse == "Login successful!") {
+          window.location = "/";
+          alert("Login successful!");
+        }
         
-        //forward user to ... page
-        //window.location = "/";
 
         } else {
           alert("There is no account assigned to this email")
