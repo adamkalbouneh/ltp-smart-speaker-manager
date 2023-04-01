@@ -97,17 +97,18 @@ function LoginPage() {
         
         serverResponse = await response.text();
 
+        alert(serverResponse);
+
         if (serverResponse == "Login successful!") {
           window.location = "/";
           alert("Login successful!");
         }
         
 
-        } else {
-          alert("There is no account assigned to this email")
-        
-        }
+      } else {
+        alert("There is no account assigned to this email")  
       }
+    }
 
   };
 

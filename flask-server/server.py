@@ -107,9 +107,11 @@ def login():
         user = cur.fetchone()
         cur.close()
         if bcrypt.check_password_hash(hashed_password, password_attempt):
-            return false
+            return 'Login successful!'
         else:
-            return true
+            return 'Incorrect password provided, please try again'
+    except:
+        return 'Login error'
 
 
 @app.route('/checkEmailExists', methods=['POST'])
