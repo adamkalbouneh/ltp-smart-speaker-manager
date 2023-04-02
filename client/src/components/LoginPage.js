@@ -87,7 +87,7 @@ function LoginPage() {
         };
 
         // Send a POST request to the Flask API endpoint
-        response = await fetch('/login', {
+        response = await fetch('/loginUser', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -99,10 +99,10 @@ function LoginPage() {
 
         alert(serverResponse);
 
-        if (serverResponse == "Login successful!") {
-          window.location = "/";
-          alert("Login successful!");
-        }
+        //if (serverResponse == "Login successful!") {
+          //window.location = "/";
+          //alert("Login successful!");
+        //}
         
 
       } else {

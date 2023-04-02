@@ -94,8 +94,8 @@ def signup():
     except:
         return 'Signup error'
 
-@app.route('/login', methods=['POST'])
-def login():
+@app.route('/loginUser', methods=['POST'])
+def loginUser():
     # Retrieve variables from request
     email = request.json['email']
     password_attempt = request.json['password']
@@ -105,13 +105,11 @@ def login():
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM users WHERE email=%s", (email))
         user = cur.fetchone()
-        cur.close()
-        if bcrypt.check_password_hash(hashed_password, password_attempt):
-            return 'Login successful!'
-        else:
-            return 'Incorrect password provided, please try again'
+        #cur.close()
+        bcrypt.check_password_hash(hashed_password, password_attempt):
+        return 'Login successful!'
     except:
-        return 'Login error'
+        return 'Incorrect password provided, please try again'
 
 
 @app.route('/checkEmailExists', methods=['POST'])
