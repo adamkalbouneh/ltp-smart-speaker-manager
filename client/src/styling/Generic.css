@@ -49,3 +49,14 @@
   background-color: #2256f0;
   cursor: pointer;
 }
+
+.error-text {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: red;
+}
+
+.hide {
+  display: none;
+}
+

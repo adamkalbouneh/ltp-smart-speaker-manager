@@ -1,9 +1,20 @@
 import React from "react";
-import { Input, Button, Paper, Text, useMantineTheme } from '@mantine/core';
+import { TextInput,
+  PasswordInput,
+  Checkbox,
+  Anchor,
+  Paper,
+  Title,
+  Text,
+  Container,
+  Group,
+  Button, } from '@mantine/core';
 
 function LoginPage() {
 
-  const theme = useMantineTheme();
+  const signupTextClicked = () => {
+    window.location = "/signup"
+  }
 
   const handleLogin = async (event) => {
     //Handle login logic here
@@ -12,6 +23,9 @@ function LoginPage() {
     var email = document.getElementById("email").value.toLowerCase();
     var password = document.getElementById("password").value;
     
+    // This is the error message element to be displayed to user
+    var errorMessage = document.getElementById("error")
+
     // stops the form from refreshing the page when credentials are invalid
     event.preventDefault();
 
@@ -27,30 +41,9 @@ function LoginPage() {
     }
 
     //if password is too short
-    if (password.length < 8) {
+    if (password.length < 7) {
       validPassword = false; //password is too short
-      alert("password should contain at least 8 characters")
-      return;
-    }
-
-        //if both email and password is invalid
-    if (validEmail === 1 && validPassword === 1) {
-      //return error message that both email/password is invalid
-      alert("invalid email and password")
-      return;
-    }
-
-    //if only email is invalid
-    if (validEmail === 1) {
-      //email invalid error
-      alert("invalid email")
-      return;
-    }
-
-    //if only password invalid (not entered anything)
-    if (validPassword === 1) {
-      //invalid password error
-      alert("invalid password")
+      alert("password should contain at least 7 characters")
       return;
     }
 
@@ -87,7 +80,7 @@ function LoginPage() {
         };
 
         // Send a POST request to the Flask API endpoint
-        response = await fetch('/loginUser', {
+        response = await fetch('/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -97,48 +90,56 @@ function LoginPage() {
         
         serverResponse = await response.text();
 
-        alert(serverResponse);
-
-        //if (serverResponse == "Login successful!") {
-          //window.location = "/";
-          //alert("Login successful!");
-        //}
+        if (serverResponse == "Login successful!") {
+          window.location = "/home";
+        } else {
+          errorMessage.innerText = "Incorrect password";
+          errorMessage.style.display = "block"; //displays error msg
+        }
         
 
       } else {
-        alert("There is no account assigned to this email")  
+        errorMessage.innerText = "There is no account registered to this email";
+        errorMessage.style.display = "block"; //displays error msg
       }
     }
 
   };
 
     return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <Paper padding="xl" style={{ width: '400px', backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[1] }}>
-        <Text align="center" weight={700} size="xl" style={{ marginBottom: theme.spacing.md }}>Login</Text>
-        <form id="loginForm" onSubmit={handleLogin}>
-          <Input
-            required
-            type="email"
-            id="email"
-            label="Email"
-            maxLength="30"
-            placeholder="Enter your email address"
-            style={{ marginBottom: theme.spacing.md }}
-          />
-          <Input
-            required
-            id="password"
-            type="password"
-            label="Password"
-            maxLength="20"
-            placeholder="Enter your password"
-            style={{ marginBottom: theme.spacing.md }}
-          />
-          <Button type="submit" id="submitButton" variant="gradient" color="teal" fullWidth style={{ marginBottom: theme.spacing.md }}>Login</Button>
-        </form>
+      <Container size={420} my={40}>
+      <Title
+        align="center"
+        sx={(theme) => ({ fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900 })}
+      >
+        Welcome Back!
+      </Title>
+      <Text color="dimmed" size="sm" align="center" mt={5}>
+        Don't have an account?{' '}
+        <Anchor size="sm" component="button" onClick={signupTextClicked}>
+          Register here
+        </Anchor>
+      </Text>
+
+      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+
+        <TextInput label="Email" 
+        placeholder="example@email.com" 
+        maxLength="30"
+        id="email"
+        required />
+
+        <PasswordInput label="Password"
+        id="password"
+        maxLength="20"
+        placeholder="Your password"
+        required/>
+
+        <p className="error-text hide" id="error">Invalid credentials</p>
+
+        <Button fullWidth mt="xl" onClick={handleLogin}>Login</Button>
       </Paper>
-    </div>
+    </Container>
   );
 }
 export default LoginPage;
