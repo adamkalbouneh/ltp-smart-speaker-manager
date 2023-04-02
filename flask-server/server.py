@@ -1,45 +1,25 @@
 from flask import Flask, jsonify, request
-import requests
-import os
-import json
-from flask import jsonify
 from flask_cors import CORS
-from mycroft_bus_client import MessageBusClient
+import requests
 
 app = Flask(__name__)
 CORS(app)
 
+MYCROFT_API_URL = "http://12.168.1.29:8080"  # Replace with your Raspberry Pi IP address and Mycroft API port
 
-SKILLS_DIR = "/opt/mycroft/skills"
-# Define your event handlers
-def on_speak(message):
-    print("Mycroft is speaking:", message.data["utterance"])
-
-def on_utterance(message):
-    print("Mycroft heard an utterance:", message.data["utterances"])
-
-# Define the connect_to_mycroft function
-def connect_to_mycroft():
-    bus = MessageBusClient(host="192.168.1.29", port=8181)
-    bus.on('speak', on_speak)
-    bus.on('recognizer_loop:utterance', on_utterance)
-    bus.run_forever()
-
-@app.route('/skills', methods=['GET'])
+@app.route("/api/skills", methods=["GET"])
 def get_skills():
-    skills = []
+    response = requests.get(f"{MYCROFT_API_URL}/list_skills")
+    return jsonify(response.json())
 
-    for skill_folder in os.listdir(SKILLS_DIR):
-        if os.path.isdir(os.path.join(SKILLS_DIR, skill_folder)):
-            skills.append(skill_folder)
+@app.route("/api/skills/<skill_name>/toggle", methods=["POST"])
+def toggle_skill(skill_name):
+    is_enabled = request.json["enabled"]
+    if is_enabled:
+        requests.post(f"{MYCROFT_API_URL}/enable_skill?skill_name={skill_name}")
+    else:
+        requests.post(f"{MYCROFT_API_URL}/disable_skill?skill_name={skill_name}")
+    return jsonify({"success": True})
 
-    return jsonify(skills)
-    
-# Run the Flask app
-if __name__ == '__main__':
-    from threading import Thread
-
-    mycroft_thread = Thread(target=connect_to_mycroft)
-    mycroft_thread.start()
-
-    app.run(host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    app.run(debug=True)

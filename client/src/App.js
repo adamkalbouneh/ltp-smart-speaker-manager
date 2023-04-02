@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import NavigationBar from "./NavigationBar";
+import "./App.css";
+import SkillsPage from "./SkillsPage";
 
-function SkillToggle(props) {
-  const [enabled, setEnabled] = useState(props.enabled);
-  
-  const toggleSkill = () => {
-    // Build the request URL for the Flask server
-    const url = `/skill/${props.skillName}`;
-    
-    // Send the request to the Flask server with the skill state
-    axios.post(url, { state: !enabled })
-      .then(response => setEnabled(response.data.enabled))
-      .catch(error => console.error(error));
+function App() {
+  const [raspberryPiIp, setRaspberryPiIp] = useState("");
+
+  const handleSkillsClick = () => {
+    // Add logic to handle the Skills button click event, e.g., navigate to the skills page
   };
-  
+
+  const handleRaspberryPiIpSubmit = (ip) => {
+    setRaspberryPiIp(ip);
+  };
+
   return (
-    <div>
-      <p>{props.skillName}: {enabled ? 'Enabled' : 'Disabled'}</p>
-      <button onClick={toggleSkill}>{enabled ? 'Disable' : 'Enable'}</button>
+    <div className="App">
+      <NavigationBar onSkillsClick={handleSkillsClick} />
+      <SkillsPage raspberryPiIp={raspberryPiIp} onRaspberryPiIpSubmit={handleRaspberryPiIpSubmit} />
     </div>
   );
 }
 
-export default SkillToggle; 
+export default App;
