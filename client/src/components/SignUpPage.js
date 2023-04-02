@@ -109,7 +109,7 @@ function SignUpPage() {
       
       serverResponse = await response.text();
       
-      window.location = "/database";
+      window.location = "/home";
       
 
     }

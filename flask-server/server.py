@@ -94,6 +94,28 @@ def signup():
     except:
         return 'Signup error'
 
+@app.route('/login', methods=['POST'])
+def loginUser():
+    # Retrieve variables from request
+    email = request.json['email']
+    password_attempt = request.json['password']
+
+    try:        
+        mycursor = mydb.cursor()
+        mycursor.execute("SELECT * FROM users WHERE email=%s", (email,))
+        user = mycursor.fetchone()
+
+
+        if bcrypt.check_password_hash(user[3], password_attempt):
+            # Assign userID to user session
+            session['userID'] = user[0]
+            return 'Login successful!'
+        else:
+            return 'Incorrect password'
+    except:
+        return 'server error, please try again later'
+        
+
 
 @app.route('/checkEmailExists', methods=['POST'])
 def check_email_exists():
