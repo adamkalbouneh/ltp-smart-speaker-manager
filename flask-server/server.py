@@ -112,8 +112,7 @@ def loginUser():
             return 'Login successful!'
         else:
             return 'Incorrect password'
-    except e:
-        return e
+    except:
         return 'server error, please try again later'
         
 
