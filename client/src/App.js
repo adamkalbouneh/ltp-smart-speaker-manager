@@ -8,6 +8,8 @@ import TestDatabasePage from "./components/TestDatabasePage.js";
 import SignUpPage from "./components/SignUpPage.js";
 import GenericStyling from "./styling/Generic.css";
 import LandingStyling from "./styling/Landing.css";
+import NameStyling from "./styling/Name.css";
+import DeviceName from './components/DeviceName';
 
 
 const App = () => {
@@ -19,6 +21,7 @@ const App = () => {
         <Route exact path="/pair" element={<PairingPage/>}/>
         <Route exact path="/database" element={<TestDatabasePage/>}/>
         <Route exact path="/signup" element={<SignUpPage/>}/>
+        <Route exact path="/name" element={<DeviceName/>}/>
       </Routes>
     </Router>
   );

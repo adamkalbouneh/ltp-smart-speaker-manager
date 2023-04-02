@@ -1,0 +1,42 @@
+#shape {
+    width: 100px;
+    height: 100px;
+    background-color: #c7c7c7;
+    transition: 2s;
+    margin-top: 10vh;
+    border-radius: 50%;
+  }
+  
+  #shape.mycroft {
+    border-radius: 50%; 
+    background-color: #4c6ffa; 
+    transform: rotate(90deg); 
+    transition: 2s;
+  }
+  
+  #shape.mykie {
+    border-radius: 0 50% 50% 0;
+    transform: rotate(45deg);
+    background-color: #925dca;
+    transition: 2s;
+  }
+  
+  #shape.jarvis {
+    border-radius: 10% 25% 0 25%;
+    transform: rotate(45deg);
+    background-color: #c98c19;
+    transition: 2s;
+  }
+  
+  #shape.lifeline {
+    border-radius: 5%;
+    background-color: #3fd63a;
+    transition: 2s;
+  }
+  
+  #shape.sally {
+    border-radius: 50% 0 50% 0; 
+    background-color: #f171ef;
+    transition: 2s;
+  }
+  
