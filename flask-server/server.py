@@ -1,8 +1,22 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
+from flask_session import Session
+from flask_bcrypt import Bcrypt
 import mysql.connector
 import requests
+import secrets
+
+
+bcrypt = Bcrypt()
 
 app = Flask(__name__)
+
+# Configuring sessions
+app.config['SECRET_KEY'] = secrets.token_hex(16) # Create a random 32-character hexadecimal string as secret key
+app.config['SESSION_TYPE'] = 'filesystem'
+
+# Initialise session
+Session(app)
+
 
 # Connect to the MySQL database
 mydb = mysql.connector.connect(
@@ -41,6 +55,70 @@ def test_query():
 
     # Return the results as a string
     return jsonify({"result": result})
+
+@app.route('/signUp', methods=['POST'])
+def signup():
+    # Retrieve variables from request
+    name = request.json['name']
+    email = request.json['email']
+    password = request.json['password']
+
+    # Use Bcrypt to hash password
+    hashed_password = bcrypt.generate_password_hash(password)
+
+    try:
+
+        # Create a cursor object
+        mycursor = mydb.cursor()
+
+        # Execute a SQL query with parameterized values
+        sql = "INSERT INTO users (name, email, password) VALUES (%s, %s, %s)"
+        val = (name, email, hashed_password)
+        mycursor.execute(sql, val)
+        mydb.commit()
+        
+
+        # Find UserID from email
+        sql = "SELECT user_id FROM users WHERE email = %s"
+        val = (email,)
+        mycursor.execute(sql, val)
+
+        # Fetch the results
+        result = mycursor.fetchall()
+        
+        # Assign userID to user session
+        session['userID'] = result[0][0]
+
+        # Do something with the data, like store it in a database
+        return 'Signup successful!'
+    except:
+        return 'Signup error'
+
+
+@app.route('/checkEmailExists', methods=['POST'])
+def check_email_exists():
+    # Retrieve email variable from request
+    email = request.json['email']
+
+    # Create a cursor object
+    mycursor = mydb.cursor()
+
+    # Execute a SQL query with parameterized email value
+    sql = "SELECT * FROM users WHERE email = %s"
+    val = (email,)
+    mycursor.execute(sql, val)
+
+    # Fetch the results
+    result = mycursor.fetchall()
+
+    # Check if anything was returned
+    if len(result) == 0:
+        # If no rows returned - email does not exist in the table
+        return "Email does not exist"
+    else:
+        # If any row(s) returned - email already exists in the table
+        return "Email already exists"
+
 
 
 # Run the Flask app
