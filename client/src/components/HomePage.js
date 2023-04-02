@@ -2,12 +2,17 @@ import React from "react";
 import { Box, Container } from "@mantine/core";
 import { Grid } from "@mantine/core";
 import "../styling/Home.css" 
+import HomePageWeather from "./HomePageWeather";
+import NavBar from "./NavBar";
 
 const HomePage = () => {
     return (
+        
         <div>
+            <NavBar />
             <Container size="xl">
                 Home Page
+        
                 <Grid>
                     <Grid.Col span="auto">
                         <div className="box">
@@ -23,7 +28,9 @@ const HomePage = () => {
                     </Grid.Col>
                     <Grid.Col span="auto">
                         <div className="box">
-                            Hi Charlotte
+                            
+                        <HomePageWeather/>
+                            
 
                         </div>
                     </Grid.Col>
