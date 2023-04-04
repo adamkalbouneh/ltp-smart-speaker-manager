@@ -42,7 +42,7 @@ const DeviceName = () => {
     <div className="page">
       <DashboardHeader />
       <div id="shape"></div>
-      <div className="landing-header">Your device name</div>
+      <div className="landing-header content">Your device name</div>
       <div className="custom-select">
         <select id="device-select" onChange={handleSelectChange}>
           <option value="0">Select The Device Name:</option>
@@ -54,7 +54,7 @@ const DeviceName = () => {
         </select>
       </div>
 
-      <button id="submit-button">Submit</button>
+      <button className="blue-button content" id="submit-button">Submit</button>
     </div>
   );
 };
