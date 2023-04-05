@@ -16,7 +16,7 @@ before_script:
 build:
   stage: build
   script:
-    - npm run build
+    - npm run build --no-verify
 
 deploy:
   stage: deploy
