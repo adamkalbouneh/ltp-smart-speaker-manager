@@ -38,10 +38,11 @@ test:
     - pip install flask_bcrypt
 
     - apt-get upgrade -y
-    - systemctl enable mysqld.service
+    # - systemctl daemon-reload
+    - sudo systemctl enable mysqld.service
     - apt-get install mysql-server -y
-    - systemctl start mysqld.service
-    - systemctl status mysqld.service
+    - sudo systemctl start mysqld.service
+    - sudo systemctl status mysqld.service
 
     - MYSQL_ROOT_PASSWORD='comsc'
 
