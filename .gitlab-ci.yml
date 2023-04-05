@@ -37,9 +37,9 @@ test:
     - pip install mysql-connector-python
     - pip install flask_bcrypt
 
-    - yum upgrade -y
+    # - pip upgrade -y
     - systemctl enable mysqld.service
-    - yum install mysql-server -y
+    - pip install mysql-server -y
     - systemctl start mysqld.service
     - systemctl status mysqld.service
 
