@@ -27,6 +27,9 @@ test:
   # pipeline was created before tests were properly added
     - echo "We need to add some tests lol then fix this"
     # - npm test
+    - cd ..
+    - cd ./flask-server
+    - python test_api.py
 
 deploy:
   stage: deploy
@@ -39,11 +42,7 @@ deploy:
     - pip install flask_session
     - pip install mysql-connector-python
     - pip install flask_bcrypt
-    # - npm install -g npm@9.6.2
-    # - npm install axios
-    # - npm install react-router-dom
-    # - npm install @mantine/core
-    # - npm install @tabler/icons-react
+    
     # Doing this in the pipeline is bad, but it works  
     # - python server.py &
     # - npm start
