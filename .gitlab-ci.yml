@@ -16,9 +16,7 @@ before_script:
 build:
   stage: build
   script:
-    - echo "Looking at files"
-    - ls
-    - cd ./client
+    - whereami
     - npm run build
 
 deploy:
