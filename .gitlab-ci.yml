@@ -29,7 +29,7 @@ test:
     # - npm test
     - cd ..
     - cd ./flask-server
-    - python test_api.py
+    - python3 test_api.py
 
 deploy:
   stage: deploy
