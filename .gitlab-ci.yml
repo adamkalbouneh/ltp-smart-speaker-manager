@@ -20,10 +20,10 @@ build:
   script:
     - npm run build
 
-# test:
-#   stage: test
-#   script:
-#     - npm test    
+test:
+  stage: test
+  script:
+    - npm test    
 
 deploy:
   stage: deploy
@@ -38,5 +38,6 @@ deploy:
     - npm install react-router-dom
     - npm install @mantine/core
     - npm install @tabler/icons-react
-    - python server.py &
-    - npm start
+    # Doing this in the pipeline is bad, but it works  
+    # - python server.py &
+    # - npm start
