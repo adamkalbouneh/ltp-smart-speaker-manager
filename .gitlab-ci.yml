@@ -26,5 +26,10 @@ deploy:
     - pip install flask_session
     - pip install mysql-connector-python
     - pip install flask_bcrypt
+    - npm install -g npm@9.6.2
+    - npm install axios
+    - npm install react-router-dom
+    - npm install @mantine/core
+    - npm install @tabler/icons-react
     - python server.py &
     - npm start
