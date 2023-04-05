@@ -9,12 +9,14 @@ cache:
     - node_modules/
 
 before_script:
+  - echo "Test"
+  - cd /client
   - npm install
 
 build:
   stage: build
   script:
-    - cd client
+    - cd /client
     - npm run build
 
 deploy:
