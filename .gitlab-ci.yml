@@ -18,12 +18,14 @@ before_script:
 build:
   stage: build
   script:
-    - npm run build
+    - npm run build 
 
 test:
   stage: test
   script:
-    - npm test    
+  # Pass with no tests has been added because 
+  # pipeline was created before tests were properly added
+    - npm test --passWithNoTests
 
 deploy:
   stage: deploy
