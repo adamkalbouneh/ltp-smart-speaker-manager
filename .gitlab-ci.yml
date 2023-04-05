@@ -36,12 +36,12 @@ test:
     - pip install flask_session
     - pip install mysql-connector-python
     - pip install flask_bcrypt
-    
-    - sudo yum upgrade -y
-    - sudo systemctl enable mysqld.service
-    - sudo yum install mysql-server -y
-    - sudo systemctl start mysqld.service
-    - sudo systemctl status mysqld.service
+
+    - yum upgrade -y
+    - systemctl enable mysqld.service
+    - yum install mysql-server -y
+    - systemctl start mysqld.service
+    - systemctl status mysqld.service
 
     - MYSQL_ROOT_PASSWORD='comsc'
 
