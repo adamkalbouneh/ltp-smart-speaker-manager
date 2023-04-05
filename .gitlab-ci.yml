@@ -10,7 +10,7 @@ cache:
 
 before_script:
   - echo "Test"
-  - cd /client
+  - cd ./client
   - npm install
 
 build:
