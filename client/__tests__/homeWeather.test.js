@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import HomePageWeather from './HomePageWeather';
+import HomePageWeather from "./HomePageWeather";
 
 jest.mock('axios', () => ({
   get: jest.fn(() => Promise.resolve({ data: { temperature: 20, precipitation: 5 } }))
