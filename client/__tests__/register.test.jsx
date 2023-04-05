@@ -4,13 +4,14 @@ import '@testing-library/jest-dom'
 import user from '@testing-library/user-event'
 import '@babel/preset-react'
 import React from 'react'
-import Input from 'react-validation/build/input'
 
 describe('register', () => {
 
+    let nameInput
     let emailInput
     let passwordInput
-    let form
+    let passwordInput2
+    let submitButton
 
     beforeEach(() => {
         const { getByTestId, getByText } = render(<SignUp/>)
@@ -49,7 +50,7 @@ describe('register', () => {
 
         //submits form
         (async ( ) => {
-            fireEvent.submit(form)
+            fireEvent.click(submitButton);
         })();
 
         const errorTxt = await screen.getByTestId('error')

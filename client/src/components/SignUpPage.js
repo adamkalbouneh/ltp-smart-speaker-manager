@@ -138,9 +138,9 @@ function SignUpPage() {
         placeholder="e.g. John, Jane" 
         maxLength="30"
         id="name"
-        autofocus
+        autoFocus 
         required 
-        data-testid="password"/>
+        data-testid="name"/>
 
         <TextInput label="Email" 
         placeholder="example@email.com" 
@@ -165,7 +165,7 @@ function SignUpPage() {
 
         <p className="error-text hide" id="error" data-testid="error">Invalid credentials</p>
 
-        <Button fullWidth mt="xl" onClick={handleSignup} data-testid="button">Sign up</Button>
+        <Button fullWidth mt="xl" onClick={handleSignup} data-testid="submit">Sign up</Button>
       </Paper>
     </Container>
   );
