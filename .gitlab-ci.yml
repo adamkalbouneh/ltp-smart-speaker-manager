@@ -39,10 +39,10 @@ test:
 
     - apt-get upgrade -y
     - apt-get install -y sudo
-    - sudo service enable mysqld.service 
+    - sudo service mysql enable 
     - sudo apt-get install -y mysql-server
-    - sudo service start mysqld.service
-    - sudo service status mysqld.service
+    - sudo service mysql start
+    - sudo service mysql status
 
     - MYSQL_ROOT_PASSWORD='comsc'
 
