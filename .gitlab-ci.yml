@@ -30,6 +30,7 @@ test:
     - cd ..
     - cd ./flask-server
     - pip install pytest
+    - pip install requests
     - python3 test_api.py
 
 deploy:
