@@ -36,6 +36,16 @@ test:
     - pip install flask_session
     - pip install mysql-connector-python
     - pip install flask_bcrypt
+    
+    - sudo yum upgrade -y
+    - sudo systemctl enable mysqld.service
+    - sudo yum install mysql-server -y
+    - sudo systemctl start mysqld.service
+    - sudo systemctl status mysqld.service
+
+    - MYSQL_ROOT_PASSWORD='comsc'
+
+    - mysql -u root -p${MYSQL_ROOT_PASSWORD} < ../database/db_initialise.sql
     - python3 server.py
     - python3 test_api.py
     - FLASK_PID=$!
