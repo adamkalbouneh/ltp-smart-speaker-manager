@@ -1,0 +1,28 @@
+image: node:latest
+
+stages:
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - npm install
+
+build:
+  stage: build
+  script:
+    - npm run build
+
+deploy:
+  stage: deploy
+  script:
+    - pip install --upgrade pip
+    - pip install flask
+    - pip install flask_session
+    - pip install mysql-connector-python
+    - pip install flask_bcrypt
+    - python server.py &
+    - npm start
