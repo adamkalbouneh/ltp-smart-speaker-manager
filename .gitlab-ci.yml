@@ -42,6 +42,7 @@ deploy:
     - pip install flask_session
     - pip install mysql-connector-python
     - pip install flask_bcrypt
+    - pip install pytest
     
     # Doing this in the pipeline is bad, but it works  
     # - python server.py &
