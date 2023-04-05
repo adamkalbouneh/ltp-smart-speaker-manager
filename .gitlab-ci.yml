@@ -31,7 +31,7 @@ test:
     - cd ./flask-server
     - pip install pytest
     - pip install requests
-    - python server.py
+    - python3 server.py
     - python3 test_api.py
     - FLASK_PID=$!
     - kill $FLASK_PID
