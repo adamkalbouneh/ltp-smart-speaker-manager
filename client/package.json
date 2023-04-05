@@ -47,5 +47,12 @@
   },
   "devDependencies": {
     "webpack-dev-server": "^4.13.1"
+  },
+  "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.js",
+      "**/__tests__/**/*.jsx"
+    ]
   }
+  
 }
