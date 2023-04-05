@@ -16,7 +16,6 @@ before_script:
 build:
   stage: build
   script:
-    - whereami
     - npm run build
 
 deploy:
