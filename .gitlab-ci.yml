@@ -2,6 +2,7 @@ image: node:latest
 
 stages:
   - build
+  # - test
   - deploy
 
 cache:
@@ -16,7 +17,12 @@ before_script:
 build:
   stage: build
   script:
-    - npm run build --no-verify
+    - npm run build
+
+# test:
+#   stage: test
+#   script:
+#     - npm test    
 
 deploy:
   stage: deploy
