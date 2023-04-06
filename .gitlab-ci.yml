@@ -31,26 +31,8 @@ test:
     - cd ./flask-server
     - pip install pytest
     - pip install requests
-    - pip install --upgrade pip
-    - pip install flask
-    - pip install flask_session
-    - pip install mysql-connector-python
-    - pip install flask_bcrypt
-
-    - apt-get upgrade -y
-    - apt-get install -y sudo
-    - sudo service mysql enable 
-    - sudo apt-get install -y mysql-server
-    - sudo service mysql start
-    - sudo service mysql status
-
-    - MYSQL_ROOT_PASSWORD='comsc'
-
-    - mysql -u root -p${MYSQL_ROOT_PASSWORD} < ../database/db_initialise.sql
-    - python3 server.py
     - python3 test_api.py
-    - FLASK_PID=$!
-    - kill $FLASK_PID
+
 
 deploy:
   stage: deploy
