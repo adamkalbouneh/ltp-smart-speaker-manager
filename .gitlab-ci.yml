@@ -41,10 +41,7 @@ deploy:
   # put these in requirements 
   # add them to build or something 
     - pip install --upgrade pip
-    - pip install flask
-    - pip install flask_session
-    - pip install mysql-connector-python
-    - pip install flask_bcrypt
+    - pip install -r requirements.txt
     
     
     # Doing this in the pipeline is bad, but it works  
