@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DashboardHeader from "./DashboardHeader";
 
-const DeviceName = () => {
+const SkillsPage = () => {
   const [selectedOption, setSelectedOption] = useState(
     parseInt(localStorage.getItem("selectedOption")) || 0
   );
@@ -59,4 +59,4 @@ const DeviceName = () => {
   );
 };
 
-export default DeviceName;
+export default SkillsPage;

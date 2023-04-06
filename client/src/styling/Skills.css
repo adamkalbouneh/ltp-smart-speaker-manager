@@ -22,7 +22,7 @@
   }
   
   #shape.jarvis {
-    border-radius: 10% 25% 0 25%;
+    border-radius: 10% 25% 30% 25%;
     transform: rotate(45deg);
     background-color: #c98c19;
     transition: 2s;
