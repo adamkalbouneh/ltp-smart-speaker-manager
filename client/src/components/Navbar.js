@@ -1,11 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Navbar.css";
 
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <Link to="/pair-device">Pair Device</Link>
-      <Link to="/skills">Skills</Link>
+      <Link to="/" className="nav-link">
+        Mycroft Core Manager
+      </Link>
+      <Link to="/skills" className="nav-link">
+        Skills
+      </Link>
     </nav>
   );
 };

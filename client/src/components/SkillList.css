@@ -1,0 +1,12 @@
+.skill-container {
+    background-color: #F2F2F2;
+    padding: 20px;
+  }
+  
+  .skill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
