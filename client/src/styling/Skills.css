@@ -1,3 +1,4 @@
+/* this is the base shape when no device name is selected */
 #shape {
     width: 100px;
     height: 100px;
@@ -6,34 +7,34 @@
     margin-top: 10vh;
     border-radius: 50%;
   }
-  
+/* shape of mycroft */
   #shape.mycroft {
     border-radius: 50%; 
     background-color: #4c6ffa; 
     transform: rotate(90deg); 
     transition: 2s;
   }
-  
+/* shape of mykie */
   #shape.mykie {
     border-radius: 0 50% 50% 0;
     transform: rotate(45deg);
     background-color: #925dca;
     transition: 2s;
   }
-  
+/* shaoe if jarvis */
   #shape.jarvis {
     border-radius: 10% 25% 30% 25%;
     transform: rotate(45deg);
     background-color: #c98c19;
     transition: 2s;
   }
-  
+/* shape of lifeline */
   #shape.lifeline {
     border-radius: 5%;
     background-color: #3fd63a;
     transition: 2s;
   }
-  
+/* shapoe of sally */
   #shape.sally {
     border-radius: 50% 0 50% 0; 
     background-color: #f171ef;
@@ -44,12 +45,19 @@
     margin: 3vh;
   }
 
+.skills{
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 15%;
+  margin-left: 15%;
+  gap: 20%;
+}
+
 .skill-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 15%;
-  margin-left: 15%;
+  width: calc(40%);
   margin-top: 5%;
   margin-bottom: 5%;
 }
@@ -94,6 +102,7 @@
   opacity: 0.7;
   -webkit-transition: .2s;
   transition: opacity .2s;
+  width: 50%;
 }
 
 .slider:hover {
@@ -106,7 +115,7 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #04AA6D;
+  background: #22A7F0;
   cursor: pointer;
 }
 
@@ -114,6 +123,6 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #04AA6D;
+  background: #22A7F0;
   cursor: pointer;
 }
