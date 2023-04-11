@@ -13,7 +13,7 @@ services:
   - mysql:8.0
 
 before_script:
-  - apt-get update && apt-get install -y python3-pip default-mysql-server
+  - apt-get update && apt-get install -y python3-pip default-mysql-client
   - echo "Test"
   - cd ./client
   - npm install
@@ -31,6 +31,7 @@ test:
     - echo "We need to add some tests lol then fix this"
     # Run Jest/React tests
     - npm test
+    - service mysql start
     - mysql -u root -h localhost -e 'CREATE DATABASE app_db;'
     - mysql -u root -h localhost app_db < db_initialise.sql
     - cd ..
@@ -40,6 +41,7 @@ test:
     - pip install pytest
     - pip install requests
     - python3 test_api.py
+    - service mysql stop
     - kill $SERVER_PID
 
 
