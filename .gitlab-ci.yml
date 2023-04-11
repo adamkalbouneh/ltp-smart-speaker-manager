@@ -31,7 +31,7 @@ test:
     - echo "We need to add some tests lol then fix this"
     # Run Jest/React tests
     - npm test
-    - service mysql start
+    - sudo /etc/init.d/mysql start
     - mysql -u root -h localhost -e 'CREATE DATABASE app_db;'
     - mysql -u root -h localhost app_db < db_initialise.sql
     - cd ..
@@ -41,7 +41,7 @@ test:
     - pip install pytest
     - pip install requests
     - python3 test_api.py
-    - service mysql stop
+    # - service mysql stop
     - kill $SERVER_PID
 
 
