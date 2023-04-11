@@ -138,30 +138,34 @@ function SignUpPage() {
         placeholder="e.g. John, Jane" 
         maxLength="30"
         id="name"
-        autofocus
-        required />
+        autoFocus 
+        required 
+        data-testid="name"/>
 
         <TextInput label="Email" 
         placeholder="example@email.com" 
         maxLength="30"
         id="email"
-        required />
+        required 
+        data-testid="email"/>
 
         <PasswordInput label="Password"
         id="password"
         maxLength="20"
         placeholder="Your password"
-        required/>
+        required
+        data-testid="password"/>
 
         <PasswordInput label="Confirm Password" 
         id="confirmPassword"
         maxLength="20"
         placeholder="Confirm your password"
-        required/>
+        required
+        data-testid="password2"/>
 
-        <p className="error-text hide" id="error">Invalid credentials</p>
+        <p className="error-text hide" id="error" data-testid="error">Invalid credentials</p>
 
-        <Button fullWidth mt="xl" onClick={handleSignup}>Sign up</Button>
+        <Button fullWidth mt="xl" onClick={handleSignup} data-testid="submit">Sign up</Button>
       </Paper>
     </Container>
   );

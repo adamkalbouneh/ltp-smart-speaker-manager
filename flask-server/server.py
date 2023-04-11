@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, session
 from flask_session import Session
 from flask_bcrypt import Bcrypt
+from datetime import timedelta
 import mysql.connector
 import requests
 import secrets
@@ -13,6 +14,7 @@ app = Flask(__name__)
 # Configuring sessions
 app.config['SECRET_KEY'] = secrets.token_hex(16) # Create a random 32-character hexadecimal string as secret key
 app.config['SESSION_TYPE'] = 'filesystem'
+app.permanent_session_lifetime = timedelta(minutes=30) # Session lasts 30 minutes
 
 # Initialise session
 Session(app)
