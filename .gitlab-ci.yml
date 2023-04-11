@@ -29,10 +29,17 @@ test:
   # Pass with no tests has been added because 
   # Pipeline was created before tests were properly added
     - echo "We need to add some tests lol then fix this"
+
     # Run Jest/React tests
     - npm test
-    - mysql -u root -h localhost -e 'CREATE DATABASE app_db;'
-    - mysql -u root -h localhost app_db < db_initialise.sql
+
+    # SQL database creation
+    - docker run --name mysql -e MYSQL_ROOT_PASSWORD=comsc -d mariadb:latest
+    - sleep 20 # give the database some time to start up
+    - docker exec -i mysql mysql -u root -pcomsc -e 'CREATE DATABASE app_db;'
+    - docker exec -i mysql mysql -u root -pcomsc app_db < ../db_initialise.sql
+
+    # Run flask server and unit tests
     - cd ..
     - cd ./flask-server
     - python3 server.py &
@@ -40,7 +47,10 @@ test:
     - pip install pytest
     - pip install requests
     - python3 test_api.py
+
+    # Stop services
     - kill $SERVER_PID
+    - docker stop mysql
 
 
 deploy:
