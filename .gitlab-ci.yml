@@ -31,8 +31,8 @@ test:
     - echo "We need to add some tests lol then fix this"
     # Run Jest/React tests
     - npm test
-    - mysql -u root -h mysql -e 'CREATE DATABASE app_db;'
-    - mysql -u root -h mysql app_db < db_initialise.sql
+    - mysql -u root -h localhost -e 'CREATE DATABASE app_db;'
+    - mysql -u root -h localhost app_db < db_initialise.sql
     - cd ..
     - cd ./flask-server
     - python3 server.py &
