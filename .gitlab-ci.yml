@@ -9,6 +9,9 @@ cache:
   paths:
     - node_modules/
 
+services:
+  - mysql:8.0
+
 before_script:
   - apt-get update && apt-get install -y python3-pip
   - echo "Test"
