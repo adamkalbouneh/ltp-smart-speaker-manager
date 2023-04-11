@@ -1,4 +1,4 @@
-image: node:latest
+image: docker:latest 
 
 stages:
   - build
@@ -11,6 +11,7 @@ cache:
 
 services:
   - mysql:5.7
+  - docker:dind
 
 before_script:
   - apt-get update && apt-get install -y python3-pip default-mysql-client
@@ -37,7 +38,7 @@ test:
     - docker run --name mysql -e MYSQL_ROOT_PASSWORD=comsc -d mariadb:latest
     - sleep 20 # give the database some time to start up
     - docker exec -i mysql mysql -u root -pcomsc -e 'CREATE DATABASE app_db;'
-    - docker exec -i mysql mysql -u root -pcomsc app_db < ../db_initialise.sql
+    - docker exec -i mysql mysql -u root -pcomsc app_db < ../database/db_initialise.sql
 
     # Run flask server and unit tests
     - cd ..
