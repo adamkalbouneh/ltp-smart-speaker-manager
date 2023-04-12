@@ -14,7 +14,7 @@ services:
   - docker:dind
 
 variables:
-  DOCKER_HOST: tcp://0.0.0.0:5000
+  DOCKER_HOST: tcp://0.0.0.0:2375
 
 build:
   stage: build
@@ -39,7 +39,7 @@ test:
   script:
     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
     - docker run -v /var/run/docker.sock:/var/run/docker.sock -d --name docker-container docker:20.10.16 sleep infinity
-    - docker exec docker-container sh -c "nohup dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:5000 &"
+    - docker exec docker-container sh -c "nohup dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375 &"
     - sleep 60
     - docker build -t myapp .
     - docker tag myapp $CI_REGISTRY_IMAGE/myapp:latest
