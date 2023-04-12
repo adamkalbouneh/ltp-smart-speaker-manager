@@ -20,7 +20,9 @@ build:
   stage: build
   script:
     - ls
-    - cd ./client
+    - cd /client
+    - ls
+    - npm install
     - npm run build 
   after_script:
     - cd ../
