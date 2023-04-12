@@ -22,7 +22,7 @@ const Skill = ({ name, url }) => {
         alert('Error: ' + error.message);
       }
       setLoading(false);
-    }, 5000);
+    }, 200);
   };
 
   return (
@@ -95,6 +95,11 @@ const Skills = () => {
         name="Sad Skill"
         url="https://github.com/adamkalbouneh/sad-skill"
       />
+      <Skill
+        name="Tunein Radio skill"
+        url="https://github.com/johnbartkiw/mycroft-skill-tunein"
+      />
+      
     </div>
     
 

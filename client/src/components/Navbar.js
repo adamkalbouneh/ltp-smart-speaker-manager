@@ -8,6 +8,7 @@ const Navbar = () => {
       <Link to="/skills" className="nav-item">Skills</Link>
       <Link to="/routines" className="nav-item">Routines</Link>
       <Link to="/alarms" className="nav-item">Alarms</Link>
+      <Link to="/prompt" className="nav-item">Ask Mycroft ...</Link>
     </nav>
   );
 };

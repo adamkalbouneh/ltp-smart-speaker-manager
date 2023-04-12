@@ -5,6 +5,7 @@ import Routines from './components/Routines';
 import Alarms from './components/Alarms';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Prompt from './components/Prompt';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/skills" element={<Skills />} />
           <Route path="/routines" element={<Routines />} />
           <Route path="/alarms" element={<Alarms />} />
+          <Route path="/prompt" element={<Prompt />} />
         </Routes>
       </div>
     </Router>

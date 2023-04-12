@@ -1,37 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Alarms.css';
+import axios from 'axios';
 
-const AlarmButton = ({ text }) => {
-    const handleClick = async () => {
-        try {
-          const response = await fetch('/trigger-alarm', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ alarmName: "10AM" }),
-          });
-          const data = await response.json();
-          console.log(data.message);
-        } catch (err) {
-          console.error(err);
-        }
-      };
-      
-};
+const Alarm = ({ time }) => {
+  const [enabled, setEnabled] = useState(false);
 
-
-const Alarms = () => {
-  const alarmsList = ['Alarm 1', 'Alarm2', 'Alarm 3'];
+  const handleToggle = async () => {
+    try {
+      if (!enabled) {
+        const response = await axios.post('/set-alarm', {time});
+        alert(response.data.message);
+      } else {
+        const response = await axios.post('/delete-alarm', {time});
+        alert(response.data.message);
+      }
+      setEnabled(!enabled);
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  };
 
   return (
-  <div className="alarms">
-  <h2>Default Alarms</h2>
-  <div className="alarm-buttons">
-  {alarmsList.map((alarm, index) => (
-  <AlarmButton key={index} text={alarm} />
-  ))}
-  </div>
-  </div>
+    <div className="alarm">
+      <label className="alarmTime">{time}</label>
+      <input type="checkbox" onChange={handleToggle} />
+    </div>
   );
-  };
-  
-  export default Alarms;
+};
+
+const Alarms = () => {
+  const alarms = ['06:00 AM', '07:00 AM', '08:00 AM ', '09:00 AM', '10:00 AM', '11:00 AM'];
+
+  return (
+    <div className="alarmsContainer">
+      <h1>Alarms</h1>
+      {alarms.map((time, index) => (
+        <Alarm key={index} time={time} />
+      ))}
+    </div>
+  );
+};
+
+export default Alarms;

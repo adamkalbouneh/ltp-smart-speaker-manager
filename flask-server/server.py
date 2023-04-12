@@ -42,7 +42,7 @@ def install_skill():
         "utterances": ["Install "+skill_url],
         "lang": "en-us",
         }))
-    time.sleep(4)
+    time.sleep(5)
     bus.emit(Message("recognizer_loop:utterance", {
         "utterances": ["yes"],
         "lang": "en-us",
@@ -58,13 +58,45 @@ def uninstall_skill():
         "utterances": ["Uninstall "+skill_url],
         "lang": "en-us",
         }))
-    time.sleep(4.5)
+    time.sleep(5)
     bus.emit(Message("recognizer_loop:utterance", {
         "utterances": ["yes"],
         "lang": "en-us",
         }))
     return jsonify({"message": f"Skill installation request sent for {skill_url}"}), 200
 
+@app.route('/set-alarm', methods=['POST'])
+def set_alarm():
+    
+    alarm_time = request.json.get("time")
+    
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["Set an Alarm for "+alarm_time],
+        "lang": "en-us",
+        }))
+    return jsonify({"message": f"Skill installation request sent for {alarm_time}"}), 200
+
+@app.route('/delete-alarm', methods=['POST'])
+def delete_alarm():
+    
+    alarm_time = request.json.get("time")
+    
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["Delete "+alarm_time+" Alarm"],
+        "lang": "en-us",
+        }))
+    return jsonify({"message": f"Skill installation request sent for {alarm_time}"}), 200
+
+@app.route('/send-message', methods=['POST'])
+def send_message():
+    
+    message_json = request.json.get("message")
+    
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": [message_json],
+        "lang": "en-us",
+        }))
+    return jsonify({"message": f" {Message} sent "}), 200
 
 
 @app.route('/ask-time', methods=['POST'])
