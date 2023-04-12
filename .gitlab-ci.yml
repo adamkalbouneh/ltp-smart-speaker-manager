@@ -20,7 +20,10 @@ before_script:
 build:
   stage: build
   script:
+    - cd ./client
     - npm run build 
+  after_script:
+    - cd ../
 
 test:
   stage: test
@@ -40,13 +43,16 @@ test:
   after_script:
     - docker stop myapp mysql
     - docker rm myapp mysql
+    - cd ../
 
 node_test:
   image: node:latest
   script:
-    - cd ../client
+    - cd ./client
     - npm install
     - npm test
+  after_script:
+    - cd ../
 
 
 deploy:
