@@ -42,7 +42,7 @@ def install_skill():
         "utterances": ["Install "+skill_url],
         "lang": "en-us",
         }))
-    time.sleep(5)
+    time.sleep(6)
     bus.emit(Message("recognizer_loop:utterance", {
         "utterances": ["yes"],
         "lang": "en-us",
@@ -58,7 +58,7 @@ def uninstall_skill():
         "utterances": ["Uninstall "+skill_url],
         "lang": "en-us",
         }))
-    time.sleep(5)
+    time.sleep(6)
     bus.emit(Message("recognizer_loop:utterance", {
         "utterances": ["yes"],
         "lang": "en-us",
