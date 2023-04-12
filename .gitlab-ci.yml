@@ -13,12 +13,10 @@ services:
   - mysql:5.7
   - docker:dind
 
-before_script:
-  - apt-get update && apt-get install -y python3-pip
-
 build:
   stage: build
   script:
+    - apt-get update && apt-get install -y python3-pip
     - ls
     - cd client
     - ls
@@ -34,6 +32,7 @@ test:
     - name: registry.hub.docker.com/library/docker:20.10.16-dind
       alias: docker
   script:
+    - ls
     - docker build -t myapp .
     - docker run --name mysql -e MYSQL_ROOT_PASSWORD=comsc -d mariadb:latest
     - sleep 20
@@ -43,14 +42,14 @@ test:
     - cd ./flask-server
     - pip install pytest
     - pytest test_api.py
-  after_script:
-    - docker stop myapp mysql
-    - docker rm myapp mysql
-    - cd ../
 
 node_test:
   image: node:latest
   script:
+    - docker stop myapp mysql
+    - docker rm myapp mysql
+    - cd ../
+    - apt-get update && apt-get install -y python3-pip
     - cd client
     - npm install
     - npm test
@@ -61,6 +60,7 @@ node_test:
 deploy:
   stage: deploy
   script:
+    - apt-get update && apt-get install -y python3-pip
   # in deploy just for testing, should probably be moved 
   # put these in requirements 
   # add them to build or something 
