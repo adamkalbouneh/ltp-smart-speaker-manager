@@ -40,6 +40,7 @@ test:
     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
     - nohup sh -c "dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:5000 &"
     - sleep 15
+    - docker info
     - docker build -t myapp .
     - docker tag myapp $CI_REGISTRY_IMAGE/myapp:latest
     - docker push $CI_REGISTRY_IMAGE/myapp:latest
