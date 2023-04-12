@@ -38,6 +38,8 @@ unit_test:
   before_script:
     - apt-get update
     - apt-get install -y default-mysql-server default-mysql-client libmysqlclient-dev
+    - MYSQL_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql)
+    - echo "MySQL container IP address: $MYSQL_IP"
     - mysql -hmysql -uroot -p'' -e "CREATE DATABASE app_db;"
     - cat /database/initialise_db.sql | mysql -hmysql -uroot -p'' app_db
   script:
