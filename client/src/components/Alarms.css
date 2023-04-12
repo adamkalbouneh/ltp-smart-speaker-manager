@@ -1,0 +1,26 @@
+.alarms {
+    padding: 2rem;
+  }
+  
+  .alarm-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .alarm-btn {
+    background-color: #22A7F0;
+    color: #FFF;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .alarm-btn:hover {
+    background-color: #1e8ec6;
+  }

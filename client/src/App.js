@@ -1,29 +1,24 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react';
+import Navbar from './components/Navbar';
+import Skills from './components/Skills';
+import Routines from './components/Routines';
+import Alarms from './components/Alarms';
+import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
-  const [data, setData] = useState([{}])
-
-  useEffect(()=> {
-    fetch("/home").then(
-      res => res.json()
-    ).then(
-      data => {
-        setData(data)
-        console.log(data)
-      }
-    )
-  }, [])
   return (
-    <div>
-      {(typeof data.Home == 'undefined')? (
-        <p>Loading...</p>
-      ) : (
-        data.Home.map((Home, i) => (
-          <p key={i}>{Home}</p>
-        ))
-      )}
-    </div>
-  )
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/routines" element={<Routines />} />
+          <Route path="/alarms" element={<Alarms />} />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
