@@ -13,6 +13,9 @@ services:
   - mysql:5.7
   - docker:dind
 
+variables:
+  DOCKER_HOST: tcp://localhost:2375
+
 build:
   stage: build
   script:
@@ -32,8 +35,11 @@ test:
     - name: registry.hub.docker.com/library/docker:20.10.16-dind
       alias: docker
   script:
+    - docker info
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - ls
     - docker build --network=host -t myapp .
+    - docker push $CI_REGISTRY_IMAGE/myapp:latest
     - docker run --name mysql -e MYSQL_ROOT_PASSWORD=comsc -d mariadb:latest
     - sleep 20
     - docker exec -i mysql localhost -u root -pcomsc -e 'CREATE DATABASE app_db;'
