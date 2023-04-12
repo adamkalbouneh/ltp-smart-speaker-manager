@@ -28,14 +28,23 @@ unit_test:
   stage: test
   image: python:3.9
   services:
-    - mysql:latest
+    - name: mysql:latest
+      env:
+        MYSQL_ROOT_PASSWORD: ""
+        MYSQL_HOST: mysql
+        MYSQL_USER: runner
+        MYSQL_PASSWORD: comsc
+        MYSQL_DATABASE: app_db
   before_script:
-    - apt-get update && apt-get install -y default-mysql-client
-    - mysql -hmysql -uroot -pcomsc -e "CREATE DATABASE app_db;"
-    - cat /database/initialise_db.sql | mysql -hmysql -uroot -pcomsc app_db
+    - apt-get update
+    - apt-get install -y default-mysql-server default-mysql-client libmysqlclient-dev
+    - mysql -hmysql -uroot -p'' -e "CREATE DATABASE app_db;"
+    - cat /database/initialise_db.sql | mysql -hmysql -uroot -p'' app_db
   script:
     - cd flask-session
     - pip install pytest
+    - pytest
+
     
 node_test:
   stage: test
