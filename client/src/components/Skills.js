@@ -11,11 +11,11 @@ const Skill = ({ name, url }) => {
     setTimeout(async () => {
       try {
         if (!installed) {
-          const response = await axios.post('/install-skill', { url });
-          alert(response.data.message);
+          /*const response =*/ await axios.post('/install-skill', { url });
+          /*alert(response.data.message);*/
         } else {
-          const response = await axios.post('/uninstall-skill', { name });
-          alert(response.data.message);
+          /*const response =*/ await axios.post('/uninstall-skill', { name });
+          /*alert(response.data.message);*/
         }
         setInstalled(!installed);
       } catch (error) {
