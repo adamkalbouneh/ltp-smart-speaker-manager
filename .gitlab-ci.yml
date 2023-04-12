@@ -29,9 +29,10 @@ build:
 
 test:
   stage: test
-  image: docker:latest
+  image: docker:20.10.16
   services:
-    - docker:dind
+    - name: registry.hub.docker.com/library/docker:20.10.16-dind
+      alias: docker
   script:
     - docker build -t myapp .
     - docker run --name mysql -e MYSQL_ROOT_PASSWORD=comsc -d mariadb:latest
