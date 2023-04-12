@@ -1,36 +1,37 @@
-import json
 import pytest
-import requests
+from server import app
+
 
 @pytest.fixture
-def url():
-    return 'http://127.0.0.1:5000'
+def client():
+    with app.test_client() as client:
+        yield client
 
 # Test login API successful login
-def test_login_success(url):
+def test_login_success(client):
     data = {"email": "testing@testing.co.uk", "password": "password"}
-    response = requests.post(url + '/login', json=data)
+    response = client.post('/login', json=data)
     assert response.status_code == 200
     assert response.text == 'Login successful!'
 
 # Test login API with wrong password
-def test_login_fail(url):
+def test_login_fail(client):
     data = {"email": "testing@testing.co.uk", "password": "wrong password"}
-    response = requests.post(url + '/login', json=data)
+    response = client.post('/login', json=data)
     assert response.status_code == 200
     assert response.text == 'Incorrect password'
 
 # Test check if email exists API with registered email
-def test_check_email_registered(url):
+def test_check_email_registered(client):
     data = {'email': 'testing@testing.co.uk'}
-    response = requests.post(url + '/checkEmailExists', json=data)
+    response = client.post('/checkEmailExists', json=data)
     assert response.status_code == 200
     assert response.text == 'Email already exists'
 
 # Test check if email exists API with unregistered email
-def test_check_email_not_registered(url):
+def test_check_email_not_registered(client):
     data = {'email': '@.'}
-    response = requests.post(url + '/checkEmailExists', json=data)
+    response = client.post('/checkEmailExists', json=data)
     assert response.status_code == 200
     assert response.text == 'Email does not exist'    
 

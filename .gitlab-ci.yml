@@ -9,10 +9,6 @@ cache:
   paths:
     - node_modules/
 
-services:
-  - mysql:5.7
-  - docker:dind
-
 variables:
   DOCKER_HOST: tcp://0.0.0.0:2375
 
@@ -28,50 +24,20 @@ build:
   after_script:
     - cd ../
 
-test:
+unit_test:
   stage: test
-  image: docker:20.10.16
+  image: python:3.9
   services:
-    - name: docker:dind
-      command:
-        - sh
-        - -c
-        - "while ! docker info; do sleep 1; done;"
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
+    - mysql:latest
+  before_script:
+    - mysql -hmysql -e "CREATE DATABASE app_db;"
+    - cat /database/initialise_db.sql | mysql -hmysql -u root --password=comsc app_db
   script:
-    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
-    - docker build -t myapp .
-    - docker tag myapp $CI_REGISTRY_IMAGE/myapp:latest
-    - docker push $CI_REGISTRY_IMAGE/myapp:latest
-    - sleep 60
-    - docker build -t myapp .
-    - docker tag myapp $CI_REGISTRY_IMAGE/myapp:latest
-    - docker push $CI_REGISTRY_IMAGE/myapp:latest
-    - docker stop docker-container && docker rm docker-container
-
-    #- echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
-    #- docker start
-    #- docker build --network=host -t myapp .
-    #- docker tag myapp $CI_REGISTRY_IMAGE/myapp:latest
-    #- docker push $CI_REGISTRY_IMAGE/myapp:latest
-    #- docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    #- ls
-    #- docker build --network=host -t myapp .
-    #- docker push $CI_REGISTRY_IMAGE/myapp:latest
-    - docker run --name mysql -e MYSQL_ROOT_PASSWORD=comsc -d mariadb:latest
-    - sleep 20
-    - docker exec -i mysql localhost -u root -pcomsc -e 'CREATE DATABASE app_db;'
-    - docker exec -i mysql localhost -u root -pcomsc app_db < database/db_initialise.sql
-    - docker run --name myapp -d -p 5000:5000 --link mysql:mysql myapp
-    - cd ./flask-server
-    #- pip install pytest
-    - docker run --rm myapp pytest test_api.py
-    - docker stop $(docker ps -a -q)
-    - docker rm $(docker ps -a -q)
-    - docker rmi $(docker images -q)
-
+    - cd flask-session
+    - pip install pytest
+    
 node_test:
+  stage: test
   image: node:latest
   script:
     - ls
@@ -81,6 +47,7 @@ node_test:
     - npm test
   after_script:
     - cd ../
+
 
 
 deploy:
