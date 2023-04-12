@@ -35,7 +35,7 @@ test:
     - name: registry.hub.docker.com/library/docker:20.10.16-dind
       alias: docker
   before_script:
-    - systemctl start docker
+    - service docker start
   script:
     #- systemctl start docker
     #- docker info
