@@ -7,6 +7,7 @@ import PairingPage from "./components/PairingPage.js";
 import TestDatabasePage from "./components/TestDatabasePage.js";
 import SignUpPage from "./components/SignUpPage.js";
 import HomePage from './components/HomePage.js';
+import AccountPage from './components/AccountPage.js';
 import GenericStyling from "./styling/Generic.css";
 import LandingStyling from "./styling/Landing.css";
 
@@ -21,6 +22,7 @@ const App = () => {
         <Route exact path="/database" element={<TestDatabasePage/>}/>
         <Route exact path="/signup" element={<SignUpPage/>}/>
         <Route exact path="/home" element={<HomePage/>}/>
+        <Route exact path="/account" element={<AccountPage/>}/>
       </Routes>
     </Router>
   );
