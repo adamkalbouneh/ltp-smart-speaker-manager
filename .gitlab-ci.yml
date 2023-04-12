@@ -31,8 +31,8 @@ unit_test:
     - mysql:latest
   before_script:
     - apt-get update && apt-get install -y default-mysql-client
-    - mysql -hmysql -e "CREATE DATABASE app_db;"
-    - cat /database/initialise_db.sql | mysql -hmysql -u root --password=comsc app_db
+    - mysql -hlocalhost -e "CREATE DATABASE app_db;"
+    - cat /database/initialise_db.sql | mysql -hlocalhost -u root --password=comsc app_db
   script:
     - cd flask-session
     - pip install pytest
