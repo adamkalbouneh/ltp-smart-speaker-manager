@@ -14,10 +14,8 @@ services:
   - docker:dind
 
 before_script:
-  - apt-get update && apt-get install -y python3-pip default-mysql-client
+  - apt-get update && apt-get install -y python3-pip
   - echo "Test"
-  - cd ./client
-  - npm install
 
 build:
   stage: build
@@ -26,32 +24,29 @@ build:
 
 test:
   stage: test
+  image: docker:latest
+  services:
+    - docker:dind
   script:
-  # Pass with no tests has been added because 
-  # Pipeline was created before tests were properly added
-    - echo "We need to add some tests lol then fix this"
-
-    # Run Jest/React tests
-    - npm test
-
-    # SQL database creation
+    - docker build -t myapp .
     - docker run --name mysql -e MYSQL_ROOT_PASSWORD=comsc -d mariadb:latest
-    - sleep 20 # give the database some time to start up
-    - docker exec -i mysql mysql -u root -pcomsc -e 'CREATE DATABASE app_db;'
-    - docker exec -i mysql mysql -u root -pcomsc app_db < ../database/db_initialise.sql
-
-    # Run flask server and unit tests
-    - cd ..
+    - sleep 20
+    - docker exec -i mysql localhost -u root -pcomsc -e 'CREATE DATABASE app_db;'
+    - docker exec -i mysql localhost -u root -pcomsc app_db < database/db_initialise.sql
+    - docker run --name myapp -d -p 5000:5000 --link mysql:mysql myapp
     - cd ./flask-server
-    - python3 server.py &
-    - export SERVER_PID=$!
     - pip install pytest
-    - pip install requests
-    - python3 test_api.py
+    - pytest test_api.py
+  after_script:
+    - docker stop myapp mysql
+    - docker rm myapp mysql
 
-    # Stop services
-    - kill $SERVER_PID
-    - docker stop mysql
+node_test:
+  image: node:latest
+  script:
+    - cd ../client
+    - npm install
+    - npm test
 
 
 deploy:
