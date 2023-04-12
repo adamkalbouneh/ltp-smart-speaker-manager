@@ -33,7 +33,7 @@ test:
       alias: docker
   script:
     - ls
-    - docker build -t myapp .
+    - docker build --network=host -t myapp .
     - docker run --name mysql -e MYSQL_ROOT_PASSWORD=comsc -d mariadb:latest
     - sleep 20
     - docker exec -i mysql localhost -u root -pcomsc -e 'CREATE DATABASE app_db;'
@@ -46,8 +46,7 @@ test:
 node_test:
   image: node:latest
   script:
-    - docker stop myapp mysql
-    - docker rm myapp mysql
+    - ls
     - cd ../
     - apt-get update && apt-get install -y python3-pip
     - cd client
