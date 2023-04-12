@@ -32,14 +32,18 @@ test:
   stage: test
   image: docker:20.10.16
   services:
-    - name: registry.hub.docker.com/library/docker:20.10.16-dind
-      alias: docker
-  before_script:
-    #- docker start myapp
+    - name: docker:dind
+      command:
+        - sh
+        - -c
+        - "while ! docker info; do sleep 1; done;"
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
   script:
     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
-    - docker run -v /var/run/docker.sock:/var/run/docker.sock -d --name docker-container docker:20.10.16 sleep infinity
-    - docker exec docker-container sh -c "nohup dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375 &"
+    - docker build -t myapp .
+    - docker tag myapp $CI_REGISTRY_IMAGE/myapp:latest
+    - docker push $CI_REGISTRY_IMAGE/myapp:latest
     - sleep 60
     - docker build -t myapp .
     - docker tag myapp $CI_REGISTRY_IMAGE/myapp:latest
