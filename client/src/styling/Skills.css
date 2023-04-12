@@ -133,3 +133,22 @@
   background: #22A7F0;
   cursor: pointer;
 }
+
+.clock {
+  display: flex;
+  align-items: center;
+}
+
+.clock select {
+  padding: 0.5rem;
+  margin-right: 1rem;
+  background-color: #22A7F0;
+  color: #ffff;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.clock label {
+  margin-right: 1rem;
+}
