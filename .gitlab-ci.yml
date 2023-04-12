@@ -19,7 +19,8 @@ before_script:
 build:
   stage: build
   script:
-    - cd /client
+    - ls
+    - cd ./client
     - npm run build 
   after_script:
     - cd ../
