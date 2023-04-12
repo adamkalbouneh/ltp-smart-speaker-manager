@@ -17,15 +17,13 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.permanent_session_lifetime = timedelta(minutes=30) # Session lasts 30 minutes
 
 # Initialise session
-Session(app)
+Session(app)    
 
-
-# Connect to the MySQL database
 mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="comsc",
-  database="app_db"
+    host="localhost",
+    user="root",
+    password="comsc",
+    database="app_db"
 )
 
 # Route for enabling/disabling a skill

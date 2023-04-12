@@ -1,10 +1,19 @@
 import pytest
 from server import app
+import mysql.connector
 
 
 @pytest.fixture
 def client():
     with app.test_client() as client:
+        mydb = mysql.connector.connect(
+          host="mysql",
+          user="root",
+          password="comsc",
+          database="app_db"
+        )
+        # replace the default mydb object with the test database connection object
+        app.mydb = mydb
         yield client
 
 # Test login API successful login
