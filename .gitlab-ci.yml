@@ -38,13 +38,13 @@ test:
     #- docker start myapp
   script:
     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
-    - nohup sh -c "dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:5000 &"
-    - sleep 15
-    - docker ps
-    - dockerd --host tcp://0.0.0.0:5000 &
+    - docker run -v /var/run/docker.sock:/var/run/docker.sock -d --name docker-container docker:20.10.16 sleep infinity
+    - docker exec docker-container sh -c "nohup dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:5000 &"
+    - sleep 60
     - docker build -t myapp .
     - docker tag myapp $CI_REGISTRY_IMAGE/myapp:latest
     - docker push $CI_REGISTRY_IMAGE/myapp:latest
+    - docker stop docker-container && docker rm docker-container
 
     #- echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
     #- docker start
