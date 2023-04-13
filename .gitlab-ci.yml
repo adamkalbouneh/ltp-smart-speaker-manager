@@ -36,6 +36,7 @@ unit_test:
       MYSQL_PASSWORD: comsc
       MYSQL_DATABASE: mysql
   before_script:
+    - pip install --upgrade pip
     - apt-get update
     - apt-get install -y default-mysql-server default-mysql-client
     #- MYSQL_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql)
