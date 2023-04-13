@@ -46,7 +46,7 @@ unit_test:
     - cd ../
   script:
     - cd flask-server
-    - pip install pytest
+    - pip install -r test-requirements.txt
     - python3 test_api.py
 
     
