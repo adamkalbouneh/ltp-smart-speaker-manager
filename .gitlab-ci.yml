@@ -42,8 +42,9 @@ unit_test:
     #- echo "MySQL container IP address: $MYSQL_IP" #
     #- mysql -hmysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE app_db;"
     - ls
+    - cd database
+    - cat db_test.sql | mysql -hmysql -uroot -p"$MYSQL_ROOT_PASSWORD" mysql
     - cd ../
-    - cat /database/db_test.sql | mysql -hmysql -uroot -p"$MYSQL_ROOT_PASSWORD" mysql
   script:
     - cd flask-session
     - pip install pytest
