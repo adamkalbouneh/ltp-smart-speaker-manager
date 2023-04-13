@@ -40,9 +40,6 @@ unit_test:
     - apt-get update
     - apt-get install -y default-mysql-server default-mysql-client 
     - apt-get update && apt-get install -y python3-openssl
-    #- MYSQL_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql)
-    #- echo "MySQL container IP address: $MYSQL_IP" #
-    #- mysql -hmysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE app_db;"
     - cd database
     - cat db_test.sql | mysql -hmysql -uroot -p"$MYSQL_ROOT_PASSWORD" mysql
     - cd ../

@@ -18,6 +18,8 @@ app.permanent_session_lifetime = timedelta(minutes=30) # Session lasts 30 minute
 
 # Initialise session
 Session(app)    
+
+# Attempt to create database connection
 try:
     mydb = mysql.connector.connect(
         host="localhost",
@@ -29,6 +31,8 @@ except:
     print("error occured when creating mysql connection")
     print("attempting to use mysql database")
     try:
+        # Error could mean that pipeline is running pytest
+        # Attempt to use pipeline database instead
         mydb = mysql.connector.connect(
         host="mysql",
         user="root",
