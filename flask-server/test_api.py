@@ -21,6 +21,8 @@ def test_login_success(client):
     data = {"email": "testing@testing.co.uk", "password": "password"}
     response = client.post('/login', json=data)
     assert response.status_code == 200
+    print("TEST TEST TEST TEST TEST")
+    print(response)
     assert response.text == 'Login successful!'
 
 # Test login API with wrong password
