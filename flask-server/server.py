@@ -18,13 +18,15 @@ app.permanent_session_lifetime = timedelta(minutes=30) # Session lasts 30 minute
 
 # Initialise session
 Session(app)    
-
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="comsc",
-    database="app_db"
-)
+try:
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="comsc",
+        database="app_db"
+    )
+except:
+    print("error occured when creating mysql connection")
 
 # Route for enabling/disabling a skill
 @app.route('/skill/<string:skill_name>', methods=['POST'])

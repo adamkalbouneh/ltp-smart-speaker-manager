@@ -10,7 +10,7 @@ def client():
           host="mysql",
           user="root",
           password="comsc",
-          database="app_db"
+          database="mysql"
         )
         # replace the default mydb object with the test database connection object
         app.mydb = mydb
