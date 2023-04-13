@@ -49,8 +49,7 @@ unit_test:
   script:
     - cd flask-server
     - pip install -r test-requirements.txt
-
-    - python3 test_api.py
+    - pytest
 
     
 node_test:

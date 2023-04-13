@@ -27,6 +27,16 @@ try:
     )
 except:
     print("error occured when creating mysql connection")
+    print("attempting to use mysql database")
+    try:
+        mydb = mysql.connector.connect(
+        host="mysql",
+        user="root",
+        password="comsc",
+        database="mysql"
+        )
+    except:
+        print("mysql database connection failed")
 
 # Route for enabling/disabling a skill
 @app.route('/skill/<string:skill_name>', methods=['POST'])
