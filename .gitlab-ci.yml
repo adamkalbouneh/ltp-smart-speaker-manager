@@ -37,6 +37,7 @@ unit_test:
       MYSQL_DATABASE: mysql
   before_script:
     - pip install --upgrade pip
+    - pip install secrets
     - apt-get update
     - apt-get install -y default-mysql-server default-mysql-client 
     - apt-get update && apt-get install -y python3-openssl
@@ -49,6 +50,7 @@ unit_test:
   script:
     - cd flask-server
     - pip install -r test-requirements.txt
+
     - python3 test_api.py
 
     
