@@ -1,4 +1,4 @@
-image: node:latest
+image: node:latest 
 
 stages:
   - build
@@ -9,41 +9,68 @@ cache:
   paths:
     - node_modules/
 
-before_script:
-  - apt-get update && apt-get install -y python3-pip
-  - echo "Test"
-  - cd ./client
-  - npm install
+variables:
+  DOCKER_HOST: tcp://0.0.0.0:2375
 
 build:
   stage: build
   script:
+    - apt-get update && apt-get install -y python3-pip
+    - ls
+    - cd client
+    - ls
+    - npm install
     - npm run build 
+  after_script:
+    - cd ../
 
-test:
+unit_test:
   stage: test
+  image: python:3.9
+  services:
+    - name: mysql:5.7
+  variables:
+      MYSQL_ROOT_PASSWORD: comsc
+      MYSQL_HOST: mysql
+      MYSQL_USER: runner
+      MYSQL_PASSWORD: comsc
+      MYSQL_DATABASE: mysql
+  before_script:
+    - pip install --upgrade pip
+    - apt-get update
+    - apt-get install -y default-mysql-server default-mysql-client 
+    - apt-get update && apt-get install -y python3-openssl
+    - cd database
+    - cat db_test.sql | mysql -hmysql -uroot -p"$MYSQL_ROOT_PASSWORD" mysql
+    - cd ../
   script:
-  # Pass with no tests has been added because 
-  # pipeline was created before tests were properly added
-    - echo "We need to add some tests lol then fix this"
-    # - npm test
-    - cd ..
-    - cd ./flask-server
-    - pip install pytest
-    - pip install requests
-    - python3 test_api.py
+    - cd flask-server
+    - pip install -r test-requirements.txt
+    - pytest
+
+    
+node_test:
+  stage: test
+  image: node:latest
+  script:
+    - ls
+    - apt-get update && apt-get install -y python3-pip
+    - cd client
+    - npm install
+    - npm test
+  after_script:
+    - cd ../
+
 
 
 deploy:
   stage: deploy
   script:
-  # in deploy just for testing, should probably be moved 
-  # put these in requirements 
-  # add them to build or something 
-    - pip install --upgrade pip
-    - pip install -r requirements.txt
-    
-    
+    #- pip install --upgrade pip
+    - apt-get update && apt-get install -y python3-pip
+    # in deploy just for testing, should probably be moved 
+    #- pip install --upgrade pip
+    #- pip install -r requirements.txt
     # Doing this in the pipeline is bad, but it works  
     # - python server.py &
     # - npm start

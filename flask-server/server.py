@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, session
 from flask_session import Session
 from flask_bcrypt import Bcrypt
+from datetime import timedelta
 import mysql.connector
 import requests
 import secrets
@@ -13,18 +14,33 @@ app = Flask(__name__)
 # Configuring sessions
 app.config['SECRET_KEY'] = secrets.token_hex(16) # Create a random 32-character hexadecimal string as secret key
 app.config['SESSION_TYPE'] = 'filesystem'
+app.permanent_session_lifetime = timedelta(minutes=30) # Session lasts 30 minutes
 
 # Initialise session
-Session(app)
+Session(app)    
 
-
-# Connect to the MySQL database
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="comsc",
-  database="app_db"
-)
+# Attempt to create database connection
+try:
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="comsc",
+        database="app_db"
+    )
+except:
+    print("error occured when creating mysql connection")
+    print("attempting to use mysql database")
+    try:
+        # Error could mean that pipeline is running pytest
+        # Attempt to use pipeline database instead
+        mydb = mysql.connector.connect(
+        host="mysql",
+        user="root",
+        password="comsc",
+        database="mysql"
+        )
+    except:
+        print("mysql database connection failed")
 
 # Route for enabling/disabling a skill
 @app.route('/skill/<string:skill_name>', methods=['POST'])
