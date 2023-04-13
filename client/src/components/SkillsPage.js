@@ -178,12 +178,45 @@ function Skills() {
     });
   }, []);
 
-   // This is to make the compassion slider value change
-   const [conversationSliderValue, conversationSetSliderValue] = useState(3);
-   const conversationHandleSliderChange = (event) => {
-    conversationSetSliderValue(event.target.value);
-   };
- 
+
+   const [conversationSliderValue, conversationSetSliderValue] = useState(
+    localStorage.getItem("conversationSliderValue") || 5
+   );
+
+   const handleSliderChange = (event) => {
+    const value = event.target.value;
+    conversationSetSliderValue(value);
+    localStorage.setItem("conversationSliderValue", value);
+  };
+  
+  const renderOutput = () => {
+    switch (conversationSliderValue) {
+      case "1":
+        return "Every 30m";
+      case "2":
+        return "Every 1h";
+      case "3":
+        return "Every 1:30";
+      case "4":
+        return "Every 2h";
+      case "5":
+        return "Every 2:30h";
+      case "6":
+        return "Every 3h";
+      case "7":
+        return "Every 3:30";
+      case "8":
+        return "Every 4h";
+      case "9":
+        return "Every 4:30h";
+      case "10":
+        return "Every 5h";
+      default:
+        return "";
+    }
+  };
+
+
 
   return (
     <div className="page">
@@ -313,18 +346,26 @@ function Skills() {
             description="A skill that allows for spontaneous and natural conversation with your smart speaker. This skill is designed to engage in small talk, 
             ask and answer open-ended questions, and provide personalized responses to your interests and preferences."
             bodyContent={
-              <><label htmlFor="frequency-slider">Frequency:</label><div className="slidecontainer">
+              <div>
+              <label htmlFor="frequency-slider">Frequency:</label><div className="slidecontainer">
                 <input
                   type="range"
                   min="1"
-                  max="5"
+                  max="10"
                   value={conversationSliderValue}
                   className="slider"
                   id="myRange"
-                  onChange={conversationHandleSliderChange} />
-              </div><output htmlFor="frequency-slider">{conversationSliderValue}</output></>
-
+                  onChange={handleSliderChange} />
+              </div><output htmlFor="frequency-slider">{renderOutput()}</output>
+              </div>
             }
+          />
+          <SkillList
+            title="Joke Skill"
+            id="joke"
+            checked={jokeEnabled}
+            onChange={(e) => setJokeEnabled(e.target.checked)}
+            description="Get a daily dose of laughter with a selection of funny jokes, one-liners, and puns."
           />
           <SkillList
             title="ChatGPT Skill"
@@ -362,13 +403,6 @@ function Skills() {
             checked={loveEnabled}
             onChange={(e) => setLoveEnabled(e.target.checked)}
             description="A skill designed to express love and gratitude. Provides sweet messages, romantic quotes, and heartfelt compliments."
-          />
-          <SkillList
-            title="Joke Skill"
-            id="joke"
-            checked={jokeEnabled}
-            onChange={(e) => setJokeEnabled(e.target.checked)}
-            description="Get a daily dose of laughter with a selection of funny jokes, one-liners, and puns."
           />
           <SkillList
             title="Happy Skill"
