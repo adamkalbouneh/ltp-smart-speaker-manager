@@ -69,8 +69,6 @@ deploy:
     #- pip install --upgrade pip
     - apt-get update && apt-get install -y python3-pip
     # in deploy just for testing, should probably be moved 
-    # put these in requirements 
-    # add them to build or something 
     #- pip install --upgrade pip
     #- pip install -r requirements.txt
     # Doing this in the pipeline is bad, but it works  
