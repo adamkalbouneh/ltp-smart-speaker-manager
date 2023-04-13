@@ -41,14 +41,13 @@ unit_test:
     #- MYSQL_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql)
     #- echo "MySQL container IP address: $MYSQL_IP" #
     #- mysql -hmysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE app_db;"
-    - ls
     - cd database
     - cat db_test.sql | mysql -hmysql -uroot -p"$MYSQL_ROOT_PASSWORD" mysql
     - cd ../
   script:
-    - cd flask-session
+    - cd flask-server
     - pip install pytest
-    - pytest
+    - python3 test_api.py
 
     
 node_test:
