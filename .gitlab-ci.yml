@@ -66,8 +66,8 @@ node_test:
 deploy:
   stage: deploy
   script:
-    - pip install --upgrade pip
-    #- apt-get update && apt-get install -y python3-pip
+    #- pip install --upgrade pip
+    - apt-get update && apt-get install -y python3-pip
     # in deploy just for testing, should probably be moved 
     # put these in requirements 
     # add them to build or something 
