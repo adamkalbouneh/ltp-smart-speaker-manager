@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Skills.css';
+//import './Skills.css';
 
 const Skill = ({ name, url }) => {
   const [installed, setInstalled] = useState(false);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Alarms.css';
+//import './Alarms.css';
 import axios from 'axios';
 
 const Alarm = ({ time }) => {
