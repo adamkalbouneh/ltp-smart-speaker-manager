@@ -1,24 +1,30 @@
-import React from 'react';
-import Navbar from './components/Navbar';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import LandingPage from "./components/LandingPage.js";
+import LoginPage from "./components/LoginPage.js";
+import PairingPage from "./components/PairingPage.js";
+import TestDatabasePage from "./components/TestDatabasePage.js";
+import SignUpPage from "./components/SignUpPage.js";
+import GenericStyling from "./styling/Generic.css";
+import LandingStyling from "./styling/Landing.css";
+import SkillsStyling from "./styling/Skills.css";
+import SkillsPage from './components/SkillsPage';
 import Skills from './components/Skills';
-import Routines from './components/Routines';
-import Alarms from './components/Alarms';
-import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Prompt from './components/Prompt';
 
-function App() {
+
+const App = () => {
   return (
     <Router>
-      <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/routines" element={<Routines />} />
-          <Route path="/alarms" element={<Alarms />} />
-          <Route path="/prompt" element={<Prompt />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route exact path="/" element={<LandingPage/>}/>
+        <Route exact path="/login" element={<LoginPage/>}/>
+        <Route exact path="/pair" element={<PairingPage/>}/>
+        <Route exact path="/database" element={<TestDatabasePage/>}/>
+        <Route exact path="/signup" element={<SignUpPage/>}/>
+        <Route exact path="/skills" element={<SkillsPage/>}/>
+        <Route exact path="/skillsadam" element={<Skills/>}/>
+      </Routes>
     </Router>
   );
 }
