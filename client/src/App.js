@@ -1,15 +1,24 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import SkillList from "./components/SkillList";
+import React from 'react';
+import Navbar from './components/Navbar';
+import Skills from './components/Skills';
+import Routines from './components/Routines';
+import Alarms from './components/Alarms';
+import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Prompt from './components/Prompt';
 
 function App() {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/skills" element={<SkillList />} />
-      </Routes>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/routines" element={<Routines />} />
+          <Route path="/alarms" element={<Alarms />} />
+          <Route path="/prompt" element={<Prompt />} />
+        </Routes>
+      </div>
     </Router>
   );
 }
