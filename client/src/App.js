@@ -10,7 +10,7 @@ import GenericStyling from "./styling/Generic.css";
 import LandingStyling from "./styling/Landing.css";
 import SkillsStyling from "./styling/Skills.css";
 import SkillsPage from './components/SkillsPage';
-import Skills from './components/Skills';
+
 
 
 const App = () => {
@@ -23,7 +23,6 @@ const App = () => {
         <Route exact path="/database" element={<TestDatabasePage/>}/>
         <Route exact path="/signup" element={<SignUpPage/>}/>
         <Route exact path="/skills" element={<SkillsPage/>}/>
-        <Route exact path="/skillsadam" element={<Skills/>}/>
       </Routes>
     </Router>
   );
