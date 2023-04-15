@@ -228,7 +228,6 @@ function Skills() {
             description="A skill designed to help you wind down and get ready for sleep. With a calming bedtime routine, it includes soothing relaxation techniques."
             url="https://github.com/adamkalbouneh/good-night-skill"
           />
-          {/* Needs url ask ethan */}
           <SkillList
             title="Conversation Skill"
             id="unprompted"
@@ -248,6 +247,7 @@ function Skills() {
               </div><output htmlFor="frequency-slider">{renderOutput()}</output>
               </div>
             }
+            url="https://github.com/ethanallenharris/unprompted-dialog-skill"
           />
           <SkillList
             title="ChatGPT Skill"
@@ -255,12 +255,6 @@ function Skills() {
             description="Have natural conversations with ChatGPT, an AI language model that can answer your questions, give advice, or engage in small talk. 
             Get human-like responses that are fun and engaging to interact with your smart speaker."
             url="https://github.com/adamkalbouneh/chatgpt-skill"
-          />
-          {/* Needs url, ask marwa */}
-          <SkillList
-            title="Music Skill"
-            id="music"
-            description="Music-listening skill, enabling users to listen to music exclusively and uninterrupted. Users can play specific songs, pause and skip songs through Spotify."
           />
           <SkillList
             title="Radio Skill"
