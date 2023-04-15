@@ -53,7 +53,7 @@ def install_skill():
         "utterances": ["Install "+skill_url],
         "lang": "en-us",
         }))
-    time.sleep(6)
+    time.sleep(10)
     bus.emit(Message("recognizer_loop:utterance", {
         "utterances": ["yes"],
         "lang": "en-us",
@@ -62,16 +62,20 @@ def install_skill():
 
 @app.route('/uninstall-skill', methods=['POST'])
 def uninstall_skill():
+
+    skill_name = request.json.get ("name")
+    
     bus.emit(Message("recognizer_loop:utterance", {
-        "utterances": ["Uninstall "+skill_url],
+        "utterances": ["Uninstall "+skill_name],
         "lang": "en-us",
         }))
-    time.sleep(6)
+    time.sleep(10)
     bus.emit(Message("recognizer_loop:utterance", {
         "utterances": ["yes"],
         "lang": "en-us",
         }))
-    return jsonify({"message": f"Skill installation request sent for {skill_url}"}), 200
+    return jsonify({"message": f"Skill installation request sent for {skill_name}"}), 200
+
 
 @app.route('/set-alarm', methods=['POST'])
 def set_alarm():
