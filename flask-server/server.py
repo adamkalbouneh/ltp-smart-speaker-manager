@@ -18,11 +18,19 @@ app = Flask(__name__, static_folder="react_app/build/static", template_folder="r
 CORS(app)
 socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
 bus = MessageBusClient(host="raspberrypi", port=8181)
+
 bcrypt = Bcrypt()
 # Configuring sessions
 app.config['SECRET_KEY'] = secrets.token_hex(16) # Create a random 32-character hexadecimal string as secret key
 app.config['SESSION_TYPE'] = 'filesystem'
 
+# Connect to the MySQL database
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="comsc",
+  database="app_db"
+)
 # Initialise session
 Session(app)
 
@@ -88,14 +96,6 @@ def set_alarm():
     return jsonify({"message": f"Skill installation request sent for {alarm_time}"}), 200
     
 
-
-# Connect to the MySQL database
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="comsc",
-  database="app_db"
-)
 
 @app.route('/delete-alarm', methods=['POST'])
 def delete_alarm():
