@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './VolumeControl.css';
 
 const VolumeControl = () => {
   // `volume` represents the confirmed volume level after user interaction
