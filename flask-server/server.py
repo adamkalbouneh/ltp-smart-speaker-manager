@@ -221,6 +221,24 @@ def mycroft_volume():
     # Return a success message with the updated volume action
     return {"message": f"Volume {action}d"}, 200
 
+@app.route('/mycroft-mute', methods=['POST'])
+def mycroft_mute():
+    # Extract data from the request
+    data = request.json
+    # Get the mute status from the request data
+    mute = data.get('mute')
+
+    if mute is None:
+        # Return an error if the mute status is not provided
+        return {"error": "Mute status not provided"}, 400
+
+    # Determine the message type based on the mute status
+    message_type = 'mycroft.mic.mute' if mute else 'mycroft.mic.unmute'
+
+    # Emit the message with the appropriate message type
+    bus.emit(Message(message_type))
+    # Return a success message with the updated mute status
+    return {"message": f"Mycroft {'muted' if mute else 'unmuted'}"}, 200
 
 @app.route('/ask-time', methods=['POST'])
 def ask_time():
