@@ -14,6 +14,7 @@ import uuid
 import secrets
 import time
 
+
 app = Flask(__name__, static_folder="react_app/build/static", template_folder="react_app/build")
 CORS(app)
 socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
@@ -195,6 +196,23 @@ def check_email_exists():
     else:
         # If any row(s) returned - email already exists in the table
         return "Email already exists"
+
+
+@app.route('/mycroft-volume', methods=['POST'])
+def mycroft_volume():
+    data = request.json
+    target_volume = data.get('target_volume', 50)
+    current_volume = data.get('current_volume', 50)
+
+    difference = target_volume - current_volume
+    action = 'increase' if difference > 0 else 'decrease'
+    steps = abs(difference)
+
+    for _ in range(steps):
+        bus.emit(Message(f'mycroft.volume.{action}', {"play_sound": False}))
+        time.sleep(0.05)
+
+    return {"message": f"Volume set to {target_volume}"}, 200
 
 
 @app.route('/ask-time', methods=['POST'])
