@@ -200,19 +200,26 @@ def check_email_exists():
 
 @app.route('/mycroft-volume', methods=['POST'])
 def mycroft_volume():
+    # Extract data from the request
     data = request.json
-    target_volume = data.get('target_volume', 50)
-    current_volume = data.get('current_volume', 50)
+    # Get the action ('increase' or 'decrease') from the request data
+    action = data.get('action')
+    # Get the 'play_sound' value from the request data, defaulting to True if not provided
+    play_sound = data.get('play_sound', True)
 
-    difference = target_volume - current_volume
-    action = 'increase' if difference > 0 else 'decrease'
-    steps = abs(difference)
+    # Determine the message type based on the action
+    if action == 'increase':
+        message_type = 'mycroft.volume.increase'
+    elif action == 'decrease':
+        message_type = 'mycroft.volume.decrease'
+    else:
+        # Return an error if the action is not valid
+        return {"error": "Invalid action"}, 400
 
-    for _ in range(steps):
-        bus.emit(Message(f'mycroft.volume.{action}', {"play_sound": False}))
-        time.sleep(0.05)
-
-    return {"message": f"Volume set to {target_volume}"}, 200
+    # Emit the message with the appropriate message type and the 'play_sound' option
+    bus.emit(Message(message_type, {"play_sound": play_sound}))
+    # Return a success message with the updated volume action
+    return {"message": f"Volume {action}d"}, 200
 
 
 @app.route('/ask-time', methods=['POST'])
@@ -225,19 +232,9 @@ def ask_time():
     }))
     return jsonify({"message": "Time request sent to Mycroft"}), 200
 
-def shutdown_server():
-    bus.close()
-    socketio.stop()
 
-def signal_handler(signal_number, frame):
-    print("Shutting down the server...")
-    shutdown_server()
-    sys.exit(0)
+if __name__ == '__main__':
+    bus.run_in_thread()
+    app.run(host='0.0.0.0')
 
-signal.signal(signal.SIGINT, signal_handler)
 
-mycroft_thread = threading.Thread(target=connect_to_mycroft)
-mycroft_thread.start()
-
-# Run the Flask server in the main thread
-socketio.run(app, host='0.0.0.0', port=5000, use_reloader=False)
