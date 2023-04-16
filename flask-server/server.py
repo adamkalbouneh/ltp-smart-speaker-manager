@@ -52,71 +52,100 @@ def on_connected(event):
 def index():
     return render_template('index.html')
 
+# Define a route for handling skill installation requests
 @app.route('/install-skill', methods=['POST'])
 def install_skill():
     
+    # Get the skill URL from the request payload
     skill_url = request.json.get("url")
     
+    # Emit a message to the recognizer loop to install the skill
     bus.emit(Message("recognizer_loop:utterance", {
         "utterances": ["Install "+skill_url],
         "lang": "en-us",
         }))
+    
+    # Wait for 10 seconds to allow the installation to complete
     time.sleep(10)
+    
+    # Emit a message to confirm the installation
     bus.emit(Message("recognizer_loop:utterance", {
         "utterances": ["yes"],
         "lang": "en-us",
         }))
+    
+    # Return a JSON response with a success message
     return jsonify({"message": f"Skill installation request sent for {skill_url}"}), 200
 
+# Define a route for handling skill uninstallation requests
 @app.route('/uninstall-skill', methods=['POST'])
 def uninstall_skill():
 
+    # Get the skill name from the request payload
     skill_name = request.json.get ("name")
     
+    # Emit a message to the recognizer loop to uninstall the skill
     bus.emit(Message("recognizer_loop:utterance", {
         "utterances": ["Uninstall "+skill_name],
         "lang": "en-us",
         }))
+    
+    # Wait for 10 seconds to allow the uninstallation to complete
     time.sleep(10)
+    
+    # Emit a message to confirm the uninstallation
     bus.emit(Message("recognizer_loop:utterance", {
         "utterances": ["yes"],
         "lang": "en-us",
         }))
-    return jsonify({"message": f"Skill installation request sent for {skill_name}"}), 200
+    
+    # Return a JSON response with a success message
+    return jsonify({"message": f"Skill uninstallation request sent for {skill_name}"}), 200
 
-
+# Define a route for setting an alarm
 @app.route('/set-alarm', methods=['POST'])
 def set_alarm():
+    
+    # Get the alarm time from the request payload
     alarm_time = request.json.get("time")
 
+    # Emit a message to the recognizer loop to set the alarm
     bus.emit(Message("recognizer_loop:utterance", {
         "utterances": ["Set an Alarm for "+alarm_time],
         "lang": "en-us",
         }))
-    return jsonify({"message": f"Skill installation request sent for {alarm_time}"}), 200
     
-
-
+    # Return a JSON response with a success message
+    return jsonify({"message": f"Alarm set for {alarm_time}"}), 200
+    
+# Define a route for deleting an alarm
 @app.route('/delete-alarm', methods=['POST'])
 def delete_alarm():
 
+    # Get the alarm time from the request payload
     alarm_time = request.json.get("time")
 
+    # Emit a message to the recognizer loop to delete the alarm
     bus.emit(Message("recognizer_loop:utterance", {
         "utterances": ["Delete "+alarm_time+" Alarm"],
         "lang": "en-us",
         }))
-    return jsonify({"message": f"Skill installation request sent for {alarm_time}"}), 200
+    
+    # Return a JSON response with a success message
+    return jsonify({"message": f"Alarm deleted for {alarm_time}"}), 200
 
+# Define a route for sending a message
 @app.route('/send-message', methods=['POST'])
 def send_message():
+    
+    # Get the message from the request payload
     message_json = request.json.get("message")
     
+    # Emit a message to the recognizer loop to send the message
     bus.emit(Message("recognizer_loop:utterance", {
         "utterances": [message_json],
         "lang": "en-us",
         }))
-    return jsonify({"message": f" {Message} sent "}), 200
 
 # Route to test database connection
 @app.route('/executeQuery', methods=['GET'])
@@ -207,19 +236,9 @@ def ask_time():
     }))
     return jsonify({"message": "Time request sent to Mycroft"}), 200
 
-def shutdown_server():
-    bus.close()
-    socketio.stop()
 
-def signal_handler(signal_number, frame):
-    print("Shutting down the server...")
-    shutdown_server()
-    sys.exit(0)
+if __name__ == '__main__':
+    bus.run_in_thread()
+    app.run(host='0.0.0.0')
 
-signal.signal(signal.SIGINT, signal_handler)
 
-mycroft_thread = threading.Thread(target=connect_to_mycroft)
-mycroft_thread.start()
-
-# Run the Flask server in the main thread
-socketio.run(app, host='0.0.0.0', port=5000, use_reloader=False)
