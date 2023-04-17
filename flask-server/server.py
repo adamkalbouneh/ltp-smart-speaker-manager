@@ -47,6 +47,7 @@ def connect_to_mycroft():
 def on_connected(event):
     print("Connected to Mycroft Message Bus")
     socketio.emit('mycroft_connected', {'data': 'Connected'})
+    print("Sent mycroft_connected event to React app")
 
 
 @app.route('/')
