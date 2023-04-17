@@ -208,19 +208,7 @@ def ask_time():
     }))
     return jsonify({"message": "Time request sent to Mycroft"}), 200
 
-def shutdown_server():
-    bus.close()
-    socketio.stop()
+if __name__ == '__main__':
+    bus.run_in_thread()
+    app.run(host='0.0.0.0')
 
-def signal_handler(signal_number, frame):
-    print("Shutting down the server...")
-    shutdown_server()
-    sys.exit(0)
-
-signal.signal(signal.SIGINT, signal_handler)
-
-mycroft_thread = threading.Thread(target=connect_to_mycroft)
-mycroft_thread.start()
-
-# Run the Flask server in the main thread
-socketio.run(app, host='0.0.0.0', port=5000, use_reloader=False)
