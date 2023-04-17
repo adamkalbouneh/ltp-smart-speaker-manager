@@ -53,6 +53,7 @@
     font-size: 15px;
     color: black;
     font-weight: bold;
+    user-select: none;
 }
 
 .routine-day {
@@ -85,8 +86,25 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    height: 500px;
+    height: 390px;
     overflow: auto;
     align-items: center;
     gap: 20px;
+}
+
+.popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
 }

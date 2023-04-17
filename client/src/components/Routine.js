@@ -1,10 +1,11 @@
 import React from "react";
 import "../styling/Routine.css"
 
-const Routine = ({ daysOfWeek, routineName, routineTime }) => {
+const Routine = ({ daysOfWeek, routineName, routineTime, setShowPopup, setEditingRoutine }) => {
 
   const handleEditClick = () => {
-    alert("clicked")
+    setShowPopup(true);
+    setEditingRoutine(routineName)
   };
 
   return (
