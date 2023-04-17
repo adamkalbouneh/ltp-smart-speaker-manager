@@ -8,12 +8,12 @@ const DashboardHeader = () => {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const socket = io('http://localhost:3000');
+    const socket = io('http://localhost:5000');
     socket.on('mycroft_connected', (data) => {
       console.log('Received mycroft_connected event:', data);
       setConnected(true);
     });
-    
+
     return () => {
       socket.disconnect();
     };
