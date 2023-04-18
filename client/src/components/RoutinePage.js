@@ -16,7 +16,7 @@ const RoutinePage = () => {
 
     let routineList = []
 
-
+    const errorText = document.getElementById("error");
 
 
     const popupClose = () => {
@@ -24,6 +24,7 @@ const RoutinePage = () => {
         setShowEdit(false);
         setShowRemove(false);
         setShowNew(false);
+        errorText.style.display = "none";
     };
     
     const handleNewClick = () => {
@@ -60,22 +61,88 @@ const RoutinePage = () => {
         alert(serverResponse);
     }
 
+    const editRoutine = async () => {
+        const monday = document.getElementById("monday-edit").checked ;
+        const tuesday = document.getElementById("tuesday-edit").checked ;
+        const wednesday = document.getElementById("wednesday-edit").checked ;
+        const thursday = document.getElementById("thursday-edit").checked ;
+        const friday = document.getElementById("friday-edit").checked ;
+        const saturday = document.getElementById("saturday-edit").checked ;
+        const sunday = document.getElementById("sunday-edit").checked ;
+
+        const time = document.getElementById("editRoutineTime").value;
+
+        //if no routine time has been provided
+        if (time == "") {
+            errorText.style.display = "block";
+            errorText.innerText = "Enter a routine time";
+            return;
+        }
+
+        //passed validation, so hide previously activated error message
+        errorText.style.display = "none";
+
+        const data = {
+            "days": {
+            "monday":monday,
+            "tuesday":tuesday,
+            "wednesday":wednesday,
+            "thursday":thursday,
+            "friday":friday,
+            "saturday":saturday,
+            "sunday":sunday
+            },
+            "name":selectedRoutine.toLowerCase(),
+            "time":time
+        };
+
+        // Send a POST request to the Flask API endpoint
+        const response = await fetch('/editRoutine', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const serverResponse = await response.json();
+
+        console.log(serverResponse);
+
+
+    }
+
 
     const newRoutine = async () => {
-        const monday = document.getElementById("monday").checked ;
-        const tuesday = document.getElementById("tuesday").checked ;
-        const wednesday = document.getElementById("wednesday").checked ;
-        const thursday = document.getElementById("thursday").checked ;
-        const friday = document.getElementById("friday").checked ;
-        const saturday = document.getElementById("saturday").checked ;
-        const sunday = document.getElementById("sunday").checked ;
+        const monday = document.getElementById("monday-new").checked ;
+        const tuesday = document.getElementById("tuesday-new").checked ;
+        const wednesday = document.getElementById("wednesday-new").checked ;
+        const thursday = document.getElementById("thursday-new").checked ;
+        const friday = document.getElementById("friday-new").checked ;
+        const saturday = document.getElementById("saturday-new").checked ;
+        const sunday = document.getElementById("sunday-new").checked ;
 
         const name = document.getElementById("newRoutineName").value;
         const time = document.getElementById("newRoutineTime").value;
         
         //validation for name and time
 
+        //if no routine name has been provided
+        if (name.length == 0) {
+            errorText.style.display = "block";
+            errorText.innerText = "Enter a routine name";
+            return;
+        }
 
+        //if no routine time has been provided
+        if (time == "") {
+            errorText.style.display = "block";
+            errorText.innerText = "Enter a routine time";
+            return;
+        }
+
+        //passed validation, so hide previously activated error message
+        errorText.style.display = "none";
 
         const data = {
             "days": {
@@ -132,7 +199,7 @@ const RoutinePage = () => {
           setRoutines(routineList);
     }, []);
 
-    const errorText = document.getElementById("error");
+
 
     return <div className="page">
         <DashboardHeader/>
@@ -176,18 +243,18 @@ const RoutinePage = () => {
                 
                 <div className={`${showEdit ? 'popup-set-routine-container' : 'hide'}`}>   
                             <div className='popup-half-container'>Days
-                                <label><input type="checkbox" name="day" value="monday"/>Monday</label>
-                                <label><input type="checkbox" name="day" value="tuesday"/>Tuesday</label>
-                                <label><input type="checkbox" name="day" value="wednesday"/>Wednesday</label>
-                                <label><input type="checkbox" name="day" value="thursday"/>Thursday</label>
-                                <label><input type="checkbox" name="day" value="friday"/>Friday</label>
-                                <label><input type="checkbox" name="day" value="saturday"/>Saturday</label>
-                                <label><input type="checkbox" name="day" value="sunday"/>Sunday</label>
+                                <label><input type="checkbox" name="day" id="monday-edit" value="monday"/>Monday</label>
+                                <label><input type="checkbox" name="day" id="tuesday-edit" value="tuesday"/>Tuesday</label>
+                                <label><input type="checkbox" name="day" id="wednesday-edit" value="wednesday"/>Wednesday</label>
+                                <label><input type="checkbox" name="day" id="thursday-edit" value="thursday"/>Thursday</label>
+                                <label><input type="checkbox" name="day" id="friday-edit" value="friday"/>Friday</label>
+                                <label><input type="checkbox" name="day" id="saturday-edit" value="saturday"/>Saturday</label>
+                                <label><input type="checkbox" name="day" id="sunday-edit" value="sunday"/>Sunday</label>
                             </div>
                             <div className='popup-half-container'>
                                 <p className='thick-text'>Time</p>
-                                <input type="time" required></input>
-                                <div className='popup-submit-btn thick-text'>submit</div>
+                                <input type="time" id="editRoutineTime" required></input>
+                                <div className='popup-submit-btn thick-text' onClick={editRoutine}>submit</div>
                             </div>
                     
                 </div>
@@ -203,13 +270,13 @@ const RoutinePage = () => {
 
                 <div className={`${showNew ? 'popup-set-routine-container' : 'hide'}`}> 
                     <div className='popup-half-container'>Days
-                        <label><input type="checkbox" name="day" id="monday" value="monday"/>Monday</label>
-                        <label><input type="checkbox" name="day" id="tuesday" value="tuesday"/>Tuesday</label>
-                        <label><input type="checkbox" name="day" id="wednesday" value="wednesday"/>Wednesday</label>
-                        <label><input type="checkbox" name="day" id="thursday" value="thursday"/>Thursday</label>
-                        <label><input type="checkbox" name="day" id="friday" value="friday"/>Friday</label>
-                        <label><input type="checkbox" name="day" id="saturday" value="saturday"/>Saturday</label>
-                        <label><input type="checkbox" name="day" id="sunday" value="sunday"/>Sunday</label>
+                        <label><input type="checkbox" name="day" id="monday-new" value="monday"/>Monday</label>
+                        <label><input type="checkbox" name="day" id="tuesday-new" value="tuesday"/>Tuesday</label>
+                        <label><input type="checkbox" name="day" id="wednesday-new" value="wednesday"/>Wednesday</label>
+                        <label><input type="checkbox" name="day" id="thursday-new" value="thursday"/>Thursday</label>
+                        <label><input type="checkbox" name="day" id="friday-new" value="friday"/>Friday</label>
+                        <label><input type="checkbox" name="day" id="saturday-new" value="saturday"/>Saturday</label>
+                        <label><input type="checkbox" name="day" id="sunday-new" value="sunday"/>Sunday</label>
                     </div>
                     <div className='popup-half-container'>
                         <p className='thick-text'>Routine name</p>

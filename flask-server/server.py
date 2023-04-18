@@ -194,6 +194,23 @@ def delete_routine():
     # Return a JSON response with a success message
     return "Routine deleted", 200
 
+# Define a route for editing rotuine
+@app.route('/newRoutine', methods=['POST'])
+def new_routine():
+
+    data = request.json
+    
+    return data, 200
+    
+    # Emit a message to the recognizer loop to create the routine
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["msx edit " + data],
+        "lang": "en-us",
+        }))
+    
+    # Return a JSON response with a success message
+    return "Routine updated", 200
+
 
 # Define a route for handling rotuine creation
 @app.route('/newRoutine', methods=['POST'])
