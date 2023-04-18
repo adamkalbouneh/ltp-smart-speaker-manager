@@ -34,9 +34,11 @@ const RoutinePage = () => {
         setSelectedRoutine("New routine");
     }
 
+    let fetchedRoutines = []
+
     useEffect(() => {
         const routineContainer = document.getElementById("routineContainer");
-        const fetchedRoutines = [
+        fetchedRoutines = [
             {
               daysOfWeek: {
                 monday: true,
@@ -52,7 +54,7 @@ const RoutinePage = () => {
             },
             // add more routines here...
           ];
-          setRoutines(fetchedRoutines);
+          //setRoutines(fetchedRoutines);
     }, []);
 
 
@@ -64,21 +66,28 @@ const RoutinePage = () => {
             <div className="routine-header">Routine</div>
             <div className='new-routine-button' onClick={handleNewClick}>Add new</div>
         </div>
-        <p>It seems you have no routines set</p>
         <div className="routine-container" id="routineContainer">
             {/* Routines go in here */}
-            {routines.map((routine) => (
-                <Routine
-                key={routine.routineName}
-                daysOfWeek={routine.daysOfWeek}
-                routineName={routine.routineName}
-                routineTime={routine.routineTime}
-                setShowPopup={setShowPopup}
-                setShowEdit={setShowEdit}
-                setShowRemove={setShowRemove}
-                setSelectedRoutine={setSelectedRoutine}
-                />
-            ))}
+            {routines.length === 0 ? (
+            <div className='routine-page-text-container'>
+                <p>It seems you have no routines set.</p>
+                <p>Would you like to add a new routine?</p>
+            
+            </div>
+            
+            ) : (
+                routines.map((routine) => (
+                <Routine 
+                key={routine.id}
+                daysOfWeek={routine.daysOfWeek} 
+                routineName={routine.routineName} 
+                routineTime={routine.routineTime} 
+                setShowPopup={setShowPopup} 
+                setShowEdit={setShowEdit} 
+                setShowRemove={setShowRemove} 
+                setSelectedRoutine={setSelectedRoutine} />
+            ))
+            )}
         </div>
 
         {/* Routine edit popup */}
