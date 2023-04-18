@@ -34,11 +34,39 @@ const RoutinePage = () => {
         setSelectedRoutine("New routine");
     }
 
-    let fetchedRoutines = []
+    const deleteRoutine = async () => {
+        
+        alert("Delete: " + selectedRoutine);
+
+        setShowPopup(false);
+        setShowEdit(false);
+        setShowRemove(false);
+        setShowNew(false);
+
+        // Construct the data object to send in the GET request
+        data = {
+            routine: selectedRoutine
+        };
+    
+        // Send a POST request to the Flask API endpoint
+        response = await fetch('/deleteRoutine', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+        });
+        
+        serverResponse = await response.text();
+    }
+
+
 
     useEffect(() => {
-        const routineContainer = document.getElementById("routineContainer");
-        fetchedRoutines = [
+        //Fetch routines from API/RaspberryPi here
+        
+
+        routineList = [
             {
               daysOfWeek: {
                 monday: true,
@@ -54,9 +82,8 @@ const RoutinePage = () => {
             },
             // add more routines here...
           ];
-          //setRoutines(fetchedRoutines);
+          setRoutines(routineList);
     }, []);
-
 
     const errorText = document.getElementById("error");
 
@@ -121,7 +148,7 @@ const RoutinePage = () => {
                     <div className='popup-text large-margin-top'>Are you sure you want to delete</div>
                     <div className='popup-text'>{selectedRoutine}?</div>
                     <div className='popup-yesno-container'>
-                        <div className='popup-yes-btn'>Yes</div>
+                        <div className='popup-yes-btn' onClick={deleteRoutine}>Yes</div>
                         <div className='popup-no-btn' onClick={popupClose}>No</div>
                     </div>
                 </div>
