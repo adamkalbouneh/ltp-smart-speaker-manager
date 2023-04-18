@@ -35,8 +35,6 @@ const RoutinePage = () => {
     }
 
     const deleteRoutine = async () => {
-        
-        alert("Delete: " + selectedRoutine);
 
         setShowPopup(false);
         setShowEdit(false);
@@ -44,20 +42,69 @@ const RoutinePage = () => {
         setShowNew(false);
 
         // Construct the data object to send in the GET request
-        data = {
+        const data = {
             routine: selectedRoutine
         };
     
         // Send a POST request to the Flask API endpoint
-        response = await fetch('/deleteRoutine', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+        const response = await fetch('/deleteRoutine', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         });
         
-        serverResponse = await response.text();
+        const serverResponse = await response.text();
+
+        alert(serverResponse);
+    }
+
+
+    const newRoutine = async () => {
+        const monday = document.getElementById("monday").checked ;
+        const tuesday = document.getElementById("tuesday").checked ;
+        const wednesday = document.getElementById("wednesday").checked ;
+        const thursday = document.getElementById("thursday").checked ;
+        const friday = document.getElementById("friday").checked ;
+        const saturday = document.getElementById("saturday").checked ;
+        const sunday = document.getElementById("sunday").checked ;
+
+        const name = document.getElementById("newRoutineName").value;
+        const time = document.getElementById("newRoutineTime").value;
+        
+        //validation for name and time
+
+
+
+        const data = {
+            "days": {
+              "monday":monday,
+              "tuesday":tuesday,
+              "wednesday":wednesday,
+              "thursday":thursday,
+              "friday":friday,
+              "saturday":saturday,
+              "sunday":sunday
+            },
+            "name":name.toLowerCase(),
+            "time":time
+        };
+
+        // Send a POST request to the Flask API endpoint
+        const response = await fetch('/newRoutine', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const serverResponse = await response.json();
+        
+        console.log(serverResponse);
+
+
     }
 
 
@@ -99,7 +146,6 @@ const RoutinePage = () => {
             <div className='routine-page-text-container'>
                 <p>It seems you have no routines set.</p>
                 <p>Would you like to add a new routine?</p>
-            
             </div>
             
             ) : (
@@ -118,6 +164,8 @@ const RoutinePage = () => {
         </div>
 
         {/* Routine edit popup */}
+
+
         <div className={`popup ${showPopup ? '' : 'hide'}`} id="routine-edit">
             <div className='popup-content'>
                 <div className='popup-banner'>
@@ -155,20 +203,20 @@ const RoutinePage = () => {
 
                 <div className={`${showNew ? 'popup-set-routine-container' : 'hide'}`}> 
                     <div className='popup-half-container'>Days
-                        <label><input type="checkbox" name="day" value="monday"/>Monday</label>
-                        <label><input type="checkbox" name="day" value="tuesday"/>Tuesday</label>
-                        <label><input type="checkbox" name="day" value="wednesday"/>Wednesday</label>
-                        <label><input type="checkbox" name="day" value="thursday"/>Thursday</label>
-                        <label><input type="checkbox" name="day" value="friday"/>Friday</label>
-                        <label><input type="checkbox" name="day" value="saturday"/>Saturday</label>
-                        <label><input type="checkbox" name="day" value="sunday"/>Sunday</label>
+                        <label><input type="checkbox" name="day" id="monday" value="monday"/>Monday</label>
+                        <label><input type="checkbox" name="day" id="tuesday" value="tuesday"/>Tuesday</label>
+                        <label><input type="checkbox" name="day" id="wednesday" value="wednesday"/>Wednesday</label>
+                        <label><input type="checkbox" name="day" id="thursday" value="thursday"/>Thursday</label>
+                        <label><input type="checkbox" name="day" id="friday" value="friday"/>Friday</label>
+                        <label><input type="checkbox" name="day" id="saturday" value="saturday"/>Saturday</label>
+                        <label><input type="checkbox" name="day" id="sunday" value="sunday"/>Sunday</label>
                     </div>
                     <div className='popup-half-container'>
                         <p className='thick-text'>Routine name</p>
-                        <input className='popup-text-input' required></input>
+                        <input className='popup-text-input' id="newRoutineName" required></input>
                         <p className='thick-text'>Time</p>
-                        <input type="time" required></input>
-                        <div className='popup-submit-btn thick-text popup-new-margin-top'>submit</div>
+                        <input type="time" id="newRoutineTime" required></input>
+                        <div className='popup-submit-btn thick-text popup-new-margin-top' onClick={newRoutine}>submit</div>
                     </div>
                 </div>
                 <p id="error" className={`${showError ? 'error-text small-margin-top' : 'hide'}`}></p>

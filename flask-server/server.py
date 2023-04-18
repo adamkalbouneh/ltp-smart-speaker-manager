@@ -1,15 +1,28 @@
-from flask import Flask, jsonify, request, session
+import os
+import time
+import threading
+import logging
+import signal
+from flask import Flask, jsonify, request, session, render_template
 from flask_session import Session
 from flask_bcrypt import Bcrypt
-from datetime import timedelta
 import mysql.connector
-import requests
+from flask_cors import CORS
+from mycroft_bus_client import MessageBusClient, Message
+import flask_socketio
+import uuid
 import secrets
+import time
+from datetime import timedelta
+
 
 
 bcrypt = Bcrypt()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="react_app/build/static", template_folder="react_app/build")
+CORS(app)
+socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
+bus = MessageBusClient(host="raspberrypi", port=8181)
 
 # Configuring sessions
 app.config['SECRET_KEY'] = secrets.token_hex(16) # Create a random 32-character hexadecimal string as secret key
@@ -41,6 +54,13 @@ except:
         )
     except:
         print("mysql database connection failed")
+
+def connect_to_mycroft(): 
+    bus.on('connected', on_connected)
+    bus.run_forever()
+
+def on_connected(event):
+    print("Connected to Mycroft Message Bus")
 
 # Route for enabling/disabling a skill
 @app.route('/skill/<string:skill_name>', methods=['POST'])
@@ -157,6 +177,41 @@ def check_email_exists():
         # If any row(s) returned - email already exists in the table
         return "Email already exists"
 
+
+# Define a route for handling routine deletion
+@app.route('/deleteRoutine', methods=['POST'])
+def delete_routine():
+    
+    # Get the routine name from the request payload
+    routineName = request.json.get("routine")
+    
+    # Emit a message to the recognizer loop to delete the routine
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["msx delete " + routineName],
+        "lang": "en-us",
+        }))
+    
+    # Return a JSON response with a success message
+    return "Routine deleted", 200
+
+
+# Define a route for handling rotuine creation
+@app.route('/newRoutine', methods=['POST'])
+def new_routine():
+
+    data = request.json
+    
+
+    return data, 200
+    
+    # Emit a message to the recognizer loop to create the routine
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["msx create " + data],
+        "lang": "en-us",
+        }))
+    
+    # Return a JSON response with a success message
+    return "Routine created", 200
 
 
 # Run the Flask app
