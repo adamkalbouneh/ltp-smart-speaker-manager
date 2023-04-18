@@ -10,6 +10,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mantine/core": "^6.0.5",
     "@mantine/hooks": "^6.0.5",
+    "@react-native-community/datetimepicker": "^7.0.1",
     "@tabler/icons-react": "^2.13.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -27,7 +28,6 @@
     "test": "jest",
     "eject": "react-scripts eject"
   },
-  
   "browserslist": {
     "production": [
       ">0.2%",
@@ -59,7 +59,7 @@
       "**/__tests__/**/*.test.jsx"
     ]
   },
-    "transform": {
+  "transform": {
     "^.+\\.jsx?$": "babel-jest"
   },
   "babel": {

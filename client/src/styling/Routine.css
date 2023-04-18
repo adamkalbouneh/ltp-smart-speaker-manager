@@ -49,7 +49,23 @@
     cursor: pointer;
 }
 
-.routine-edit-button-text {
+.routine-delete-button {
+    width: 10%;
+    margin: 3px;
+    height: 25px;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    display: flex;
+}
+
+.routine-delete-button:hover {
+    background-color: red;
+    cursor: pointer;
+}
+
+.routine-button-text {
     font-size: 15px;
     color: black;
     font-weight: bold;
@@ -105,6 +121,179 @@
   
 .popup-content {
     background-color: white;
-    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.popup-banner {
+    width: 100%;
+    height: 50px;
+    background-color: blue;
+    border-radius: 10px 10px 0 0;
+}
+
+.popup-banner a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.popup-close-btn {
+    width: 35px;
+    height: 35px;
+    float: right;
+    margin-top: -43px;
+    margin-right: 7px;
+    background-color: red;
+    color: white;
     border-radius: 5px;
+    text-align: center;
+}
+
+.popup-close-btn:hover {
+    background-color: darkred;
+    user-select: none;
+    cursor: pointer;
+}
+
+.popup-banner-text {
+    color: white;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.popup-set-routine-container {
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+}
+
+.popup-half-container {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+}
+
+.popup-day {
+    display: block;
+    margin: 10px 0;
+}
+
+.popup-half-container label {
+    width: 100%;
+    align-items: last baseline;
+}
+
+.popup-submit-btn {
+    margin-top: 125px;
+    height: 25px;
+    background-color: rgb(37, 224, 0);
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    display: flex;
+    padding: 5px 20px 5px 20px;
+}
+
+.popup-submit-btn:hover {
+    background-color: rgba(5, 167, 37, 0.979);
+    cursor: pointer;
+    user-select: none;
+}
+
+.popup-text {
+    text-align: center;
+    color: black;
+    font-size: large;
+    margin-top: 10px;
+}
+.popup-yesno-container {
+    height: 100%;
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+.popup-yes-btn {
+    height: 25px;
+    background-color: rgb(37, 224, 0);
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    display: flex;
+    padding: 5px 20px 5px 20px;
+    color: black;
+    font-weight: 600;
+    user-select: none;
+}
+
+.popup-yes-btn:hover {
+    background-color: rgb(22, 133, 0);
+    cursor: pointer;
+}
+
+.popup-no-btn {
+    height: 25px;
+    background-color: rgb(255, 0, 0);
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    display: flex;
+    padding: 5px 20px 5px 20px;
+    color: black;
+    font-weight: 600;
+    user-select: none;
+}
+
+.popup-no-btn:hover {
+    background-color: rgb(165, 0, 0);
+    cursor: pointer;
+}
+
+.new-routine-button {
+    height: 25px;
+    background-color: rgb(255, 255, 255);
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    display: flex;
+    padding: 5px 20px 5px 20px;
+    color: black;
+    font-weight: 600;
+    user-select: none;
+}
+
+.new-routine-button:hover {
+    background-color: rgb(159, 159, 159);
+    cursor: pointer;
+    user-select: none;
+}
+
+.popup-text-input {
+    width: 80%;
+}
+
+.popup-new-margin-top {
+    margin-top: 82px;
+}
+
+.routine-header {
+    font-size: 30px;
+    font-family: Arial, sans-serif;
+    margin-top: 26px;
 }
