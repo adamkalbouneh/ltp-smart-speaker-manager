@@ -3,8 +3,8 @@ import React from "react";
 const IntroductionSection = () => {
     return (
         <div>
-            <div className="text-2xl">Welcome</div>
-            <div style={{ fontSize: "18px" }}>
+            <div className="text-2xl">Welcome <br/></div>
+            <div style={{ fontSize: "16px" }}>
                 Welcome to our site, the perfect companion for your smart speaker! We're thrilled to have you here and can't wait to help you get the most out of your device.
                 <br /><br />
                 Our site is designed specifically for relatives who want to configure their smart speakers with ease, providing step-by-step guidance and helpful tips to make the process as seamless as possible.

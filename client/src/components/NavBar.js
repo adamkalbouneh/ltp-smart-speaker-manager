@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function NavBar() {
     return (
-        <div className="navBox my-32 flex justify-between min-h-full w-32 flex-col items-center px-5">
+        <div className="navBox my-0 flex justify-between min-h-full w-32 flex-col items-center px-5">
             <div>
                 <Link to="/login" className="flex items-center gap-2 text-white bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-2 py-1 text-center mr-2 mb-2">
                     <span>Skills</span>
