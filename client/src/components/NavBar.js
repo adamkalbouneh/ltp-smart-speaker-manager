@@ -1,13 +1,16 @@
-function NavBar() {
-    return (
-        <div className="my-32 flex min-h-full w-32 flex-col items-center px-5">
-                <div>LOGO</div>
-                <div>Login</div>
-                <div>Login</div>
-                <div>Login</div>
-              </div>
-        
-    )
-}
+import React from 'react';
+import { Link } from 'react-router-dom';
+//import './Navbar.css';
 
-export default NavBar;
+const Navbar = () => {
+  return (
+    <nav className="navbar">
+      <Link to="/skills" className="nav-item">Skills</Link>
+      <Link to="/routines" className="nav-item">Routines</Link>
+      <Link to="/alarms" className="nav-item">Alarms</Link>
+      <Link to="/prompt" className="nav-item">Ask Mycroft ...</Link>
+    </nav>
+  );
+};
+
+export default Navbar;
