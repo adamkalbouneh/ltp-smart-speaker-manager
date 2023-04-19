@@ -1,0 +1,76 @@
+image: node:latest 
+
+stages:
+  - build
+  - test
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+variables:
+  DOCKER_HOST: tcp://0.0.0.0:2375
+
+build:
+  stage: build
+  script:
+    - apt-get update && apt-get install -y python3-pip
+    - ls
+    - cd client
+    - ls
+    - npm install
+    - npm run build 
+  after_script:
+    - cd ../
+
+unit_test:
+  stage: test
+  image: python:3.9
+  services:
+    - name: mysql:5.7
+  variables:
+      MYSQL_ROOT_PASSWORD: comsc
+      MYSQL_HOST: mysql
+      MYSQL_USER: runner
+      MYSQL_PASSWORD: comsc
+      MYSQL_DATABASE: mysql
+  before_script:
+    - pip install --upgrade pip
+    - apt-get update
+    - apt-get install -y default-mysql-server default-mysql-client 
+    - apt-get update && apt-get install -y python3-openssl
+    - cd database
+    - cat db_test.sql | mysql -hmysql -uroot -p"$MYSQL_ROOT_PASSWORD" mysql
+    - cd ../
+  script:
+    - cd flask-server
+    - pip install -r test-requirements.txt
+    - pytest
+
+    
+node_test:
+  stage: test
+  image: node:latest
+  script:
+    - ls
+    - apt-get update && apt-get install -y python3-pip
+    - cd client
+    - npm install
+    - npm test
+  after_script:
+    - cd ../
+
+
+
+deploy:
+  stage: deploy
+  script:
+    #- pip install --upgrade pip
+    - apt-get update && apt-get install -y python3-pip
+    # in deploy just for testing, should probably be moved 
+    #- pip install --upgrade pip
+    #- pip install -r requirements.txt
+    # Doing this in the pipeline is bad, but it works  
+    # - python server.py &
+    # - npm start
