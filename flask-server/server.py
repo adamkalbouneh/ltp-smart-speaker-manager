@@ -10,11 +10,15 @@ import mysql.connector
 from flask_cors import CORS
 from mycroft_bus_client import MessageBusClient, Message
 import flask_socketio
+from datetime import timedelta
 import uuid
 import secrets
-import time
-from datetime import timedelta
 
+
+app = Flask(__name__, static_folder="react_app/build/static", template_folder="react_app/build")
+CORS(app)
+socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
+bus = MessageBusClient(host="raspberrypi", port=8181)
 
 bcrypt = Bcrypt()
 
@@ -61,20 +65,119 @@ def connect_to_mycroft():
 def on_connected(event):
     print("Connected to Mycroft Message Bus")
 
-# Route for enabling/disabling a skill
-@app.route('/skill/<string:skill_name>', methods=['POST'])
-def set_skill(skill_name):
-    # Get the skill state from the request body
-    state = request.json.get('state')
 
-    # Build the request URL for Mycroft's API
-    url = f'http://10.0.2.15:8181/skills/{skill_name}/status'
+# Set up logger to show request logs
+log_format = "%(asctime)s [%(levelname)s] %(message)s"
+logging.basicConfig(level=logging.DEBUG, format=log_format)
+app.logger.handlers.clear()
+app.logger.handlers.extend(logging.getLogger("werkzeug").handlers)
 
-    # Send the request to Mycroft's API with the skill state
-    response = requests.post(url, json={'enabled': state})
+def connect_to_mycroft(): 
+    bus.on('connected', on_connected)
+    bus.run_forever()
 
-    # Return the response from Mycroft's API
-    return jsonify(response.json())
+def on_connected(event):
+    print("Connected to Mycroft Message Bus")
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+# Define a route for handling skill installation requests
+@app.route('/install-skill', methods=['POST'])
+def install_skill():
+    
+    # Get the skill URL from the request payload
+    skill_url = request.json.get("url")
+    
+    # Emit a message to the recognizer loop to install the skill
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["Install "+skill_url],
+        "lang": "en-us",
+        }))
+    
+    # Wait for 10 seconds to allow the installation to complete
+    time.sleep(10)
+    
+    # Emit a message to confirm the installation
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["yes"],
+        "lang": "en-us",
+        }))
+    
+    # Return a JSON response with a success message
+    return jsonify({"message": f"Skill installation request sent for {skill_url}"}), 200
+
+# Define a route for handling skill uninstallation requests
+@app.route('/uninstall-skill', methods=['POST'])
+def uninstall_skill():
+
+    # Get the skill name from the request payload
+    skill_name = request.json.get ("name")
+    
+    # Emit a message to the recognizer loop to uninstall the skill
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["Uninstall "+skill_name],
+        "lang": "en-us",
+        }))
+    
+    # Wait for 10 seconds to allow the uninstallation to complete
+    time.sleep(10)
+    
+    # Emit a message to confirm the uninstallation
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["yes"],
+        "lang": "en-us",
+        }))
+    
+    # Return a JSON response with a success message
+    return jsonify({"message": f"Skill uninstallation request sent for {skill_name}"}), 200
+
+# Define a route for setting an alarm
+@app.route('/set-alarm', methods=['POST'])
+def set_alarm():
+    
+    # Get the alarm time from the request payload
+    alarm_time = request.json.get("time")
+
+    # Emit a message to the recognizer loop to set the alarm
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["Set an Alarm for "+alarm_time],
+        "lang": "en-us",
+        }))
+    
+    # Return a JSON response with a success message
+    return jsonify({"message": f"Alarm set for {alarm_time}"}), 200
+    
+# Define a route for deleting an alarm
+@app.route('/delete-alarm', methods=['POST'])
+def delete_alarm():
+
+    # Get the alarm time from the request payload
+    alarm_time = request.json.get("time")
+
+    # Emit a message to the recognizer loop to delete the alarm
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["Delete "+alarm_time+" Alarm"],
+        "lang": "en-us",
+        }))
+    
+    # Return a JSON response with a success message
+    return jsonify({"message": f"Alarm deleted for {alarm_time}"}), 200
+
+# Define a route for sending a message
+@app.route('/send-message', methods=['POST'])
+def send_message():
+    
+    # Get the message from the request payload
+    message_json = request.json.get("message")
+    
+    # Emit a message to the recognizer loop to send the message
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": [message_json],
+        "lang": "en-us",
+        }))
 
 # Route to test database connection
 @app.route('/executeQuery', methods=['GET'])
@@ -247,8 +350,18 @@ def new_routine():
     # Return a JSON response with a success message
     return "Routine created", 200
 
+@app.route('/ask-time', methods=['POST'])
+def ask_time():
+    session_id = str(uuid.uuid4())
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["what's the time"],
+        "lang": "en-us",
+        "session": session_id
+    }))
+    return jsonify({"message": "Time request sent to Mycroft"}), 200
 
-# Run the Flask app
+
+
 if __name__ == '__main__':
     bus.run_in_thread()
     app.run(host='0.0.0.0')
