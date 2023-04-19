@@ -18,7 +18,7 @@ const HomePage = () => {
                 {/* Top NAV */}
                 <div>
                     <div className="mb-4 flex h-20 items-center justify-between bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-md text-md px-5 py-2.5 text-center rounded-2xl">
-                        <div>LOGO</div>
+                        <div className="logo-box-image"/>
                         <div style={{ fontSize: "30px", paddingLeft: "100px" }}>    Home </div>
                         <div>Marwa</div>
                     </div>
