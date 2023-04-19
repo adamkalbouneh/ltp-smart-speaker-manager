@@ -59,6 +59,8 @@ const RoutinePage = () => {
         const serverResponse = await response.text();
 
         alert(serverResponse);
+
+        popupClose();
     }
 
     const editRoutine = async () => {
@@ -108,7 +110,8 @@ const RoutinePage = () => {
         const serverResponse = await response.json();
 
         console.log(serverResponse);
-
+        
+        popupClose();
 
     }
 
@@ -171,6 +174,8 @@ const RoutinePage = () => {
         
         console.log(serverResponse);
 
+
+        popupClose();
 
     }
 

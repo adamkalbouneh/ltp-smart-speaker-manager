@@ -195,16 +195,35 @@ def delete_routine():
     return "Routine deleted", 200
 
 # Define a route for editing rotuine
-@app.route('/newRoutine', methods=['POST'])
-def new_routine():
+@app.route('/editRoutine', methods=['POST'])
+def edit_routine():
 
     data = request.json
+
+    days = ""
+
+    routine_name = request.json.get("name")
+    routine_time = request.json.get("time")
+
+    routine_days_dict = data.get("days")
+
+    for day, value in routine_days_dict.items():
+        if value:
+            days += day + ", "
     
-    return data, 200
+    print(days)
+
+
+    return routine_days_dict
+
+
+
+    
+    return routine_days, 200
     
     # Emit a message to the recognizer loop to create the routine
     bus.emit(Message("recognizer_loop:utterance", {
-        "utterances": ["msx edit " + data],
+        "utterances": ["msx edit " + routine_name + " gap " + routine_time + " gap " + days],
         "lang": "en-us",
         }))
     
@@ -217,13 +236,24 @@ def new_routine():
 def new_routine():
 
     data = request.json
+
+    days = ""
+
+    routine_name = request.json.get("name")
+    routine_time = request.json.get("time")
+
+    routine_days_dict = data.get("days")
+
+    for day, value in routine_days_dict.items():
+        if value:
+            days += day + ", "
     
 
     return data, 200
     
     # Emit a message to the recognizer loop to create the routine
     bus.emit(Message("recognizer_loop:utterance", {
-        "utterances": ["msx create " + data],
+        "utterances": ["msx create " + routine_name + " gap " + routine_time + " gap " + days],
         "lang": "en-us",
         }))
     
