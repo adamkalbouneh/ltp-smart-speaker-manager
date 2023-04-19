@@ -9,6 +9,7 @@ import SignUpPage from "./components/SignUpPage.js";
 import HomePage from './components/HomePage.js';
 import GenericStyling from "./styling/Generic.css";
 import LandingStyling from "./styling/Landing.css";
+import SpeakerDashboard from './components/SpeakerDashboard.js';
 
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
         <Route exact path="/database" element={<TestDatabasePage/>}/>
         <Route exact path="/signup" element={<SignUpPage/>}/>
         <Route exact path="/home" element={<HomePage/>}/>
+        <Route exact path="/dashboard" element={<SpeakerDashboard/>}/>
       </Routes>
     </Router>
   );
