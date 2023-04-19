@@ -10,6 +10,8 @@ import DashboardHeader from "./DashboardHeader";
 import IntroductionSection from "./HPIntro";
 import HPAccordion from "./HPAccordion";
 import HPSuggestions from "./HPSuggestions";
+import HPReviews from "./HPReviews";
+
 
 const HomePage = () => {
     return (
@@ -33,8 +35,8 @@ const HomePage = () => {
 
                     {/* Main Content */}
                     <div className="mx-20 flex flex-1 flex-col items-center justify-center ">
-                        <div className="grid h-full w-full grid-flow-col grid-cols-2 grid-rows-3 gap-20">
-                            <div className="flex w-full flex-col gap-6 col-span-2">
+                        <div className="grid h-full w-full grid-flow-col grid-cols-2 grid-rows-3 gap-10">
+                            <div className="flex w-full flex-col gap-6 col-span-3">
                                 {/* the css for the gradient text box */}
                                 <div className="text-white bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl textBox ">
                                     {/* Section to introduce the site*/}
@@ -49,24 +51,29 @@ const HomePage = () => {
                             {/* Section to welcome user*/}
                             {/* the css for the gradient text box */}
                             <div className="text-white bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl textBox ">
+                            <div className="flex w-full flex-col gap-6 col-span-2"></div>
                                 <div className="text-2xl">Speaker Features</div>
 
                                 <HPAccordion />
 
                             </div>
                             
-                            <div className="">
-                                {/* Weather widget, Flex, First box is current weather, second box is 5 days forcast */}
-                                <div className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl textBox ">
-                                    <HomePageWeather />
+                            
+                            <div className="text-white bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl textBox ">
+                                {/* Section to welcome user*/}
+                                <div className="flex h-full flex-col items-center justify-center">
+                                    <div className="text-2xl">Reviews</div>
+
+                                    <HPReviews />
                                 </div>
+
                             </div>
 
                             {/* the css for the gradient text box */}
                             <div className="text-white bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl textBox ">
                                 {/* Section to welcome user*/}
                                 <div className="flex h-full flex-col items-center justify-center">
-                                    <div className="text-2xl">Voice Command Suggestions</div>
+                                    <div className="text-2xl">Voice Command Suggestionsss</div>
 
                                     <HPSuggestions />
                                 </div>
@@ -83,70 +90,21 @@ const HomePage = () => {
                            
 
                         </div>
-                        <div className="flex w-full flex-col gap-6 col-span-2 items-center justify-between bg-gradient-to-br from-team-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-md text-md px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl">
-                                {/* Weather widget, Flex, First box is current weather, second box is 5 days forcast */}
-                                <button type="button" className="text-white bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl flex w-full flex-col gap-6 col-span-2  ">
-                                    
-                                <div className="text-2xl">View Speaker Dashboard</div>
-                                </button>
-                            </div>
-                            <div className="grid h-full w-full grid-flow-col grid-cols-2 grid-rows-3 gap-20">
-                        <div className="text-white bg-gradient-to-br from-cyan-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl textBox ">
-                                {/* Section to welcome user*/}
-                                <div className="flex h-full flex-col items-center justify-center">
-                                    <div className="text-2xl">Daily Check in</div>
+                    
+                            <div>
+                            <button type="button" className="text-white bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl flex w-full flex-col gap-6 col-span-2  ">
+                <Link to="/dashboard" className="flex items-center gap-2 text-white bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-2 py-1 text-center mr-2 mb-2 rounded-2xl">
+                    <span>View Speaker Dashboard</span>
+                   
+                </Link>
+                </button>
+            </div>
 
-                                    <div className="text-lg">
-                                            Here is a look into how your loved ones are manging{" "}
-                                        </div>
-
-                                </div>
-                            </div>
-                            <div className="text-white bg-gradient-to-br from-yellow-600 to-red-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl textBox ">
-                                {/* Section to welcome user*/}
-                                <div className="flex h-full flex-col items-center justify-center">
-                                    <div className="text-2xl">Weekly Schedule</div>
-
-                                    
-                                    <div className="text-lg">
-                                            Here is a look into what your loved ones has planned for the week{" "}
-                                        </div>
-
-                                </div>
-                            </div>
-                            <div className="text-white bg-gradient-to-br from-yellow-600 to-purple-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl textBox ">
-                                {/* Section to welcome user*/}
-                                <div className="flex h-full flex-col items-center justify-center">
-                                    <div className="text-2xl">News</div>
-
-                                    <div className="text-lg">
-                                            View the news stations they follow{" "}
-                                        </div>
-
-                                </div>
-                            </div>
-                        <div className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 textBox ">
-                                {/* Section to welcome user*/}
-                                <div className="flex h-full flex-col items-center justify-center">
-                                    <div className="text-2xl">Music</div>
-
-                                    <div className="text-lg">
-                                            View what's "Playing Now" and what they have been listening to{" "}
-                                        </div>
-                                </div>
-                            </div>
-                            <div className="">
-                                {/* Weather widget, Flex, First box is current weather, second box is 5 days forcast */}
-                                <div className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl textBox ">
-                                    <HomePageWeather />
-                                </div>
-                            </div>
-                            </div>
                     </div>
                 </div>
             </div >
         </>
     );
-}
+};
 // absolute div on the left hand most side and which will have the nav bar - verically aligned
 export default HomePage;
