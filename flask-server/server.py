@@ -16,7 +16,6 @@ import time
 from datetime import timedelta
 
 
-
 bcrypt = Bcrypt()
 
 app = Flask(__name__, static_folder="react_app/build/static", template_folder="react_app/build")
@@ -211,16 +210,6 @@ def edit_routine():
         if value:
             days += day + ", "
     
-    print(days)
-
-
-    return routine_days_dict
-
-
-
-    
-    return routine_days, 200
-    
     # Emit a message to the recognizer loop to create the routine
     bus.emit(Message("recognizer_loop:utterance", {
         "utterances": ["msx edit " + routine_name + " gap " + routine_time + " gap " + days],
@@ -248,8 +237,6 @@ def new_routine():
         if value:
             days += day + ", "
     
-
-    return data, 200
     
     # Emit a message to the recognizer loop to create the routine
     bus.emit(Message("recognizer_loop:utterance", {
@@ -263,4 +250,5 @@ def new_routine():
 
 # Run the Flask app
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    bus.run_in_thread()
+    app.run(host='0.0.0.0')
