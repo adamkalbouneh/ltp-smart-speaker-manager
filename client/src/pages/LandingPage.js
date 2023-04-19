@@ -1,6 +1,6 @@
 import React from "react";
-import DashboardHeader from './DashboardHeader';
-import LandingPairButton from './LandingPairButton';
+import DashboardHeader from '../components/DashboardHeader';
+import LandingPairButton from '../components/LandingPairButton';
 
 const LandingPage = () => {
   return <div className="page">

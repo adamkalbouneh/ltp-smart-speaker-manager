@@ -1,8 +1,8 @@
 import React from 'react';
-import HomePageWeather from './HomePageWeather';// Import the HomePageWeather component. Adjust the path if needed.
-import NavBar from './NavBar';
+import DashboardWeather from '../components/DashboardWeather';// Import the HomePageWeather component. Adjust the path if needed.
+import NavBar from '../components/NavBar';
 
-const SpeakerDashboard = () => {
+const DashboardPage = () => {
     return (
 
         <div className="dashboard">
@@ -58,7 +58,7 @@ const SpeakerDashboard = () => {
                 <div className="">
                     {/* Weather widget, Flex, First box is current weather, second box is 5 days forcast */}
                     <div className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl textBox ">
-                        <HomePageWeather />
+                        <DashboardWeather />
                     </div>
                 </div>
             </div>
@@ -66,4 +66,4 @@ const SpeakerDashboard = () => {
     );
 };
 
-export default SpeakerDashboard;
+export default DashboardPage;

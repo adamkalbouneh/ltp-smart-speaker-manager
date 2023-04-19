@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import LandingPage from "./components/LandingPage.js";
-import LoginPage from "./components/LoginPage.js";
-import PairingPage from "./components/PairingPage.js";
+import LandingPage from "./pages/LandingPage.js";
+import LoginPage from "./pages/LoginPage.js";
+import PairingPage from "./pages/PairingPage.js";
 import TestDatabasePage from "./components/TestDatabasePage.js";
-import SignUpPage from "./components/SignUpPage.js";
-import HomePage from './components/HomePage.js';
+import SignUpPage from "./pages/SignUpPage.js";
+import HomePage from './pages/HomePage.js';
 import GenericStyling from "./styling/Generic.css";
 import LandingStyling from "./styling/Landing.css";
-import SpeakerDashboard from './components/SpeakerDashboard.js';
+import SpeakerDashboard from './pages/DashboardPage.js';
 
 
 const App = () => {
