@@ -3,7 +3,7 @@ import { Box, Container } from "@mantine/core";
 import { Grid } from "@mantine/core";
 import "../styling/Home.css"
 import HomePageWeather from "./HomePageWeather";
-import NavBar from "./NavBar";
+import NavBar from "./Navbar";
 import DashboardHeader from "./DashboardHeader";
 
 const HomePage = () => {
@@ -23,7 +23,7 @@ const HomePage = () => {
 
                 {/* Left Side Bar Nav */}
                 <div className="flex">
-                    <NavBar />
+                    <Navbar />
 
                     {/* Main Content */}
                     <div className="mx-20 flex flex-1 flex-col items-center ml-96 justify-center">

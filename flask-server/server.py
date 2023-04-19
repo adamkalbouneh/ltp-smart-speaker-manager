@@ -18,7 +18,7 @@ import secrets
 app = Flask(__name__, static_folder="react_app/build/static", template_folder="react_app/build")
 CORS(app)
 socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
-bus = MessageBusClient(host="raspberrypi", port=8181)
+bus = MessageBusClient(host="marwa@raspberrypi", port=8181)
 
 bcrypt = Bcrypt()
 
