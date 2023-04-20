@@ -22,7 +22,7 @@ const DashboardPage = () => {
                 <div className="flex mt-10">
                     <NavBar />
 
-                    <div className="mx-20 grid h-full w-full grid-flow-col grid-cols-2 grid-rows-3 gap-12">
+                    <div className="mx-20 grid h-full w-full grid-flow-col grid-cols-2 grid-rows-2 gap-12">
 
                         <div className="text-white bg-gradient-to-br from-cyan-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center rounded-2xl textBox ">
                             {/* Section daily checkin*/}
@@ -36,18 +36,7 @@ const DashboardPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="text-white bg-gradient-to-br from-yellow-600 to-red-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl textBox ">
-                            {/* Section to welcome user*/}
-                            <div className="flex h-full flex-col items-center justify-center">
-                                <div className="text-2xl">Weekly Schedule</div>
-
-
-                                <div className="text-lg">
-                                    Here is a look into what your loved ones has planned for the week{" "}
-                                </div>
-
-                            </div>
-                        </div>
+                        
                         <div className="text-white bg-gradient-to-br from-yellow-600 to-purple-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl textBox ">
                             {/* Section to welcome user*/}
                             <div className="flex h-full flex-col items-center justify-center">
