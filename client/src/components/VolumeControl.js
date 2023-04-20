@@ -45,7 +45,7 @@ const VolumeControl = () => {
 
   return (
     <div className="volumeControl">
-      <label htmlFor="volumeSlider">Volume</label>
+      
       <input
         type="range"
         id="volumeSlider"

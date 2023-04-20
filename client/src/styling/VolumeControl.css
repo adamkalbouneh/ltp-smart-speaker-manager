@@ -4,7 +4,7 @@
   }
   
   .muteButton {
-    background-color: #1abc9c;
+    background-color: #1abc4d;
     border: none;
     border-radius: 50%;
     color: #ffffff;
@@ -16,7 +16,7 @@
   }
   
   .muteButton:hover {
-    background-color: #16a085;
+    background-color: #6a777c;
   }
   
   .muteButton.muted {
@@ -26,4 +26,10 @@
   .muteButton.muted:hover {
     background-color: #c0392b;
   }
+
+  .volumeControl {
+    background-color: #1d1e30;
+    border-radius: 0px;
+  }
+  
   
