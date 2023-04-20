@@ -8,10 +8,17 @@ const DashboardHeader = () => {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
+    console.log('Trying to connect to the Flask server');
     const socket = io('http://localhost:5000');
+    socket.on('connect', () => {
+      console.log('Connected to the Flask server');
+    });
     socket.on('mycroft_connected', (data) => {
       console.log('Received mycroft_connected event:', data);
       setConnected(true);
+    });
+    socket.on('disconnect', () => {
+      console.log('Disconnected from the Flask server');
     });
 
     return () => {
