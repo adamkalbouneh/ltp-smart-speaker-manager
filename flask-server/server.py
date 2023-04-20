@@ -216,6 +216,7 @@ def signup():
         sql = "INSERT INTO users (name, email, password) VALUES (%s, %s, %s)"
         val = (name, email, hashed_password)
         mycursor.execute(sql, val)
+        mydb.commit()
         
 
         # Find UserID from email
@@ -414,7 +415,7 @@ def new_routine():
     sql = "INSERT INTO routine (user_id, routine_name, routine_time, days) VALUES (%s, %s, %s, %s)"
     val = (userID, routine_name, routine_time, days)
     mycursor.execute(sql, val)
-
+    mydb.commit()
     
     # Emit a message to the recognizer loop to create the routine
     bus.emit(Message("recognizer_loop:utterance", {
