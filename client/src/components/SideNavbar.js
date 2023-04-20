@@ -16,25 +16,34 @@ import io from "socket.io-client";
 import connectedImage from "../img/connected_image.png";
 import disconnectedImage from "../img/disconnected_image.png";
 
+const socket = io("http://localhost:5000");
+
 function SideNavbar() {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    console.log("Trying to connect to the Flask server");
-    const socket = io("http://localhost:5000");
     socket.on("connect", () => {
-      console.log("Connected to the Flask server");
-    });
-    socket.on("mycroft_connected", (data) => {
-      console.log("Received mycroft_connected event:", data);
+      console.log("Connected to server");
       setConnected(true);
     });
+
     socket.on("disconnect", () => {
-      console.log("Disconnected from the Flask server");
+      console.log("Disconnected from server");
+      setConnected(false);
+    });
+
+    const flaskTerminal = new EventSource("http://localhost:5000/terminal");
+
+    flaskTerminal.addEventListener("message", (event) => {
+      const message = event.data;
+
+      if (message.includes("websocket connected")) {
+        socket.connect();
+      }
     });
 
     return () => {
-      socket.disconnect();
+      flaskTerminal.close();
     };
   }, []);
 
