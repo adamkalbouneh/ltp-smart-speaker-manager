@@ -2,8 +2,8 @@ import React from "react";
 import { Box, Container } from "@mantine/core";
 import { Button } from "@mantine/core";
 import "../styling/Home.css"
-import NavBar from "./NavBar";
-import DashboardHeader from "./DashboardHeader";
+import NavBar from "../components/NavBar";
+import DashboardHeader from "../components/DashboardHeader";
 
 const AccountPage = () => {
     return (
