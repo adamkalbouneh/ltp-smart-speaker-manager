@@ -2,6 +2,7 @@ import React from 'react';
 import DashboardWeather from '../components/DashboardWeather';// Import the HomePageWeather component. Adjust the path if needed.
 import NavBar from '../components/NavBar';
 import CheckIn from '../components/dashboard/CheckIn';
+import { Link } from 'react-router-dom';
 
 const DashboardPage = () => {
     return (
@@ -11,26 +12,27 @@ const DashboardPage = () => {
                 <div>
                     <div className="mb-4 flex h-20 items-center justify-between bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-md text-md px-5 py-2.5 text-center rounded-2xl">
 
-                        <div className="logo-box-image" />
+                        <Link to="/home" className="logo-box-image" />
                         <div style={{ fontSize: "30px", paddingLeft: "100px" }}>    Dashboard </div>
                         <div>Marwa</div>
                     </div>
                 </div>
+
+                {/* Left Side Bar Nav */}
                 <div className="flex mt-10">
                     <NavBar />
 
+                    <div className="mx-20 grid h-full w-full grid-flow-col grid-cols-2 grid-rows-3 gap-12">
 
-                    <div className="grid h-full w-full grid-flow-col grid-cols-2 grid-rows-3 gap-12">
-
-                        <div className="text-white bg-gradient-to-br from-cyan-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 rounded-2xl textBox ">
-                            {/* Section to welcome user*/}
+                        <div className="text-white bg-gradient-to-br from-cyan-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center rounded-2xl textBox ">
+                            {/* Section daily checkin*/}
                             <div className="flex h-full flex-col items-left ">
                                 <div className="text-2xl">Daily Check in</div>
                                 <div className="flex w-full flex-col gap-6 col-span-2">
-                                <div className="text-lg">
-                                    Here is a look into how your loved ones are managing today{" "}
-                                    <CheckIn />
-                                </div>
+                                    <div className="text-lg">
+                                        Here is a look into how your loved ones are managing today{" "}
+                                        <CheckIn />
+                                    </div>
                                 </div>
                             </div>
                         </div>
