@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './VolumeControl.css';
+import '../styling/VolumeControl.css';
 
 const VolumeControl = () => {
   // Volume-related states

@@ -2,6 +2,7 @@ import DashboardHeader from '../components/DashboardHeader';
 import Routine from '../components/Routine';
 import React, { useState, useEffect } from "react";
 import ReactDOM from 'react-dom';
+import "../styling/Routine.css"
 
 const RoutinePage = () => {
     
