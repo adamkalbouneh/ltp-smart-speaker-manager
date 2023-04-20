@@ -1,5 +1,5 @@
 import {fireEvent, render, screen} from '@testing-library/react'
-import SignUp from '../src/components/SignUpPage'
+import SignUp from '../src/pages/SignUpPage'
 import '@testing-library/jest-dom'
 import user from '@testing-library/user-event'
 import '@babel/preset-react'

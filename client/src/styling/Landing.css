@@ -26,7 +26,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url("../../public/images/RaspPiCase.jpg");
+    background-image: url("../../public/images/RaspPiCase.png");
     background-size: 150px;
     height: 250px;
     width: 250px;
@@ -51,4 +51,9 @@
 .landing-button:hover {
   background-color: #2256f0;
   cursor: pointer;
+}
+
+.nav-icon > img {
+  height: 30px;
+  width: 30px;
 }

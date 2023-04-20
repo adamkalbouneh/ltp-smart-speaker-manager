@@ -60,3 +60,16 @@
   display: none;
 }
 
+.thick-text {
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+}
+
+.large-margin-top {
+  margin-top: 50px;
+}
+
+.small-margin-top {
+  margin-top: 10px;
+}
