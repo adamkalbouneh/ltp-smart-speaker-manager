@@ -6,9 +6,11 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import NavBar from "../components/NavBar";
 import DashboardHeader from "../components/DashboardHeader";
 import IntroductionSection from "../components/home/HPIntro";
-import HPAccordion from "../components/home/HPAccordion";
+import HPFeatures from "../components/home/HPFeatures";
 import HPSuggestions from "../components/home/HPSuggestions";
 import HPReviews from "../components/home/HPReviews";
+import HPFaq from "../components/home/HPFaq";
+
 
 
 const HomePage = () => {
@@ -45,7 +47,7 @@ const HomePage = () => {
                                 <div className="flex w-full flex-col gap-6 col-span-2"/>
                                 <div className="text-2xl">Speaker Features</div>
 
-                                <HPAccordion />
+                                <HPFeatures />
 
                             </div>
                             <div className="text-white bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center rounded-2xl textBox ">
@@ -72,7 +74,7 @@ const HomePage = () => {
                                 <div className="flex w-full flex-col gap-6 col-span-2"/>
                                 <div className="text-2xl">Frequently Asked Questions</div>
 
-                                <HPAccordion />
+                                <HPFaq />
 
                             </div>
 
