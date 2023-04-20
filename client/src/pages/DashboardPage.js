@@ -1,6 +1,6 @@
 import React from 'react';
 import DashboardWeather from '../components/DashboardWeather';// Import the HomePageWeather component. Adjust the path if needed.
-import NavBar from '../components/NavBar';
+import NavBar from '../components/SideNavbar';
 import CheckIn from '../components/dashboard/CheckIn';
 import { Link } from 'react-router-dom';
 
