@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket, faRobot, faListUl, faLink, faTableColumns, faHome, faUser} from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
+//import './Navbar.css';
 
 function NavBar() {
     return (
@@ -41,4 +42,4 @@ function NavBar() {
     )
 }
 
-export default NavBar;
+export default Navbar;
