@@ -1,7 +1,7 @@
 import React from 'react';
 import { Accordion } from '@mantine/core';
 
-const HPAccordion = () => {
+const HPFeatures = () => {
   return (
     <Accordion defaultValue="customization">
       <Accordion.Item value="customization">
@@ -22,4 +22,4 @@ const HPAccordion = () => {
     );
 };
 
-export default HPAccordion;
+export default HPFeatures;
