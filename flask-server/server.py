@@ -67,8 +67,15 @@ def connect_to_mycroft():
     bus.on('connected', on_connected)
     bus.run_forever()
 
-def on_connected(event):
+def on_connected():
     print("Connected to Mycroft Message Bus")
+
+@socketio.on('connect')
+def on_socket_connect():
+    print("WebSocket connected")
+    socketio.emit('mycroft_connected', {'data': 'Connected'})
+    print("Sent mycroft_connected event to React app")
+
 
 
 # Set up logger to show request logs
