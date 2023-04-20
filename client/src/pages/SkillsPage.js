@@ -54,7 +54,7 @@ function SkillsPage(props) {
 
   // Skill container template
   return (
-    <div className="skill-container">
+    <div className="skill-container text-white bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center rounded-2xl textBox ">
        {loading && (
         <div className="loadingScreen">
           <span className="loadingMessage">Loading...</span>
@@ -180,7 +180,8 @@ function Skills() {
       <DashboardHeader />
       {/* Device name, with different options and a submit button */}
       <div id="shape"></div>
-      <div className="landing-header content">Your device name</div>
+      <div className="text-white bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center rounded-2xl textBox ">
+        <div className="landing-header content">Your device name</div>
       <div className="custom-select">
         <select id="device-select" onChange={handleSelectChange}>
           <option value="0">Select The Device Name:</option>
@@ -190,11 +191,14 @@ function Skills() {
           <option value="4">Lifeline</option>
           <option value="5">Sally</option>
         </select>
-      </div>
-
-      <button className="blue-button content" id="submit-button">
+        <button className="blue-button content" id="submit-button">
         Submit
       </button>
+      </div>
+      
+      </div>
+
+      
       {/* All skills */}
       <div className="skills">
       <SkillList

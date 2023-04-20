@@ -1,11 +1,12 @@
 /* this is the base shape when no device name is selected */
 #shape {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   background-color: #c7c7c7;
   transition: 2s;
   margin-top: 10vh;
   border-radius: 50%;
+  margin-bottom: 5vh;
 }
 /* shape of mycroft */
 #shape.mycroft {
@@ -47,8 +48,8 @@
 .skills{
   display: flex;
   flex-wrap: wrap;
-  margin-right: 15%;
-  margin-left: 15%;
+  margin-right: 10%;
+  margin-left: 10%;
   gap: 20%;
 }
 /* Skill container */
@@ -69,6 +70,7 @@
   width: 100%;
   margin-bottom: 1rem;
   cursor: pointer;
+  margin-top: 10px;
 }
 /* The skill name */
 .skill-head h2 {
@@ -131,25 +133,6 @@
   border-radius: 50%;
   background: #22A7F0;
   cursor: pointer;
-}
-
-.clock {
-  display: flex;
-  align-items: center;
-}
-
-.clock select {
-  padding: 0.5rem;
-  margin-right: 1rem;
-  background-color: #22A7F0;
-  color: #ffff;
-  border: none;
-  border-radius: 4px;
-  text-align: center;
-}
-
-.clock label {
-  margin-right: 1rem;
 }
 
 .loadingScreen {
