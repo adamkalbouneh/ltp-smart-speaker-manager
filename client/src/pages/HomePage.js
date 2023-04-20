@@ -3,7 +3,7 @@ import { Box, Container } from "@mantine/core";
 import { Grid } from "@mantine/core";
 import "../styling/Home.css"
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import NavBar from "../components/Navbar";
+import NavBar from "../components/NavBar";
 import DashboardHeader from "../components/DashboardHeader";
 import IntroductionSection from "../components/home/HPIntro";
 import HPAccordion from "../components/home/HPAccordion";
