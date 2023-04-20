@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import DashboardHeader from "./DashboardHeader";
+import DashboardHeader from '../components/DashboardHeader';
 
 // This makes sure that if the checkbox is enabled even after reloading the page, the text shows
 function withSkillToggle(Component) {

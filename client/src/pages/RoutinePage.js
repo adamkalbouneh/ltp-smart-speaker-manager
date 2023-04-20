@@ -1,5 +1,5 @@
-import DashboardHeader from './DashboardHeader';
-import Routine from './Routine';
+import DashboardHeader from '../components/DashboardHeader';
+import Routine from '../components/Routine';
 import React, { useState, useEffect } from "react";
 import ReactDOM from 'react-dom';
 
