@@ -1,19 +1,17 @@
 /* this is the base shape when no device name is selected */
 #shape {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   background-color: #c7c7c7;
   transition: 2s;
   margin-top: 10vh;
   border-radius: 50%;
-  margin-bottom: 5vh;
-  margin-left: 3.5vh;
 }
 /* shape of mycroft */
 #shape.mycroft {
-  border-radius: 50%;
-  background-color: #4c6ffa;
-  transform: rotate(90deg);
+  border-radius: 50%; 
+  background-color: #4c6ffa; 
+  transform: rotate(90deg); 
   transition: 2s;
 }
 /* shape of mykie */
@@ -38,24 +36,19 @@
 }
 /* shapoe of sally */
 #shape.sally {
-  border-radius: 50% 0 50% 0;
+  border-radius: 50% 0 50% 0; 
   background-color: #f171ef;
   transition: 2s;
 }
-.content {
+.content{
   margin: 3vh;
-  padding: 10px;
-}
-.landing-header {
-  font-size: 36px;
-  line-height: 36px;
 }
 /* Skills area */
-.skills {
+.skills{
   display: flex;
   flex-wrap: wrap;
-  margin-right: 10%;
-  margin-left: 10%;
+  margin-right: 15%;
+  margin-left: 15%;
   gap: 20%;
 }
 /* Skill container */
@@ -76,7 +69,6 @@
   width: 100%;
   margin-bottom: 1rem;
   cursor: pointer;
-  margin-top: 10px;
 }
 /* The skill name */
 .skill-head h2 {
@@ -114,8 +106,8 @@
   background: #d3d3d3;
   outline: none;
   opacity: 0.7;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
   width: 50%;
 }
 
@@ -129,7 +121,7 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #22a7f0;
+  background: #22A7F0;
   cursor: pointer;
 }
 
@@ -137,8 +129,27 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #22a7f0;
+  background: #22A7F0;
   cursor: pointer;
+}
+
+.clock {
+  display: flex;
+  align-items: center;
+}
+
+.clock select {
+  padding: 0.5rem;
+  margin-right: 1rem;
+  background-color: #22A7F0;
+  color: #ffff;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.clock label {
+  margin-right: 1rem;
 }
 
 .loadingScreen {
@@ -155,11 +166,6 @@
 }
 
 .loadingMessage {
-  color: #22a7f0;
+  color: #22A7F0;
   font-size: 2rem;
-}
-
-.wakeword {
-  display: block;
-  margin-left: 10vh;
 }

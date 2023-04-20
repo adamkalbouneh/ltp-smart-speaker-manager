@@ -1,41 +1,37 @@
 h1 {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.promptForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.messageInput {
-  width: 80%;
-  height: 100px;
-  padding: 1rem;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  resize: none;
-}
-
-.submitButton {
-  background-color: #22a7f0;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  margin-top: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.submitButton:hover {
-  background-color: #1e8ec6;
-}
-
-#prompt {
-  margin: auto;
-  width: 50%;
-}
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .promptForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .messageInput {
+    width: 80%;
+    height: 100px;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: none;
+  }
+  
+  .submitButton {
+    background-color: #22A7F0;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .submitButton:hover {
+    background-color: #1e8ec6;
+  }
+  
