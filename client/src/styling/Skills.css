@@ -44,6 +44,11 @@
 }
 .content {
   margin: 3vh;
+  padding: 10px;
+}
+.landing-header {
+  font-size: 36px;
+  line-height: 36px;
 }
 /* Skills area */
 .skills {
