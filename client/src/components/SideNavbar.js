@@ -42,6 +42,14 @@ function SideNavbar() {
       }
     });
 
+    flaskTerminal.addEventListener("message", (event) => {
+      const message = event.data;
+
+      if (message.includes("[WARNING] Message Bus Client will reconnect in")) {
+        socket.disconnect();
+      }
+    });
+
     return () => {
       flaskTerminal.close();
     };
