@@ -13,6 +13,10 @@ import flask_socketio
 from datetime import timedelta
 import uuid
 import secrets
+import time
+from flask import Flask
+from flask_cors import CORS
+from flask_socketio import SocketIO
 
 
 app = Flask(__name__, static_folder="react_app/build/static", template_folder="react_app/build")
@@ -77,11 +81,14 @@ def connect_to_mycroft():
     bus.on('connected', on_connected)
     bus.run_forever()
 
-def on_connected(event):
+def on_connected():
     print("Connected to Mycroft Message Bus")
+
+@socketio.on('connect')
+def on_socket_connect():
+    print("WebSocket connected")
     socketio.emit('mycroft_connected', {'data': 'Connected'})
     print("Sent mycroft_connected event to React app")
-
 
 @app.route('/')
 def index():
@@ -411,3 +418,6 @@ def ask_time():
 if __name__ == '__main__':
     bus.run_in_thread()
     app.run(host='0.0.0.0')
+    mycroft_thread = threading.Thread(target=connect_to_mycroft)
+    mycroft_thread.start() 
+    socketio.run(app, host='0.0.0.0', port=5000)
