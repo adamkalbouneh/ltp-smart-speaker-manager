@@ -17,7 +17,7 @@ const RoutinePage = () => {
     const [showError, setShowError] = useState(true);
     const [selectedRoutine, setSelectedRoutine] = useState(null);
 
-    const [userID, setUserID] = useState(null);
+    const [userID, setUserID] = useState();
 
     let routineList = []
 
@@ -135,6 +135,8 @@ const RoutinePage = () => {
         
         //validation for name and time
 
+        popupClose();
+
         //if no routine name has been provided
         if (name.length == 0) {
             errorText.style.display = "block";
@@ -153,6 +155,7 @@ const RoutinePage = () => {
         errorText.style.display = "none";
 
         const data = {
+            "user":userID,
             "days": {
               "monday":monday,
               "tuesday":tuesday,
@@ -184,7 +187,7 @@ const RoutinePage = () => {
 
     }
 
-    useEffect(() => {
+    useEffect( () => {
         async function fetchUserID() {
           const response = await axios.get('/get_user_id');
           if (response.data.userID === "No user") {
@@ -193,25 +196,63 @@ const RoutinePage = () => {
             setUserID(response.data.userID);
           }
         }
+
         fetchUserID();
 
-        routineList = [
-            {
-              daysOfWeek: {
-                monday: true,
+        
+        async function getRoutines() {
+
+            let data = {
+                user: 3
+            };
+    
+            // Send a POST request to the Flask API endpoint
+            let response = await fetch('/getRoutine', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            // Convert respone to text format
+            let serverResponse = await response.text();
+
+            let parsedResponse = JSON.parse(serverResponse);
+            
+            parsedResponse.forEach((routine) => {
+              let [id, routineName, routineTime, daysOfWeek] = routine;
+              let daysArr = daysOfWeek.split(',');
+            
+              let daysOfWeekObj = {
+                monday: false,
                 tuesday: false,
-                wednesday: true,
+                wednesday: false,
                 thursday: false,
-                friday: true,
+                friday: false,
                 saturday: false,
-                sunday: true,
-              },
-              routineName: "Walk the dog",
-              routineTime: "14:00",
-            },
-            // add more routines here...
-          ];
-          setRoutines(routineList);
+                sunday: false,
+              };
+            
+              daysArr.forEach((day) => {
+                daysOfWeekObj[day] = true;
+              });
+            
+              routineList.push({
+                id: id,
+                routineName: routineName,
+                routineTime: routineTime,
+                daysOfWeek: daysOfWeekObj,
+              });
+              console.log("hello");
+              setRoutines(routineList);
+            });
+            
+            
+        }
+
+        getRoutines();
+        
 
       }, []);
 

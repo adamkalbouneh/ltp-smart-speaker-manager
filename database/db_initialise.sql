@@ -2,7 +2,7 @@ DROP SCHEMA IF EXISTS `app_db`;
 CREATE SCHEMA IF NOT EXISTS `app_db`;
 USE `app_db`;
 
--- Creating structure for table app_db.test
+-- Creating structure for table app_db.testroutine
 CREATE TABLE IF NOT EXISTS `test` (
     `test_id` INT(11) NOT NULL AUTO_INCREMENT,
     `test_name` VARCHAR(200) COLLATE UTF8MB4_UNICODE_520_CI DEFAULT NULL,
@@ -15,7 +15,7 @@ INSERT INTO `test` (`test_name`) VALUES
 	('Frank'),
 	('Garry');
 
--- Creating structure for table app_db.test
+-- Creating structure for users table
 CREATE TABLE IF NOT EXISTS `users` (
     `user_id` INT(11) NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(200) COLLATE UTF8MB4_UNICODE_520_CI DEFAULT NULL,
@@ -33,5 +33,17 @@ INSERT INTO `users` (`name`, `email`, `password`) VALUES
 	('Ahmad', 'shahina@cardiff.ac.uk', '$2b$12$KSMCPLDpIy2G2vF7AmlaberrVDHH4llQ0x.V0nPLMuKGiq99s5ylC'),
 	('TestingAccount', 'testing@testing.co.uk', '$2b$12$KSMCPLDpIy2G2vF7AmlaberrVDHH4llQ0x.V0nPLMuKGiq99s5ylC');
 
+
+-- Creating structure for routine table
+CREATE TABLE IF NOT EXISTS `routine` (
+    `user_id` INT(11) NOT NULL,
+    `routine_name` VARCHAR(200) COLLATE UTF8MB4_UNICODE_520_CI DEFAULT NULL,
+    `routine_time` VARCHAR(200) COLLATE UTF8MB4_UNICODE_520_CI DEFAULT NULL,
+    `days` VARCHAR(200) COLLATE UTF8MB4_UNICODE_520_CI DEFAULT NULL
+);
+
+-- Inserting sample record into 'routine'
+INSERT INTO `routine` (`user_id`, `routine_name`, `routine_time`, `days`) VALUES
+	(3, 'Walk the dog', '14:00', 'monday,tuesday,wednesday,thursday,sunday')
 
 
