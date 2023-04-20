@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-//import './Prompt.css';
+import '../styling/Prompt.css';
 import axios from 'axios';
 
 const Prompt = () => {
