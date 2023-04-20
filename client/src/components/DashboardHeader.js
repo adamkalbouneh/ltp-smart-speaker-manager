@@ -5,7 +5,10 @@ const DashboardHeader = () => {
     <div className="header landing-banner">
       <a href="login">Login</a>
       <a href="skills">Skills</a>
+      <a href="Volume">Volume</a>
       <a href="/">Home</a>
+      
+      
     </div>
   );
 };

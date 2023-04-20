@@ -14,6 +14,7 @@ import uuid
 import secrets
 import time
 
+
 app = Flask(__name__, static_folder="react_app/build/static", template_folder="react_app/build")
 CORS(app)
 socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
@@ -225,6 +226,48 @@ def check_email_exists():
         # If any row(s) returned - email already exists in the table
         return "Email already exists"
 
+
+@app.route('/mycroft-volume', methods=['POST'])
+def mycroft_volume():
+    # Extract data from the request
+    data = request.json
+    # Get the action ('increase' or 'decrease') from the request data
+    action = data.get('action')
+    # Get the 'play_sound' value from the request data, defaulting to True if not provided
+    play_sound = data.get('play_sound', True)
+
+    # Determine the message type based on the action
+    if action == 'increase':
+        message_type = 'mycroft.volume.increase'
+    elif action == 'decrease':
+        message_type = 'mycroft.volume.decrease'
+    else:
+        # Return an error if the action is not valid
+        return {"error": "Invalid action"}, 400
+
+    # Emit the message with the appropriate message type and the 'play_sound' option
+    bus.emit(Message(message_type, {"play_sound": play_sound}))
+    # Return a success message with the updated volume action
+    return {"message": f"Volume {action}d"}, 200
+
+@app.route('/mycroft-mute', methods=['POST'])
+def mycroft_mute():
+    # Extract data from the request
+    data = request.json
+    # Get the mute status from the request data
+    mute = data.get('mute')
+
+    if mute is None:
+        # Return an error if the mute status is not provided
+        return {"error": "Mute status not provided"}, 400
+
+    # Determine the message type based on the mute status
+    message_type = 'mycroft.mic.mute' if mute else 'mycroft.mic.unmute'
+
+    # Emit the message with the appropriate message type
+    bus.emit(Message(message_type))
+    # Return a success message with the updated mute status
+    return {"message": f"Mycroft {'muted' if mute else 'unmuted'}"}, 200
 
 @app.route('/ask-time', methods=['POST'])
 def ask_time():
