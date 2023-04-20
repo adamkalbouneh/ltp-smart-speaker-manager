@@ -11,7 +11,7 @@ const HPReviews = () => {
 
       <Accordion.Item value="flexibility">
         <Accordion.Control>Rachel ⭐⭐⭐⭐</Accordion.Control>
-        <Accordion.Panel>The voice recognition is incredibly accurate, making it easy for me to set reminders, create shopping lists, and even control my smart home devices with just a simple command. The virtual assistant is also remarkably knowledgeable, providing me with instant answers to my questions and keeping me informed with the latest news and weather updates.</Accordion.Panel>
+        <Accordion.Panel>I particularly love how the smart speaker integrates with my favorite streaming services, allowing me to enjoy my favorite music and podcasts throughout the day. Plus, the sound quality is impressive, filling my living space with rich, clear audio..</Accordion.Panel>
       </Accordion.Item>
 
       <Accordion.Item value="focus-ring">
