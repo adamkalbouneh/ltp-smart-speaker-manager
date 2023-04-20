@@ -52,3 +52,8 @@
   background-color: #2256f0;
   cursor: pointer;
 }
+
+.nav-icon > img {
+  height: 30px;
+  width: 30px;
+}
