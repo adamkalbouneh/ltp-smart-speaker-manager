@@ -3,17 +3,21 @@ import Routine from '../components/Routine';
 import React, { useState, useEffect } from "react";
 import ReactDOM from 'react-dom';
 import "../styling/Routine.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
+import Authenticate from '../components/Authenticate';
+import axios from 'axios';
 
 const RoutinePage = () => {
-    
     const [routines, setRoutines] = useState([]);
-
     const [showPopup, setShowPopup] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showRemove, setShowRemove] = useState(false);
     const [showNew, setShowNew] = useState(false);
     const [showError, setShowError] = useState(true);
     const [selectedRoutine, setSelectedRoutine] = useState(null);
+
+    const [userID, setUserID] = useState(null);
 
     let routineList = []
 
@@ -180,11 +184,16 @@ const RoutinePage = () => {
 
     }
 
-
-
     useEffect(() => {
-        //Fetch routines from API/RaspberryPi here
-        
+        async function fetchUserID() {
+          const response = await axios.get('/get_user_id');
+          if (response.data.userID === "No user") {
+            window.location.href = "/";
+          } else {
+            setUserID(response.data.userID);
+          }
+        }
+        fetchUserID();
 
         routineList = [
             {
@@ -203,7 +212,8 @@ const RoutinePage = () => {
             // add more routines here...
           ];
           setRoutines(routineList);
-    }, []);
+
+      }, []);
 
 
 
@@ -241,9 +251,9 @@ const RoutinePage = () => {
 
         <div className={`popup ${showPopup ? '' : 'hide'}`} id="routine-edit">
             <div className='popup-content'>
-                <div className='popup-banner'>
+                <div className='popup-banner bg-gradient-to-br from-teal-600 to-indigo-700'>
                     <a><div className='popup-banner-text'>{selectedRoutine}</div></a>
-                    <div className='popup-close-btn' onClick={popupClose}>X</div>
+                    <div className='popup-close-btn' onClick={popupClose}><FontAwesomeIcon icon={faX}/></div>
                 </div>
                 
                 
@@ -259,7 +269,7 @@ const RoutinePage = () => {
                             </div>
                             <div className='popup-half-container'>
                                 <p className='thick-text'>Time</p>
-                                <input type="time" id="editRoutineTime" required></input>
+                                <input type="time" className="bg-lightgray" id="editRoutineTime" required></input>
                                 <div className='popup-submit-btn thick-text' onClick={editRoutine}>submit</div>
                             </div>
                     
@@ -288,7 +298,7 @@ const RoutinePage = () => {
                         <p className='thick-text'>Routine name</p>
                         <input className='popup-text-input' id="newRoutineName" required></input>
                         <p className='thick-text'>Time</p>
-                        <input type="time" id="newRoutineTime" required></input>
+                        <input type="time" className="bg-lightgray" id="newRoutineTime" required></input>
                         <div className='popup-submit-btn thick-text popup-new-margin-top' onClick={newRoutine}>submit</div>
                     </div>
                 </div>
@@ -296,8 +306,6 @@ const RoutinePage = () => {
             </div>
 
         </div>
-        
-
     </div>
 };
 

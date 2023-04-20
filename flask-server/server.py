@@ -3,7 +3,7 @@ import time
 import threading
 import logging
 import signal
-from flask import Flask, jsonify, request, session, render_template
+from flask import Flask, jsonify, request, session, render_template, redirect, url_for
 from flask_session import Session
 from flask_bcrypt import Bcrypt
 import mysql.connector
@@ -405,6 +405,15 @@ def ask_time():
         "session": session_id
     }))
     return jsonify({"message": "Time request sent to Mycroft"}), 200
+
+
+@app.route('/get_user_id')
+def get_user_id():
+    try:
+        user_id = session.get('userID')
+        return jsonify({'userID': user_id})
+    except:
+        return jsonify({'userID': "No user"})
 
 
 

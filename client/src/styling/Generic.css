@@ -73,3 +73,11 @@
 .small-margin-top {
   margin-top: 10px;
 }
+
+.bg-white {
+  background-color: white;
+}
+
+.bg-lightgray {
+  background: lightgray;
+}
