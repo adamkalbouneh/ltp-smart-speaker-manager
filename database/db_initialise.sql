@@ -30,7 +30,8 @@ INSERT INTO `users` (`name`, `email`, `password`) VALUES
 	('Milos', 'vujovicm@cardiff.ac.uk', '$2b$12$KSMCPLDpIy2G2vF7AmlaberrVDHH4llQ0x.V0nPLMuKGiq99s5ylC'),
 	('Marwa', 'omarfm@cardiff.ac.uk', '$2b$12$KSMCPLDpIy2G2vF7AmlaberrVDHH4llQ0x.V0nPLMuKGiq99s5ylC'),
 	('Adam', 'kalbouneha@cardiff.ac.uk', '$2b$12$KSMCPLDpIy2G2vF7AmlaberrVDHH4llQ0x.V0nPLMuKGiq99s5ylC'),
-	('Ahmad', 'shahina@cardiff.ac.uk', '$2b$12$KSMCPLDpIy2G2vF7AmlaberrVDHH4llQ0x.V0nPLMuKGiq99s5ylC');
+	('Ahmad', 'shahina@cardiff.ac.uk', '$2b$12$KSMCPLDpIy2G2vF7AmlaberrVDHH4llQ0x.V0nPLMuKGiq99s5ylC'),
+	('TestingAccount', 'testing@testing.co.uk', '$2b$12$KSMCPLDpIy2G2vF7AmlaberrVDHH4llQ0x.V0nPLMuKGiq99s5ylC');
 
 
 

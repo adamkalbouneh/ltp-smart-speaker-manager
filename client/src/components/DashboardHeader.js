@@ -24,6 +24,7 @@ const DashboardHeader = () => {
       <div className="nav-icon">
         <img src={connected ? connectedImage : disconnectedImage} alt="Connection Status" />
       </div>
+
       <a href="login">Login</a>
       <a href="skills">Skills</a>
       <a href="Volume">Volume</a>

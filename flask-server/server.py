@@ -8,11 +8,19 @@ from flask_session import Session
 from flask_bcrypt import Bcrypt
 import mysql.connector
 from flask_cors import CORS
-import flask_socketio
 from mycroft_bus_client import MessageBusClient, Message
+import flask_socketio
+from datetime import timedelta
 import uuid
 import secrets
-import time
+
+
+app = Flask(__name__, static_folder="react_app/build/static", template_folder="react_app/build")
+CORS(app)
+socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
+bus = MessageBusClient(host="marwa@raspberrypi", port=8181)
+
+bcrypt = Bcrypt()
 
 
 app = Flask(__name__, static_folder="react_app/build/static", template_folder="react_app/build")
@@ -20,20 +28,44 @@ CORS(app)
 socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
 bus = MessageBusClient(host="raspberrypi", port=8181)
 
-bcrypt = Bcrypt()
 # Configuring sessions
 app.config['SECRET_KEY'] = secrets.token_hex(16) # Create a random 32-character hexadecimal string as secret key
 app.config['SESSION_TYPE'] = 'filesystem'
+app.permanent_session_lifetime = timedelta(minutes=30) # Session lasts 30 minutes
 
-# Connect to the MySQL database
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="comsc",
-  database="app_db"
-)
 # Initialise session
-Session(app)
+Session(app)    
+
+# Attempt to create database connection
+try:
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="comsc",
+        database="app_db"
+    )
+except:
+    print("error occured when creating mysql connection")
+    print("attempting to use mysql database")
+    try:
+        # Error could mean that pipeline is running pytest
+        # Attempt to use pipeline database instead
+        mydb = mysql.connector.connect(
+        host="mysql",
+        user="root",
+        password="comsc",
+        database="mysql"
+        )
+    except:
+        print("mysql database connection failed")
+
+def connect_to_mycroft(): 
+    bus.on('connected', on_connected)
+    bus.run_forever()
+
+def on_connected(event):
+    print("Connected to Mycroft Message Bus")
+
 
 # Set up logger to show request logs
 log_format = "%(asctime)s [%(levelname)s] %(message)s"
@@ -203,6 +235,28 @@ def signup():
     except:
         return 'Signup error'
 
+@app.route('/login', methods=['POST'])
+def loginUser():
+    # Retrieve variables from request
+    email = request.json['email']
+    password_attempt = request.json['password']
+
+    try:        
+        mycursor = mydb.cursor()
+        mycursor.execute("SELECT * FROM users WHERE email=%s", (email,))
+        user = mycursor.fetchone()
+
+
+        if bcrypt.check_password_hash(user[3], password_attempt):
+            # Assign userID to user session
+            session['userID'] = user[0]
+            return 'Login successful!'
+        else:
+            return 'Incorrect password'
+    except:
+        return 'server error, please try again later'
+        
+
 
 @app.route('/checkEmailExists', methods=['POST'])
 def check_email_exists():
@@ -271,6 +325,77 @@ def mycroft_mute():
     # Return a success message with the updated mute status
     return {"message": f"Mycroft {'muted' if mute else 'unmuted'}"}, 200
 
+# Define a route for handling routine deletion
+@app.route('/deleteRoutine', methods=['POST'])
+def delete_routine():
+    
+    # Get the routine name from the request payload
+    routineName = request.json.get("routine")
+    
+    # Emit a message to the recognizer loop to delete the routine
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["msx delete " + routineName],
+        "lang": "en-us",
+        }))
+    
+    # Return a JSON response with a success message
+    return "Routine deleted", 200
+
+# Define a route for editing rotuine
+@app.route('/editRoutine', methods=['POST'])
+def edit_routine():
+
+    data = request.json
+
+    days = ""
+
+    routine_name = request.json.get("name")
+    routine_time = request.json.get("time")
+
+    routine_days_dict = data.get("days")
+
+    for day, value in routine_days_dict.items():
+        if value:
+            days += day + ", "
+    
+    # Emit a message to the recognizer loop to create the routine
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["msx edit " + routine_name + " gap " + routine_time + " gap " + days],
+        "lang": "en-us",
+        }))
+    
+    # Return a JSON response with a success message
+    return "Routine updated", 200
+
+
+# Define a route for handling rotuine creation
+@app.route('/newRoutine', methods=['POST'])
+def new_routine():
+
+    data = request.json
+
+    days = ""
+
+    routine_name = request.json.get("name")
+    routine_time = request.json.get("time")
+
+    routine_days_dict = data.get("days")
+
+    for day, value in routine_days_dict.items():
+        if value:
+            days += day + ", "
+    
+    
+    # Emit a message to the recognizer loop to create the routine
+    bus.emit(Message("recognizer_loop:utterance", {
+        "utterances": ["msx create " + routine_name + " gap " + routine_time + " gap " + days],
+        "lang": "en-us",
+        }))
+    
+    # Return a JSON response with a success message
+    return "Routine created", 200
+
+
 @app.route('/ask-time', methods=['POST'])
 def ask_time():
     session_id = str(uuid.uuid4())
@@ -282,8 +407,7 @@ def ask_time():
     return jsonify({"message": "Time request sent to Mycroft"}), 200
 
 
+
 if __name__ == '__main__':
     bus.run_in_thread()
     app.run(host='0.0.0.0')
-
-
