@@ -5,6 +5,7 @@ import LandingPage from "./pages/LandingPage.js";
 import LoginPage from "./pages/LoginPage.js";
 import PairingPage from "./pages/PairingPage.js";
 import TestDatabasePage from "./components/TestDatabasePage.js";
+import AccountPage from './pages/AccountPage.js';
 import SignUpPage from "./pages/SignUpPage.js";
 import HomePage from './pages/HomePage.js';
 import GenericStyling from "./styling/Generic.css";
@@ -22,6 +23,7 @@ const App = () => {
         <Route exact path="/database" element={<TestDatabasePage/>}/>
         <Route exact path="/signup" element={<SignUpPage/>}/>
         <Route exact path="/home" element={<HomePage/>}/>
+        <Route exact path="/account" element={<AccountPage/>}/>
         <Route exact path="/dashboard" element={<SpeakerDashboard/>}/>
       </Routes>
     </Router>
