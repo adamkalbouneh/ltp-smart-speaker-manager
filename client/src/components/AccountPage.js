@@ -33,7 +33,7 @@ const AccountPage = () => {
                                 <div className="flex h-full flex-col ml-10 justify-center">
                                     <div className="text-2xl">Name</div>
                                     <div className="text-lg">
-                                        Example{" "}<Button>Change</Button>
+                                        Marwa Omar{" "}<Button>Change</Button>
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@ const AccountPage = () => {
                                 <div className="flex h-full flex-col ml-10 justify-center">
                                     <div className="text-2xl">Email</div>
                                     <div className="text-lg">
-                                        example@gmail.com{" "}<Button>Change</Button>
+                                        omarfm@cardiff.ac.uk{" "}<Button>Change</Button>
                                     </div>
                                 </div>
                             </div>
@@ -50,10 +50,10 @@ const AccountPage = () => {
                                 {/* Section to change user's password*/}
                                 <div className="flex h-full flex-col ml-10 justify-center">
                                     <div className="text-2xl">Password</div>
-                                    <div><Button>Change</Button></div>
-                                    {/* <div className="text-lg">
-                                        ********{" "}
-                                    </div> */}
+                                    <div className="text-lg">
+                                        ********{" "}<Button>Change</Button></div>
+                                    </div>
+                                    <div>
                                 </div>
                             </div>
                         </div>
