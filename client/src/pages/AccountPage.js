@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Container } from "@mantine/core";
 import { Button } from "@mantine/core";
 import "../styling/Home.css"
-import NavBar from "../components/NavBar";
+import NavBar from "../components/Navbar";
 
 import { Link } from 'react-router-dom';
 import DashboardHeader from "../components/DashboardHeader";

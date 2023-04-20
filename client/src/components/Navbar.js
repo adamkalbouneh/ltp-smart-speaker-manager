@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket, faRobot, faListUl, faLink, faTableColumns, faHome, faUser, faClock, faQuestion} from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
 
-function NavBar() {
+function Navbar() {
     return (
         <div className="navBox my-0 flex justify-between h-25 w-38 flex-col items-center px-5">
             <div>
@@ -45,4 +45,4 @@ function NavBar() {
     )
 }
 
-export default NavBar;
+export default Navbar;
