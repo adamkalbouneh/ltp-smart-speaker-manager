@@ -16,7 +16,7 @@ const Routine = ({ daysOfWeek, routineName, routineTime, setShowPopup, setSelect
   }
 
   return (
-    <div className="routine-panel">
+    <div className="routine-panel bg-gradient-to-br from-teal-600 to-indigo-700">
         <div className="routine-panel-row">
             <div className="routine-name">{routineName}</div>
             <div className="routine-time">{routineTime}</div>
