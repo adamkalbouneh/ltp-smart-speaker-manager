@@ -4,7 +4,7 @@ import { faSun, faCloud, faCloudShowersHeavy, faSnowflake, faBolt } from "@forta
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
-function HomePageWeather() {
+function DashboardWeather() {
     const [weatherData, setWeatherData] = useState(null);
 
     useEffect(() => {
@@ -77,4 +77,4 @@ function HomePageWeather() {
     );
 }
 
-export default HomePageWeather;
+export default DashboardWeather;
