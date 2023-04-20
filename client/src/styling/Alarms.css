@@ -79,3 +79,9 @@
   color: #22A7F0;
   font-size: 2rem;
 }
+.alarmsPage {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
