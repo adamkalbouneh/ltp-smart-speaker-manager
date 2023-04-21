@@ -1,19 +1,19 @@
 .navbar {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #22A7F0;
-    padding: 1rem;
-  }
-  
-  .nav-item {
-    color: #FFF;
-    text-decoration: none;
-    font-size: 1.25rem;
-    font-weight: bold;
-  }
-  
-  .nav-item:hover {
-    color: #c5dce8;
-  }
-  
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #22a7f0;
+  padding: 1rem;
+}
+
+.nav-item {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.nav-item:hover {
+  color: #c5dce8;
+}

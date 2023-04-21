@@ -108,6 +108,11 @@
   margin-top: 20px;
 }
 
+.content-routine {
+  margin: auto;
+  width: 50%;
+}
+
 .popup {
   position: absolute;
   top: 0;
@@ -279,6 +284,8 @@
   color: black;
   font-weight: 600;
   user-select: none;
+  width: 40%;
+  margin: auto;
 }
 
 .new-routine-button:hover {
@@ -300,8 +307,9 @@
 .routine-header {
   font-size: 30px;
   font-family: Arial, sans-serif;
-  margin-top: 25vh;
+  margin-top: 10vh;
   margin-bottom: 5vh;
+  text-align: center;
 }
 
 .routine-page-text-container {

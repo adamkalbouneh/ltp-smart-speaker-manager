@@ -232,7 +232,7 @@ const RoutinePage = () => {
     async function fetchUserID() {
       const response = await axios.get("/get_user_id");
       if (response.data.userID === "No user") {
-        window.location.href = "/";
+        window.location.href = "/login";
       } else {
         setUserID(response.data.userID);
       }
@@ -304,7 +304,7 @@ const RoutinePage = () => {
       {/* Left Side Bar Nav */}
       <div className="flex mt-10">
         <NavBar />
-        <div className="page" onMouseLeave={getRoutines}>
+        <div className="content-routine" onMouseEnter={getRoutines}>
           <div>
             <div className="routine-header">Routine</div>
             <div className="new-routine-button" onClick={handleNewClick}>
