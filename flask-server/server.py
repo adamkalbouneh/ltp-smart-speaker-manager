@@ -402,7 +402,7 @@ def edit_routine():
     
     # Emit a message to the recognizer loop to create the routine
     bus.emit(Message("recognizer_loop:utterance", {
-        "utterances": ["msx create " + routine_name + "|" + routine_time + "|" + days + "|"],
+        "utterances": ["msx edit " + routine_name + "|" + routine_time + "|" + days + "|"],
         "lang": "en-us",
         }))
     
@@ -439,7 +439,7 @@ def new_routine():
     
     # Emit a message to the recognizer loop to create the routine
     bus.emit(Message("recognizer_loop:utterance", {
-        "utterances": ["msx create " + routine_name + " gap " + routine_time + " gap " + days],
+        "utterances": ["msx create " + routine_name + "|" + routine_time + "|" + days + "|"],
         "lang": "en-us",
         }))
     
