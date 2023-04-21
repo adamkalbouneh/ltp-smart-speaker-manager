@@ -376,9 +376,6 @@ def edit_routine():
 
     # execute the query with the parameters
     mycursor.execute(query, values)
-
-    # commit the changes to the database
-    mycursor.commit()
     
     # Emit a message to the recognizer loop to create the routine
     bus.emit(Message("recognizer_loop:utterance", {

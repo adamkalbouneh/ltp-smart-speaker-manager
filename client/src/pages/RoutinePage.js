@@ -135,8 +135,6 @@ const RoutinePage = () => {
         
         //validation for name and time
 
-        popupClose();
-
         //if no routine name has been provided
         if (name.length == 0) {
             errorText.style.display = "block";
@@ -187,6 +185,58 @@ const RoutinePage = () => {
 
     }
 
+    const getRoutines = async () => {
+        
+
+        let data = {
+            user: userID
+        };
+
+        // Send a POST request to the Flask API endpoint
+        let response = await fetch('/getRoutine', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        // Convert respone to text format
+        let serverResponse = await response.text();
+
+        let parsedResponse = JSON.parse(serverResponse);
+        
+        parsedResponse.forEach((routine) => {
+          let [id, routineName, routineTime, daysOfWeek] = routine;
+          let daysArr = daysOfWeek.split(',');
+        
+          let daysOfWeekObj = {
+            monday: false,
+            tuesday: false,
+            wednesday: false,
+            thursday: false,
+            friday: false,
+            saturday: false,
+            sunday: false,
+          };
+        
+          daysArr.forEach((day) => {
+            daysOfWeekObj[day] = true;
+          });
+        
+          routineList.push({
+            id: id,
+            routineName: routineName,
+            routineTime: routineTime,
+            daysOfWeek: daysOfWeekObj,
+          });
+          
+          setRoutines([])
+          setRoutines(routineList);
+        });
+    }
+
+
     useEffect( () => {
         async function fetchUserID() {
           const response = await axios.get('/get_user_id');
@@ -199,11 +249,11 @@ const RoutinePage = () => {
 
         fetchUserID();
 
-        
         async function getRoutines() {
+            
 
             let data = {
-                user: 3
+                user: userID
             };
     
             // Send a POST request to the Flask API endpoint
@@ -244,7 +294,7 @@ const RoutinePage = () => {
                 routineTime: routineTime,
                 daysOfWeek: daysOfWeekObj,
               });
-              console.log("hello");
+              setRoutines([])
               setRoutines(routineList);
             });
             
@@ -258,7 +308,7 @@ const RoutinePage = () => {
 
 
 
-    return <div className="page">
+    return <div className="page" onMouseLeave={getRoutines}>
         <DashboardHeader/>
         <div>
             <div className="routine-header">Routine</div>
@@ -294,7 +344,9 @@ const RoutinePage = () => {
             <div className='popup-content'>
                 <div className='popup-banner bg-gradient-to-br from-teal-600 to-indigo-700'>
                     <a><div className='popup-banner-text'>{selectedRoutine}</div></a>
-                    <div className='popup-close-btn' onClick={popupClose}><FontAwesomeIcon icon={faX}/></div>
+                    <div className='popup-close-btn' onClick={popupClose}>
+                        
+                        <FontAwesomeIcon icon={faX}/></div>
                 </div>
                 
                 
@@ -320,7 +372,7 @@ const RoutinePage = () => {
                     <div className='popup-text large-margin-top'>Are you sure you want to delete</div>
                     <div className='popup-text'>{selectedRoutine}?</div>
                     <div className='popup-yesno-container'>
-                        <div className='popup-yes-btn' onClick={deleteRoutine}>Yes</div>
+                        <div className='popup-yes-btn' onClick={deleteRoutine}>yes</div>
                         <div className='popup-no-btn' onClick={popupClose}>No</div>
                     </div>
                 </div>
