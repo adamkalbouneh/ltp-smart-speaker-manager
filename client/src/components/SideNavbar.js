@@ -12,11 +12,12 @@ import {
   faVolumeHigh,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import connectedImage from "../img/connected_image.png";
 import disconnectedImage from "../img/disconnected_image.png";
-import React, { useEffect, useState } from "react";
-import VolumeControl from "./VolumeControl";
+
+const socket = io("http://localhost:5000");
 
 function SideNavbar() {
   const [showVolumeDropdown, setShowVolumeDropdown] = useState(false);
@@ -28,14 +29,36 @@ function SideNavbar() {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const socket = io("http://localhost:3000");
-    socket.on("mycroft_connected", (data) => {
-      console.log("Received mycroft_connected event:", data);
+    socket.on("connect", () => {
+      console.log("Connected to server");
       setConnected(true);
     });
 
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
+      setConnected(false);
+    });
+
+    const flaskTerminal = new EventSource("http://localhost:5000/terminal");
+
+    flaskTerminal.addEventListener("message", (event) => {
+      const message = event.data;
+
+      if (message.includes("websocket connected")) {
+        socket.connect();
+      }
+    });
+
+    flaskTerminal.addEventListener("message", (event) => {
+      const message = event.data;
+
+      if (message.includes("[WARNING] Message Bus Client will reconnect in")) {
+        socket.disconnect();
+      }
+    });
+
     return () => {
-      socket.disconnect();
+      flaskTerminal.close();
     };
   }, []);
 
@@ -116,7 +139,6 @@ function SideNavbar() {
           />
         </div>
       </div>
-
       <div>
         <Link
           to="/login"

@@ -63,13 +63,34 @@ except:
     except:
         print("mysql database connection failed")
 
-def connect_to_mycroft(): 
-    bus.on('connected', on_connected)
-    bus.run_forever()
+connected = False
 
-def on_connected(event):
-    print("Connected to Mycroft Message Bus")
+class CustomLogHandler(logging.Handler):
+    def __init__(self):
+        super().__init__()
+    
+    def emit(self, record):
+        global connected
+        if record.levelname == 'INFO' and 'Connected' in record.msg:
+            connected = True
+        elif record.levelname == 'WARNING' and 'websocket connected' in record.msg:
+            connected = True
+        elif record.levelname == 'WARNING' and 'Message Bus Client will reconnect in' in record.msg:
+            connected = False
 
+logger = logging.getLogger('myapp')
+logger.addHandler(CustomLogHandler())
+
+@socketio.on('connect')
+def handle_connect():
+    if not connected:
+        logger.warning('WebSocket client is not connected!')
+    else:
+        logger.info('WebSocket client connected.')
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    logger.warning('WebSocket client disconnected.')
 
 # Set up logger to show request logs
 log_format = "%(asctime)s [%(levelname)s] %(message)s"
@@ -79,16 +100,11 @@ app.logger.handlers.extend(logging.getLogger("werkzeug").handlers)
 
 def connect_to_mycroft(): 
     bus.on('connected', on_connected)
+    bus.on('connection.closed', on_disconnected)
     bus.run_forever()
 
-def on_connected():
-    print("Connected to Mycroft Message Bus")
 
-@socketio.on('connect')
-def on_socket_connect():
-    print("WebSocket connected")
-    socketio.emit('mycroft_connected', {'data': 'Connected'})
-    print("Sent mycroft_connected event to React app")
+
 
 @app.route('/')
 def index():
