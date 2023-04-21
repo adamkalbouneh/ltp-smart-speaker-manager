@@ -16,6 +16,7 @@ import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import connectedImage from "../img/connected_image.png";
 import disconnectedImage from "../img/disconnected_image.png";
+import VolumeControl from "./VolumeControl";
 
 const socket = io("http://localhost:5000");
 
