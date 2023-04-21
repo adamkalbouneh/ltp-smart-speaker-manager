@@ -324,6 +324,13 @@ function Skills() {
               your favorite music and other."
               url="https://github.com/adamkalbouneh/lonely-skill-skill"
             />
+            <SkillList
+              title="Routine Skill"
+              id="routine"
+              description="A skill that provides the user the ability to set up routines, they can make a routine and its name and then a time
+              and for which days."
+              url="https://github.com/ethanallenharris/routine-new-skill"
+            />
           </div>
         </div>
       </div>
