@@ -42,8 +42,4 @@ CREATE TABLE IF NOT EXISTS `routine` (
     `days` VARCHAR(200) COLLATE UTF8MB4_UNICODE_520_CI DEFAULT NULL
 );
 
--- Inserting sample record into 'routine'
-INSERT INTO `routine` (`user_id`, `routine_name`, `routine_time`, `days`) VALUES
-	(3, 'Walk the dog', '14:00', 'monday,tuesday,wednesday,thursday,sunday')
-
 

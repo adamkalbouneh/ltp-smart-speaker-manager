@@ -63,6 +63,8 @@ const RoutinePage = () => {
         
         const serverResponse = await response.text();
 
+        alert(serverResponse);
+
         popupClose();
     }
 
@@ -183,8 +185,8 @@ const RoutinePage = () => {
 
     }
 
-    const getRoutines = async () => {
-        
+    const getRoutine = async () => {
+
 
         let data = {
             user: userID
@@ -228,14 +230,14 @@ const RoutinePage = () => {
             routineTime: routineTime,
             daysOfWeek: daysOfWeekObj,
           });
-          
-          setRoutines([])
+          setRoutines([]);
           setRoutines(routineList);
         });
     }
 
 
-    useEffect( () => {
+
+    useEffect(() => {
         async function fetchUserID() {
           const response = await axios.get('/get_user_id');
           if (response.data.userID === "No user") {
@@ -244,35 +246,34 @@ const RoutinePage = () => {
             setUserID(response.data.userID);
           }
         }
-
+        
         fetchUserID();
 
         async function getRoutines() {
             
+        let data = {
+            user: userID
+        };
 
-            let data = {
-                user: userID
-            };
-    
-            // Send a POST request to the Flask API endpoint
-            let response = await fetch('/getRoutine', {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
+        // Send a POST request to the Flask API endpoint
+        let response = await fetch('/getRoutine', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
 
-            // Convert respone to text format
-            let serverResponse = await response.text();
+        // Convert respone to text format
+        let serverResponse = await response.text();
 
-            let parsedResponse = JSON.parse(serverResponse);
+        let parsedResponse = JSON.parse(serverResponse);
+        
+        parsedResponse.forEach((routine) => {
+            let [id, routineName, routineTime, daysOfWeek] = routine;
+            let daysArr = daysOfWeek.split(',');
             
-            parsedResponse.forEach((routine) => {
-              let [id, routineName, routineTime, daysOfWeek] = routine;
-              let daysArr = daysOfWeek.split(',');
-            
-              let daysOfWeekObj = {
+            let daysOfWeekObj = {
                 monday: false,
                 tuesday: false,
                 wednesday: false,
@@ -280,33 +281,31 @@ const RoutinePage = () => {
                 friday: false,
                 saturday: false,
                 sunday: false,
-              };
+            };
             
-              daysArr.forEach((day) => {
+            daysArr.forEach((day) => {
                 daysOfWeekObj[day] = true;
-              });
+            });
             
-              routineList.push({
+            routineList.push({
                 id: id,
                 routineName: routineName,
                 routineTime: routineTime,
                 daysOfWeek: daysOfWeekObj,
-              });
-              setRoutines([])
-              setRoutines(routineList);
             });
-            
-            
+            setRoutines([]);
+            setRoutines(routineList);
+            });
         }
 
-        getRoutines();
+        getRoutines()
         
 
       }, []);
 
 
 
-    return <div className="page" onMouseLeave={getRoutines}>
+    return <div className="page" onMouseEnter={getRoutine}>
         <DashboardHeader/>
         <div>
             <div className="routine-header">Routine</div>
@@ -342,9 +341,7 @@ const RoutinePage = () => {
             <div className='popup-content'>
                 <div className='popup-banner bg-gradient-to-br from-teal-600 to-indigo-700'>
                     <a><div className='popup-banner-text'>{selectedRoutine}</div></a>
-                    <div className='popup-close-btn' onClick={popupClose}>
-                        
-                        <FontAwesomeIcon icon={faX}/></div>
+                    <div className='popup-close-btn' onClick={popupClose}><FontAwesomeIcon icon={faX}/></div>
                 </div>
                 
                 
@@ -361,7 +358,10 @@ const RoutinePage = () => {
                             <div className='popup-half-container'>
                                 <p className='thick-text'>Time</p>
                                 <input type="time" className="bg-lightgray" id="editRoutineTime" required></input>
-                                <div className='popup-submit-btn thick-text' onClick={editRoutine}>submit</div>
+                                <div className='popup-submit-btn thick-text' onClick={() => {
+                                editRoutine();
+                                getRoutine();
+                                }}>submit</div>
                             </div>
                     
                 </div>
@@ -370,7 +370,10 @@ const RoutinePage = () => {
                     <div className='popup-text large-margin-top'>Are you sure you want to delete</div>
                     <div className='popup-text'>{selectedRoutine}?</div>
                     <div className='popup-yesno-container'>
-                        <div className='popup-yes-btn' onClick={deleteRoutine}>yes</div>
+                        <div className='popup-yes-btn' onClick={() => {
+                                deleteRoutine();
+                                getRoutine();
+                                }}>yes</div>
                         <div className='popup-no-btn' onClick={popupClose}>No</div>
                     </div>
                 </div>
@@ -390,7 +393,10 @@ const RoutinePage = () => {
                         <input className='popup-text-input' id="newRoutineName" required></input>
                         <p className='thick-text'>Time</p>
                         <input type="time" className="bg-lightgray" id="newRoutineTime" required></input>
-                        <div className='popup-submit-btn thick-text popup-new-margin-top' onClick={newRoutine}>submit</div>
+                        <div className='popup-submit-btn thick-text popup-new-margin-top' onClick={() => {
+                        newRoutine();
+                        getRoutine();
+                        }}>submit</div>
                     </div>
                 </div>
                 <p id="error" className={`${showError ? 'error-text small-margin-top' : 'hide'}`}></p>
