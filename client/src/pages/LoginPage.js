@@ -137,7 +137,7 @@ function LoginPage() {
 
         <p className="error-text hide" id="error">Invalid credentials</p>
 
-        <Button fullWidth mt="xl" onClick={handleLogin}>Login</Button>
+        <Button fullWidth mt="xl" className="bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl" onClick={handleLogin}>Login</Button>
       </Paper>
     </Container>
   );

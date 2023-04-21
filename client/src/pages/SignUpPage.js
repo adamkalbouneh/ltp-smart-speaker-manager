@@ -165,7 +165,7 @@ function SignUpPage() {
 
         <p className="error-text hide" id="error" data-testid="error">Invalid credentials</p>
 
-        <Button fullWidth mt="xl" onClick={handleSignup} data-testid="submit">Sign up</Button>
+        <Button fullWidth mt="xl" className='bg-gradient-to-br from-teal-600 to-indigo-700 hover:bg-gradient-to-bl' onClick={handleSignup} data-testid="submit">Sign up</Button>
       </Paper>
     </Container>
   );
