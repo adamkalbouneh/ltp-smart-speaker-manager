@@ -3,17 +3,21 @@ import Routine from '../components/Routine';
 import React, { useState, useEffect } from "react";
 import ReactDOM from 'react-dom';
 import "../styling/Routine.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
+import Authenticate from '../components/Authenticate';
+import axios from 'axios';
 
 const RoutinePage = () => {
-    
     const [routines, setRoutines] = useState([]);
-
     const [showPopup, setShowPopup] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showRemove, setShowRemove] = useState(false);
     const [showNew, setShowNew] = useState(false);
     const [showError, setShowError] = useState(true);
     const [selectedRoutine, setSelectedRoutine] = useState(null);
+
+    const [userID, setUserID] = useState();
 
     let routineList = []
 
@@ -149,6 +153,7 @@ const RoutinePage = () => {
         errorText.style.display = "none";
 
         const data = {
+            "user":userID,
             "days": {
               "monday":monday,
               "tuesday":tuesday,
@@ -180,34 +185,130 @@ const RoutinePage = () => {
 
     }
 
-
-
-    useEffect(() => {
-        //Fetch routines from API/RaspberryPi here
+    const getRoutines = async () => {
         
 
-        routineList = [
-            {
-              daysOfWeek: {
-                monday: true,
-                tuesday: false,
-                wednesday: true,
-                thursday: false,
-                friday: true,
-                saturday: false,
-                sunday: true,
-              },
-              routineName: "Walk the dog",
-              routineTime: "14:00",
+        let data = {
+            user: userID
+        };
+
+        // Send a POST request to the Flask API endpoint
+        let response = await fetch('/getRoutine', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
             },
-            // add more routines here...
-          ];
+            body: JSON.stringify(data)
+        });
+
+        // Convert respone to text format
+        let serverResponse = await response.text();
+
+        let parsedResponse = JSON.parse(serverResponse);
+        
+        parsedResponse.forEach((routine) => {
+          let [id, routineName, routineTime, daysOfWeek] = routine;
+          let daysArr = daysOfWeek.split(',');
+        
+          let daysOfWeekObj = {
+            monday: false,
+            tuesday: false,
+            wednesday: false,
+            thursday: false,
+            friday: false,
+            saturday: false,
+            sunday: false,
+          };
+        
+          daysArr.forEach((day) => {
+            daysOfWeekObj[day] = true;
+          });
+        
+          routineList.push({
+            id: id,
+            routineName: routineName,
+            routineTime: routineTime,
+            daysOfWeek: daysOfWeekObj,
+          });
+          
+          setRoutines([])
           setRoutines(routineList);
-    }, []);
+        });
+    }
+
+
+    useEffect( () => {
+        async function fetchUserID() {
+          const response = await axios.get('/get_user_id');
+          if (response.data.userID === "No user") {
+            window.location.href = "/";
+          } else {
+            setUserID(response.data.userID);
+          }
+        }
+
+        fetchUserID();
+
+        async function getRoutines() {
+            
+
+            let data = {
+                user: userID
+            };
+    
+            // Send a POST request to the Flask API endpoint
+            let response = await fetch('/getRoutine', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            // Convert respone to text format
+            let serverResponse = await response.text();
+
+            let parsedResponse = JSON.parse(serverResponse);
+            
+            parsedResponse.forEach((routine) => {
+              let [id, routineName, routineTime, daysOfWeek] = routine;
+              let daysArr = daysOfWeek.split(',');
+            
+              let daysOfWeekObj = {
+                monday: false,
+                tuesday: false,
+                wednesday: false,
+                thursday: false,
+                friday: false,
+                saturday: false,
+                sunday: false,
+              };
+            
+              daysArr.forEach((day) => {
+                daysOfWeekObj[day] = true;
+              });
+            
+              routineList.push({
+                id: id,
+                routineName: routineName,
+                routineTime: routineTime,
+                daysOfWeek: daysOfWeekObj,
+              });
+              setRoutines([])
+              setRoutines(routineList);
+            });
+            
+            
+        }
+
+        getRoutines();
+        
+
+      }, []);
 
 
 
-    return <div className="page">
+    return <div className="page" onMouseLeave={getRoutines}>
         <DashboardHeader/>
         <div>
             <div className="routine-header">Routine</div>
@@ -241,9 +342,11 @@ const RoutinePage = () => {
 
         <div className={`popup ${showPopup ? '' : 'hide'}`} id="routine-edit">
             <div className='popup-content'>
-                <div className='popup-banner'>
+                <div className='popup-banner bg-gradient-to-br from-teal-600 to-indigo-700'>
                     <a><div className='popup-banner-text'>{selectedRoutine}</div></a>
-                    <div className='popup-close-btn' onClick={popupClose}>X</div>
+                    <div className='popup-close-btn' onClick={popupClose}>
+                        
+                        <FontAwesomeIcon icon={faX}/></div>
                 </div>
                 
                 
@@ -259,7 +362,7 @@ const RoutinePage = () => {
                             </div>
                             <div className='popup-half-container'>
                                 <p className='thick-text'>Time</p>
-                                <input type="time" id="editRoutineTime" required></input>
+                                <input type="time" className="bg-lightgray" id="editRoutineTime" required></input>
                                 <div className='popup-submit-btn thick-text' onClick={editRoutine}>submit</div>
                             </div>
                     
@@ -269,7 +372,7 @@ const RoutinePage = () => {
                     <div className='popup-text large-margin-top'>Are you sure you want to delete</div>
                     <div className='popup-text'>{selectedRoutine}?</div>
                     <div className='popup-yesno-container'>
-                        <div className='popup-yes-btn' onClick={deleteRoutine}>Yes</div>
+                        <div className='popup-yes-btn' onClick={deleteRoutine}>yes</div>
                         <div className='popup-no-btn' onClick={popupClose}>No</div>
                     </div>
                 </div>
@@ -288,7 +391,7 @@ const RoutinePage = () => {
                         <p className='thick-text'>Routine name</p>
                         <input className='popup-text-input' id="newRoutineName" required></input>
                         <p className='thick-text'>Time</p>
-                        <input type="time" id="newRoutineTime" required></input>
+                        <input type="time" className="bg-lightgray" id="newRoutineTime" required></input>
                         <div className='popup-submit-btn thick-text popup-new-margin-top' onClick={newRoutine}>submit</div>
                     </div>
                 </div>
@@ -296,8 +399,6 @@ const RoutinePage = () => {
             </div>
 
         </div>
-        
-
     </div>
 };
 

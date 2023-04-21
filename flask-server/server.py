@@ -3,7 +3,7 @@ import time
 import threading
 import logging
 import signal
-from flask import Flask, jsonify, request, session, render_template
+from flask import Flask, jsonify, request, session, render_template, redirect, url_for
 from flask_session import Session
 from flask_bcrypt import Bcrypt
 import mysql.connector
@@ -353,11 +353,20 @@ def mycroft_mute():
 def delete_routine():
     
     # Get the routine name from the request payload
-    routineName = request.json.get("routine")
+    routine_name = request.json.get("routine")
+    
+    # Create a cursor object
+    mycursor = mydb.cursor()
+
+    # Execute the SQL query with the routine_name parameter
+    mycursor.execute("DELETE FROM routine WHERE routine_name = %s", (routine_name,))
+    
+    # Commit the changes to the database
+    mydb.commit()
     
     # Emit a message to the recognizer loop to delete the routine
     bus.emit(Message("recognizer_loop:utterance", {
-        "utterances": ["msx delete " + routineName],
+        "utterances": ["msx delete " + routine_name],
         "lang": "en-us",
         }))
     
@@ -380,10 +389,20 @@ def edit_routine():
     for day, value in routine_days_dict.items():
         if value:
             days += day + ", "
+
+    # Create a cursor object
+    mycursor = mydb.cursor()
+
+    # create the SQL query with parameters
+    query = "UPDATE routine SET routine_time = %s, days = %s WHERE routine_name = %s"
+    values = (routine_time, days, routine_name)
+
+    # execute the query with the parameters
+    mycursor.execute(query, values)
     
     # Emit a message to the recognizer loop to create the routine
     bus.emit(Message("recognizer_loop:utterance", {
-        "utterances": ["msx edit " + routine_name + " gap " + routine_time + " gap " + days],
+        "utterances": ["msx create " + routine_name + "|" + routine_time + "|" + days + "|"],
         "lang": "en-us",
         }))
     
@@ -398,7 +417,7 @@ def new_routine():
     data = request.json
 
     days = ""
-
+    userID = request.json.get("user")
     routine_name = request.json.get("name")
     routine_time = request.json.get("time")
 
@@ -408,6 +427,15 @@ def new_routine():
         if value:
             days += day + ", "
     
+
+    # Create a cursor object
+    mycursor = mydb.cursor()
+
+    # Execute a SQL query with parameterized values
+    sql = "INSERT INTO routine (user_id, routine_name, routine_time, days) VALUES (%s, %s, %s, %s)"
+    val = (userID, routine_name, routine_time, days)
+    mycursor.execute(sql, val)
+    mydb.commit()
     
     # Emit a message to the recognizer loop to create the routine
     bus.emit(Message("recognizer_loop:utterance", {
@@ -428,6 +456,36 @@ def ask_time():
         "session": session_id
     }))
     return jsonify({"message": "Time request sent to Mycroft"}), 200
+
+
+@app.route('/get_user_id')
+def get_user_id():
+    try:
+        user_id = session.get('userID')
+        if user_id == None:
+            return jsonify({'userID': "No user"})
+        return jsonify({'userID': user_id})
+    except:
+        return jsonify({'userID': "No user"})
+    
+
+@app.route('/getRoutine', methods=['POST'])
+def getRoutine():
+    # Retrieve variables from request
+    userID = request.json['user']
+
+    # Create a cursor object
+    mycursor = mydb.cursor()
+
+    sql = "SELECT * FROM routine WHERE user_id = %s"
+    val = (userID,)
+    mycursor.execute(sql, val)
+
+    # Fetch the results
+    result = mycursor.fetchall()
+
+    # Do something with the data, like store it in a database
+    return jsonify(result)
 
 
 
