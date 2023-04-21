@@ -310,6 +310,20 @@ function Skills() {
             you cope with sadness and anxiety."
               url="https://github.com/adamkalbouneh/sad-skill"
             />
+            <SkillList
+              title="Greeting Skill"
+              id="greeting"
+              description="A skill that greetings you in an amazing and unique way to get you ready to go, you can also greet it in intresting 
+              and funny ways"
+              url="https://github.com/adamkalbouneh/myname-skill"
+            />
+            <SkillList
+              title="Lonley Skill"
+              id="lonley"
+              description="A skill that provides emotional support during difficult times. Cheers you up by prompting you to listen to
+              your favorite music and other."
+              url="https://github.com/adamkalbouneh/lonely-skill-skill"
+            />
           </div>
         </div>
       </div>
