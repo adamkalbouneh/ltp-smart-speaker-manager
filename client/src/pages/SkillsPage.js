@@ -268,7 +268,7 @@ function Skills() {
               id="chatgpt"
               description="Have natural conversations with ChatGPT, an AI language model that can answer your questions, give advice, or engage in small talk. 
             Get human-like responses that are fun and engaging to interact with your smart speaker."
-              url="https://github.com/adamkalbouneh/chatgpt-skill"
+              url="https://github.com/g3ar-v/fallback-gpt-skill"
             />
             <SkillList
               title="Radio Skill"
