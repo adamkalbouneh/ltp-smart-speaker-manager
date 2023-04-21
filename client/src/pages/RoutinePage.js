@@ -63,8 +63,6 @@ const RoutinePage = () => {
         
         const serverResponse = await response.text();
 
-        alert(serverResponse);
-
         popupClose();
     }
 
