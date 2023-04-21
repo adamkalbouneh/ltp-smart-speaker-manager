@@ -1,4 +1,5 @@
 .navbar {
+<<<<<<< HEAD
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -18,3 +19,23 @@
     color: #c5dce8;
   }
   
+=======
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #22a7f0;
+  padding: 1rem;
+}
+
+.nav-item {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.nav-item:hover {
+  color: #c5dce8;
+}
+>>>>>>> df7629f7c3206098a4674c99715852e1f6b1ad51
