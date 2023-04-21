@@ -133,12 +133,12 @@ function SideNavbar() {
           )}
         </div>
         {/* End of Device Volume */}
-        <div className="nav-icon">
-          <img
-            src={connected ? connectedImage : disconnectedImage}
-            alt="Connection Status"
-          />
-        </div>
+      </div>
+      <div className="nav-icon">
+        <img
+          src={connected ? connectedImage : disconnectedImage}
+          alt="Connection Status"
+        />
       </div>
       <div>
         <Link
