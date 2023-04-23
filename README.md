@@ -22,15 +22,15 @@ Open MySQLWorkbench application
 
 Open file `db_initialise.sql` found in database folder 
 
-![IMAGE_DESCRIPTION]('../readmeIMG/Picture1.png')
+#![image info](../readmeIMG/Picture1.png)
 
 Run the script by pressing the lightning button shown below 
 
-![IMAGE_DESCRIPTION]('../readmeIMG/Picture2.png')
+#![image info](../readmeIMG/Picture2.png)
 
 Press the refresh button and make sure that app_db shows in the schemas in bold 
 
-![IMAGE_DESCRIPTION]('../readmeIMG/Picture3.png')
+#![image info](../readmeIMG/Picture3.png)
 
 Starting the server 
 
